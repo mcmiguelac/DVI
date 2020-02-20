@@ -9,7 +9,7 @@
 }
 
 .flag img {
-    max-width: 100%;
+    max-width: 90%;
     height: auto;
 }
 
@@ -18,7 +18,9 @@
     flex-direction: column;
 }
 
-.letras {
+.letras img {
+    max-width: 100%;
+    height: auto;
     text-align: center;
     background-repeat: no-repeat;
 }
