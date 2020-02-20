@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <link href="index.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/assets/trump-hair.png" />
     <meta name="viewport" content="width=device-width, initial-scale=2.0">
     <link rel="stylesheet" href="game.css">
     <script src="phaser.min.js"></script>
@@ -11,12 +12,34 @@
     <title>¡Save the Donald!</title>
 </head>
 
+
+
 <body>
-    <h1>Save the Donald</h1>
-    <script type="module">
-        import Game from './game.js'; var config = { type: Phaser.AUTO, width: 1400, height: 800, pixelArt: true, input: { gamepad: true }, scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [ Game ], physics: { default: 'arcade',
-        arcade: { gravity: { y: 400 }, debug: false } } }; new Phaser.Game(config);
-    </script>
+    <div class=titulo>
+
+        <div class="flag">
+            <img src="assets/black flag.gif">
+        </div>
+        <div class="letras">
+            <img src="assets/titulo.png">
+        </div>
+        <div class="flag">
+            <img src="assets/black flag reverse.gif">
+        </div>
+
+    </div>
+    <div class="cuerpo">
+
+
+        <div>
+            <script type="module">
+                import Game from './game.js'; var config = { type: Phaser.AUTO, width: 1300, height: 700, pixelArt: true, input: { gamepad: true }, scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [Game], physics: { default: 'arcade', arcade:
+                { gravity: { y: 400 }, debug: false } } }; new Phaser.Game(config);
+            </script>
+        </div>
+
+    </div>
+
 </body>
 
 </html>
