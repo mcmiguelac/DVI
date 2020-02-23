@@ -8,12 +8,16 @@ export default class Game extends Phaser.Scene {
 
 
     preload() {
-        this.load.image('sky', '/assets/Fondo-gris.png');
+        this.load.image('tileSet', 'assets/Tileset_Large.png');
 
+        //Archivo JSON de mapa
+        this.load.tilemap('mapa', 'assets/MapaFin.json', null, Phaser.Tilemap.TILED_JSON);
     }
     create() {
-        var platforms;
-        this.add.image(600, 300, 'sky');
+        this.mapa = this.add.tilemap('mapa');
+        this.mapa.addTilesetImage('tileSet');
+        this.fondo = this.mapa.createLayer('T1');
+        this.adornos = this.mapa.createLayer('T2');
     }
 
 
