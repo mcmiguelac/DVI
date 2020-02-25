@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <link href="index.css" rel="stylesheet">
-    <link rel="shortcut icon" href="/assets/trump-hair.png" />
+    <link rel="favicon" href="src/img/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=2.0">
-    <link rel="stylesheet" href="game.css">
-    <script src="phaser.min.js"></script>
+    <link rel="stylesheet" href="src/css/game.css">
+    <script src="src/js/phaser.min.js"></script>
 
     <title>¡Save the Donald!</title>
 </head>
@@ -18,31 +17,31 @@
     <div class=titulo>
 
         <div class="flag">
-            <img src="assets/black flag.gif">
+            <img src="src/img/gif/flagL.gif">
         </div>
         <div class="letras">
-            <img src="assets/titulo.png">
+            <img src="src/img/titulo.png">
         </div>
         <div class="flag">
-            <img src="assets/black flag reverse.gif">
+            <img src="src/img/gif/flagR.gif">
         </div>
 
     </div>
     <div class="cuerpo">
-
-
-        <div>
             <script type="module">
-                import Game from './game.js'; 
+                import Game from './src/js/game.js'; 
                 var config = { 
-                    type: Phaser.AUTO, 
-                    width: 1300, 
-                    height: 700, 
+                    title: "Save the Donald",
+                    version: "0.0.1",
+                    type: Phaser.AUTO,
+                    transparent: true,
+                    width: 480, 
+                    height: 240, 
                     pixelArt: true, 
                     input: { gamepad: true }, 
                     scale: { 
                         mode: Phaser.Scale.FIT, 
-                        autoCenter: Phaser.Scale.CENTER_BOTH 
+                        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY 
                     }, 
                     scene: [Game], 
                     physics: { 
@@ -55,8 +54,6 @@
                 }; 
                 new Phaser.Game(config);
             </script>
-        </div>
-
     </div>
 
 </body>
