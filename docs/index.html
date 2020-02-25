@@ -17,30 +17,31 @@
     <div class=titulo>
 
         <div class="flag">
-            <img src="src/img/gif/black_flag.gif">
+            <img src="src/img/gif/flagL.gif">
         </div>
         <div class="letras">
             <img src="src/img/titulo.png">
         </div>
         <div class="flag">
-            <img src="src/img/gif/black_flag_reverse.gif">
+            <img src="src/img/gif/flagR.gif">
         </div>
 
     </div>
     <div class="cuerpo">
-        
-        <div>
             <script type="module">
                 import Game from './src/js/game.js'; 
                 var config = { 
-                    type: Phaser.AUTO, 
+                    title: "Save the Donald",
+                    version: "0.0.1",
+                    type: Phaser.AUTO,
+                    transparent: true,
                     width: 480, 
                     height: 240, 
                     pixelArt: true, 
                     input: { gamepad: true }, 
                     scale: { 
                         mode: Phaser.Scale.FIT, 
-                        autoCenter: Phaser.Scale.CENTER_BOTH 
+                        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY 
                     }, 
                     scene: [Game], 
                     physics: { 
@@ -53,8 +54,6 @@
                 }; 
                 new Phaser.Game(config);
             </script>
-        </div>
-
     </div>
 
 </body>
