@@ -15,12 +15,12 @@ export default class Game extends Phaser.Scene {
         var layer = map.createDynamicLayer("T1", tiles);
         var layer = map.createDynamicLayer("T2", tiles);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        
+
         var player = this.physics.add.sprite(10, 45, 'playerA');
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
 
         var cursors = this.input.keyboard.createCursorKeys();
     }
-    update(time, delta) {}
+    update(time, delta) { }
 }
