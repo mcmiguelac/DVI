@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=2.0">
     <link rel="stylesheet" href="src/css/game.css">
     <script src="src/js/phaser.min.js"></script>
+    <script src="src/js/dungeon.min.js"></script>
 
     <title>¡Save the Donald!</title>
 </head>
@@ -31,11 +32,13 @@
             import Game from './src/js/game.js';
             var config = {
                 title: "Save the Donald",
-                version: "0.0.1",
+                version: "0.0.9",
                 type: Phaser.AUTO,
                 transparent: true,
-                width: 480,
-                height: 240,
+                //width: 480,
+                //height: 240,
+                width: 1024,
+                height: 512,
                 pixelArt: true,
                 input: { gamepad: true },
                 scale: {
@@ -46,8 +49,8 @@
                 physics: {
                     default: 'arcade',
                     arcade: {
-                        gravity: { y: 400 },
-                        debug: false
+                        gravity: { y: 0 },
+                        debug: true
                     }
                 }
             };
