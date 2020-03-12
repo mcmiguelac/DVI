@@ -13,7 +13,7 @@ export default class Game extends Phaser.Scene {
         //Archivo JSON de mapa
         //this.load.tilemapTiledJSON('mapa', 'assets/json/mapa.json');
 
-        this.load.image("tiles", "../../assets/tilesets/tileset_completo_64px.png");
+        this.load.image("tiles", "assets/tilesets/tileset_completo_64px.png");
 
         /*this.load.spritesheet(
           "characters",
@@ -28,7 +28,7 @@ export default class Game extends Phaser.Scene {
 
         this.load.spritesheet(
             "characters",
-            "../../assets/spritesheets/buch-characters-64px.png",
+            "assets/spritesheets/buch-characters-64px.png",
             {
                 frameWidth: 64,
                 frameHeight: 64
