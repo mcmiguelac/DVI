@@ -10,6 +10,11 @@ export default class Player {
     this.animation = "player-walk";
     //this.prevVelocity = 0;
 
+    this.sprite = scene.physics.add
+      .sprite(x, y, "characters", 0)
+      .setSize(30, 19)
+      .setOffset(17, 45);
+
     const anims = scene.anims;
     anims.create({
       key: "player-walk",
@@ -23,11 +28,6 @@ export default class Player {
       frameRate: 8,
       repeat: -1
     });
-
-    this.sprite = scene.physics.add
-      .sprite(x, y, "characters", 0)
-      .setSize(22, 18)
-      .setOffset(23, 45);
 
     this.sprite.anims.play(this.animation);
 

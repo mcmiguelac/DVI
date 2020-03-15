@@ -13,6 +13,8 @@ export default class Game extends Phaser.Scene {
         //Archivo JSON de mapa
         //this.load.tilemapTiledJSON('mapa', 'assets/json/mapa.json');
 
+        this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");  // urls: an array of file url
+        
         this.load.image("tiles", "assets/tilesets/tileset_completo_64px.png");
 
         /*this.load.spritesheet(
@@ -56,12 +58,12 @@ export default class Game extends Phaser.Scene {
         //  - Doors should be at least 2 tiles away from corners, so that we can place a corner tile on
         //    either side of the door location
         this.dungeon = new Dungeon({
-            width: 100,
-            height: 100,
+            width: 200,
+            height: 200,
             doorPadding: 3,
             rooms: {
-                width: { min: 7, max: 10/*, onlyOdd: true*/ },
-                height: { min: 7, max: 10, /*onlyOdd: true */ }
+                width: { min: 6, max: 15/*, onlyOdd: true*/ },
+                height: { min: 6, max: 15, /*onlyOdd: true */ }
             }
         });
 
@@ -165,6 +167,7 @@ export default class Game extends Phaser.Scene {
 
         this.groundLayer.setCollision([45, 46, 47, 52, 53, 54, 55, 90, 91, 92, 93, 98, 99, 100]);
         this.stuffLayer.setCollisionByExclusion([-1]);
+        //this.stuffLayer.setCollisionByExclusion([-1]);
         //this.loorLayer.setCollisionByExclusion([-1]);
 
         //Encontró la salida
@@ -188,11 +191,13 @@ export default class Game extends Phaser.Scene {
 
         // Watch the player and tilemap layers for collisions, for the duration of the scene:
         this.physics.add.collider(this.player.sprite, this.groundLayer);
+        this.physics.add.collider(this.player.sprite, this.stuffLayer);
         //this.physics.add.collider(this.player.sprite, this.stuffLayer);
 
         // Phaser supports multiple cameras, but you can access the default camera like this:
         const camera = this.cameras.main;
 
+        camera.setZoom(1);
         // Constrain the camera so that it isn't allowed to move outside the width/height of tilemap
         camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         camera.startFollow(this.player.sprite);
@@ -206,6 +211,20 @@ export default class Game extends Phaser.Scene {
                 backgroundColor: "#ffffff"
             })
             .setScrollFactor(0);
+
+        const musicConfig = {
+            mute: false,
+            volume: 0.1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }; // config es opcional
+        var music = this.sound.add("backgroundMusic", musicConfig);
+
+        //cuando creemos las diferentes escenas, el sonido solo se activará cuando se pase a la escena de juego.
+        music.play();
     }
     update(time, delta) {
         if (this.hasPlayerReachedStairs) return;
