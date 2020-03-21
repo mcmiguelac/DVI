@@ -95,6 +95,11 @@ export default class LoadScene extends Phaser.Scene {
         //Menú ajustes
         this.load.image("flagLGif", "assets/img/img/flagL.gif");
         this.load.image("flagRGif", "assets/img/img/flagR.gif");
+
+        //Arma
+        this.load.audio("bulletAudio","assets/audio/pistolShoot.wav")
+        this.load.image("gun","assets/spritesheets/gun.png");
+        this.load.image("bullet","assets/spritesheets/bullet_1.png");
         
     }
 
