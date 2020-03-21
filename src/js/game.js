@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import Gun from "./gun.js";
 import TILES from "./tile-mapping.js";
 import TilemapVisibility from "./tilemap-visibility.js";
 import { datosConfig } from "./config.js";
@@ -28,7 +29,7 @@ export default class Game extends Phaser.Scene {
 
         this.level++;
         this.hasPlayerReachedStairs = false;
-
+        
         // Generate a random world with a few extra options:
         //  - Rooms should only have odd number dimensions so that they have a center tile.
         //  - Doors should be at least 2 tiles away from corners, so that we can place a corner tile on
@@ -156,11 +157,19 @@ export default class Game extends Phaser.Scene {
         const playerRoom = startRoom;
         const x = map.tileToWorldX(playerRoom.centerX);
         const y = map.tileToWorldY(playerRoom.centerY);
-        this.player = new Player(this, x, y);
 
+        this.player = new Player(this, x, y);
+        this.gun = new Gun(this,x,y);
+        
         // Watch the player and tilemap layers for collisions, for the duration of the scene:
+       
+        
         this.physics.add.collider(this.player.sprite, this.groundLayer);
         this.physics.add.collider(this.player.sprite, this.stuffLayer);
+        this.physics.add.collider(this.gun.gun, this.groundLayer);
+        this.physics.add.collider(this.gun.gun, this.stuffLayer);
+        
+        
         //this.physics.add.collider(this.player.sprite, this.stuffLayer);
 
         // Phaser supports multiple cameras, but you can access the default camera like this:
@@ -199,9 +208,9 @@ export default class Game extends Phaser.Scene {
     }
     update(time, delta) {
         if (this.hasPlayerReachedStairs) return;
-
+        
         this.player.update();
-
+        this.gun.update();
         // Find the player's room using another helper method from the dungeon that converts from
         // dungeon XY (in grid units) to the corresponding room object
         const playerTileX = this.groundLayer.worldToTileX(this.player.sprite.x);
