@@ -22,6 +22,11 @@
 }
 
 canvas {
-    position: absolute;
-    top: 25%;
+    border: solid;
 }
+
+/*canvas {
+    position: relative;
+    top: -10rem;
+    border: solid;
+}*/

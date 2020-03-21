@@ -1,43 +1,19 @@
 import Player from "./player.js";
 import TILES from "./tile-mapping.js";
 import TilemapVisibility from "./tilemap-visibility.js";
+import { datosConfig } from "./config.js";
 
 export default class Game extends Phaser.Scene {
     constructor() {
-        super({ key: 'main' });
+        super({ key: 'game' });
     }
 
-    preload() {
-        //this.load.image('tileSet', 'assets/img/assets mapa/Tileset_Large.png');
-        //this.load.spritesheet('playerA', 'assets/img/assets personaje/correrDerecha.png', { frameWidth: 15, frameHeight: 24 });
-        //Archivo JSON de mapa
-        //this.load.tilemapTiledJSON('mapa', 'assets/json/mapa.json');
-
-        this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");  // urls: an array of file url
-        
-        this.load.image("tiles", "assets/tilesets/tileset_completo_64px.png");
-
-        /*this.load.spritesheet(
-          "characters",
-          "../../assets/spritesheets/buch-characters-64px-extruded.png",
-          {
-              frameWidth: 64,
-              frameHeight: 64,
-              margin: 1,
-              spacing: 2
-          }
-         );*/
-
-        this.load.spritesheet(
-            "characters",
-            "assets/spritesheets/buch-characters-64px.png",
-            {
-                frameWidth: 64,
-                frameHeight: 64
-            }
-        );
-    }
+    /*preload() {
+        //Todo cargado desde la escena de carga
+    }*/
     create() {
+        var width = this.scale.width;
+        var height = this.scale.height;
         /*var map = this.make.tilemap({ key: 'mapa' });
         var tiles = map.addTilesetImage('Objetos', 'tileSet');
         var layer = map.createDynamicLayer("T1", tiles);
@@ -57,15 +33,7 @@ export default class Game extends Phaser.Scene {
         //  - Rooms should only have odd number dimensions so that they have a center tile.
         //  - Doors should be at least 2 tiles away from corners, so that we can place a corner tile on
         //    either side of the door location
-        this.dungeon = new Dungeon({
-            width: 200,
-            height: 200,
-            doorPadding: 3,
-            rooms: {
-                width: { min: 6, max: 15/*, onlyOdd: true*/ },
-                height: { min: 6, max: 15, /*onlyOdd: true */ }
-            }
-        });
+        this.dungeon = new Dungeon(datosConfig.dungeon);
 
         //this.dungeon.drawToConsole();
 
@@ -148,11 +116,11 @@ export default class Game extends Phaser.Scene {
             } else if (rand <= 0.5) {
                 // 50% chance of a pot anywhere in the room... except don't block a door!
                 const x = Phaser.Math.Between(room.left + 2, room.right - 2);
-                const y = Phaser.Math.Between(room.top + 2, room.bottom - 2);
+                const y = Phaser.Math.Between(room.top + 3, room.bottom - 2);
                 this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.RANDOM_OBJECT);
             } else {
                 // 25% of either 2 or 4 towers, depending on the room size
-                if (room.height >= 9) {
+                /*if (room.height >= 8) {
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY + 1);
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX + 1, room.centerY + 1);
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY - 2);
@@ -160,7 +128,8 @@ export default class Game extends Phaser.Scene {
                 } else {
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY - 1);
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX + 1, room.centerY - 1);
-                }
+                }*/
+                this.stuffLayer.putTilesAt(TILES.TOWER, room.left+1, room.top+1);
             }
         });
 
@@ -212,19 +181,21 @@ export default class Game extends Phaser.Scene {
             })
             .setScrollFactor(0);
 
-        const musicConfig = {
-            mute: false,
-            volume: 0.1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }; // config es opcional
-        var music = this.sound.add("backgroundMusic", musicConfig);
-
-        //cuando creemos las diferentes escenas, el sonido solo se activará cuando se pase a la escena de juego.
-        music.play();
+        if(datosConfig.music){
+            const musicConfig = {
+                mute: false,
+                volume: 0.1,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay: 0
+            }; // config es opcional
+            var music = this.sound.add("backgroundMusic", musicConfig);
+    
+            //cuando creemos las diferentes escenas, el sonido solo se activará cuando se pase a la escena de juego.
+            music.play();
+        }
     }
     update(time, delta) {
         if (this.hasPlayerReachedStairs) return;
