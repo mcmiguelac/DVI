@@ -9,7 +9,7 @@ export default class Player {
     this.anguloSprite = 0;
     this.animation = "player-walk";
     //this.prevVelocity = 0;
-
+    //this.gun = this.scene.physics.add.sprite(x,y+15,'gun');
     this.sprite = scene.physics.add
       .sprite(x, y, "characters", 0)
       .setSize(30, 19)
@@ -50,30 +50,34 @@ export default class Player {
     const sprite = this.sprite;
     const speed = 300;
     var angleSprite = this.anguloSprite
-
+  
     // Stop any previous movement from the last frame
     sprite.body.setVelocity(0);
-
+   // gun.body.setVelocity(0);
     // Horizontal movement
     if (keys.left.isDown) {
       sprite.body.setVelocityX(-speed);
+     // gun.body.setVelocityX(-speed);
       //sprite.setFlipX(true);
     } else if (keys.right.isDown) {
       sprite.body.setVelocityX(speed);
+     // gun.body.setVelocityX(speed);
       //sprite.setFlipX(false);
     }
 
     // Vertical movement
     if (keys.up.isDown) {
       sprite.body.setVelocityY(-speed);
-      //this.prevVelocity = -1;
+     // gun.body.setVelocityY(-speed);
     } else if (keys.down.isDown) {
       sprite.body.setVelocityY(speed);
+     // gun.body.setVelocityY(speed);
       //this.prevVelocity = 1;
     }
 
     // Normalize and scale the velocity so that sprite can't move faster along a diagonal
     sprite.body.velocity.normalize().scale(speed);
+   // gun.body.velocity.normalize().scale(speed);
 
     /*
     // Update the animation last and give left/right/down animations precedence over up animations
@@ -156,5 +160,6 @@ export default class Player {
 
   destroy() {
     this.sprite.destroy();
+   // this.gun.destroy();
   }
 }
