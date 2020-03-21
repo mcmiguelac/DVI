@@ -1,12 +1,37 @@
+*{
+    font-family: 'VT323', monospace;
+}
 .titulo {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+.imagenTitulo{
+    max-width: 100%;
+    height: auto;
+}
+.TextoTitulo{
+   
+    font-weight: bold;
+    font-size: xxx-large;
 
+}
+.instrucciones{
+    font-weight: bold;
+    font-size: xxx-large;
+
+}
 .flag img {
     max-width: 100%;
     height: auto;
+}
+.imagen{
+    width: 100%;
+height: auto;
+} 
+.imagenRaton{
+    width: 80%;
+height: auto;
 }
 
 .letras img {
@@ -25,6 +50,12 @@ canvas {
     border: solid;
 }
 
+.list-group-item{
+    font-size:x-large;
+}
+.boton{
+    font-size:xxx-large;
+}
 /*canvas {
     position: relative;
     top: -10rem;

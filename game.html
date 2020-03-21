@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    <html lang="es">
+        <meta name="viewport" content="width=device-width, initial-scale=2.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="src/css/game.css">
+    <script src="src/js/phaser.min.js"></script>
+    <script src="src/js/dungeon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+<head>
+    <body>
+        <nav class="site-header" style="font-size: xx-large;">
+            <div class="container d-flex flex-column flex-md-row justify-content-between">
+              <a class="py-2 d-none d-md-inline-block" href="/index.html">Inicio</a>
+              <a class="py-2 d-none d-md-inline-block" href="#">About</a>
+             
+               </div>
+               </nav>
+        <script type="module">
+            import LoadScene from './src/js/loadScene.js'
+            import Game from './src/js/game.js';
+            import Inicio from './src/js/inicio.js';
+            import Options from './src/js/options.js';
+            import { datosConfig } from "./src/js/config.js";
+            var config = {
+                title: "Save the Donald",
+                version: "0.0.9",
+                type: Phaser.AUTO,
+                transparent: true,
+                width: datosConfig.width,
+                height: datosConfig.height,
+                pixelArt: true,
+                backgroundColor: '#FFFFFF',
+                input: { gamepad: true },
+                scale: {
+                    mode: Phaser.Scale.FIT,
+                    /*mode: Phaser.Scale.RESIZE,*/
+                    autoCenter: Phaser.Scale.CENTER
+                },
+                scene: [LoadScene, Inicio, Options, Game],
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+                        gravity: { y: 0 },
+                        debug:false
+                    }
+                }
+            };
+            new Phaser.Game(config);
+        </script>
+    
+</body>
+</html>
