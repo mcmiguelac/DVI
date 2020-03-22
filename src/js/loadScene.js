@@ -101,6 +101,9 @@ export default class LoadScene extends Phaser.Scene {
         this.load.image("gun","assets/spritesheets/gun.png");
         this.load.image("bullet","assets/spritesheets/bullet_1.png");
         
+    
+       
+        
     }
 
     create() {
