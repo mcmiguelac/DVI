@@ -13,11 +13,11 @@ export default class Game extends Phaser.Scene {
         //Todo cargado desde la escena de carga
     }*/
     create() {
-        
+
         //Creacion del cursor
         this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
-        
-        
+
+
         var width = this.scale.width;
         var height = this.scale.height;
         /*var map = this.make.tilemap({ key: 'mapa' });
@@ -34,7 +34,7 @@ export default class Game extends Phaser.Scene {
 
         this.level++;
         this.hasPlayerReachedStairs = false;
-        
+
         // Generate a random world with a few extra options:
         //  - Rooms should only have odd number dimensions so that they have a center tile.
         //  - Doors should be at least 2 tiles away from corners, so that we can place a corner tile on
@@ -57,9 +57,9 @@ export default class Game extends Phaser.Scene {
         this.groundLayer = map.createBlankDynamicLayer("Ground", tileset);
         this.stuffLayer = map.createBlankDynamicLayer("Stuff", tileset);
 
-        const shadowLayer = map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
+        this.shadowLayer = map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
 
-        this.tilemapVisibility = new TilemapVisibility(shadowLayer);
+        this.tilemapVisibility = new TilemapVisibility(this.shadowLayer);
 
         this.dungeon.rooms.forEach(room => {
             const { x, y, width, height } = room;
@@ -135,7 +135,7 @@ export default class Game extends Phaser.Scene {
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY - 1);
                     this.stuffLayer.putTilesAt(TILES.TOWER, room.centerX + 1, room.centerY - 1);
                 }*/
-                this.stuffLayer.putTilesAt(TILES.TOWER, room.left+1, room.top+1);
+                this.stuffLayer.putTilesAt(TILES.TOWER, room.left + 1, room.top + 1);
             }
         });
 
@@ -165,16 +165,17 @@ export default class Game extends Phaser.Scene {
 
         this.player = new Player(this, x, y);
         //this.gun = new Gun(this,x,y);
-        
+
         // Watch the player and tilemap layers for collisions, for the duration of the scene:
-       
-        
+
+
         this.physics.add.collider(this.player.sprite, this.groundLayer);
         this.physics.add.collider(this.player.sprite, this.stuffLayer);
+        //this.physics.add.collider(this.player.sprite, this.shadowLayer);
         //this.physics.add.collider(this.gun.gun, this.groundLayer);
         //this.physics.add.collider(this.gun.gun, this.stuffLayer);
-        
-        
+
+
         //this.physics.add.collider(this.player.sprite, this.stuffLayer);
 
         // Phaser supports multiple cameras, but you can access the default camera like this:
@@ -195,7 +196,7 @@ export default class Game extends Phaser.Scene {
             })
             .setScrollFactor(0);
 
-        if(datosConfig.music){
+        if (datosConfig.music) {
             const musicConfig = {
                 mute: false,
                 volume: 0.01,
@@ -206,14 +207,14 @@ export default class Game extends Phaser.Scene {
                 delay: 0
             }; // config es opcional
             var music = this.sound.add("backgroundMusic", musicConfig);
-    
+
             //cuando creemos las diferentes escenas, el sonido solo se activará cuando se pase a la escena de juego.
             music.play();
         }
     }
     update(time, delta) {
         if (this.hasPlayerReachedStairs) return;
-        
+
         this.player.update();
         //this.gun.update();
         // Find the player's room using another helper method from the dungeon that converts from

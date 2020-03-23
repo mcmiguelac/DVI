@@ -1,12 +1,37 @@
+*{
+    font-family: 'VT323', monospace;
+}
 .titulo {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+.imagenTitulo{
+    max-width: 100%;
+    height: auto;
+}
+.TextoTitulo{
+   
+    font-weight: bold;
+    font-size: 150%;
 
+}
+.instrucciones{
+    font-weight: bold;
+    font-size: 150%;
+
+}
 .flag img {
     max-width: 100%;
     height: auto;
+}
+.imagen{
+    width: 100%;
+height: auto;
+} 
+.imagenRaton{
+    width: 80%;
+height: auto;
 }
 
 .letras img {
@@ -22,6 +47,26 @@
 }
 
 canvas {
-    position: absolute;
-    top: 25%;
+    border: solid;
 }
+
+.list-group-item{
+    font-size:  125%;
+}
+.boton{
+    font-size: 150%;
+}
+
+.site-header{
+    text-align: bottom;
+    font-size: 200%;
+}
+
+.btn-primary{
+    font-size: 150%;
+}
+/*canvas {
+    position: relative;
+    top: -10rem;
+    border: solid;
+}*/

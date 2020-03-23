@@ -44,7 +44,7 @@ export default class Player {
 
 		this.weapon = new Weapon(this.scene, x, y);
 		this.scene.physics.add.collider(this.weapon, this.scene.groundLayer);
-        this.scene.physics.add.collider(this.weapon, this.scene.stuffLayer);
+		this.scene.physics.add.collider(this.weapon, this.scene.stuffLayer);
 	}
 
 	freeze() {
@@ -90,6 +90,7 @@ export default class Player {
 		// Normalize and scale the velocity so that sprite can't move faster along a diagonal
 		sprite.body.velocity.normalize().scale(speed);
 		// gun.body.velocity.normalize().scale(speed);
+		this.weapon.setPosition(this.sprite.x, this.sprite.y)
 
 		/*
 		// Update the animation last and give left/right/down animations precedence over up animations
@@ -157,7 +158,7 @@ export default class Player {
 			this.weapon.shoot();
 		}, this);
 
-		this.weapon.setVelocity(velocityX, velocityY);
+		//this.weapon.setVelocity(velocityX, velocityY);
 
 		/*if (!keys.left.isDown && !keys.right.isDown && !keys.down.isDown && !keys.up.isDown) {
 				sprite.anims.stop();

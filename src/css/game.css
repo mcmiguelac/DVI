@@ -13,12 +13,12 @@
 .TextoTitulo{
    
     font-weight: bold;
-    font-size: xxx-large;
+    font-size: 150%;
 
 }
 .instrucciones{
     font-weight: bold;
-    font-size: xxx-large;
+    font-size: 150%;
 
 }
 .flag img {
@@ -51,10 +51,19 @@ canvas {
 }
 
 .list-group-item{
-    font-size:x-large;
+    font-size:  125%;
 }
 .boton{
-    font-size:xxx-large;
+    font-size: 150%;
+}
+
+.site-header{
+    text-align: bottom;
+    font-size: 200%;
+}
+
+.btn-primary{
+    font-size: 150%;
 }
 /*canvas {
     position: relative;
