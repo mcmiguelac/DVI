@@ -159,15 +159,15 @@ export default class Game extends Phaser.Scene {
         const y = map.tileToWorldY(playerRoom.centerY);
 
         this.player = new Player(this, x, y);
-        this.gun = new Gun(this,x,y);
+        //this.gun = new Gun(this,x,y);
         
         // Watch the player and tilemap layers for collisions, for the duration of the scene:
        
         
         this.physics.add.collider(this.player.sprite, this.groundLayer);
         this.physics.add.collider(this.player.sprite, this.stuffLayer);
-        this.physics.add.collider(this.gun.gun, this.groundLayer);
-        this.physics.add.collider(this.gun.gun, this.stuffLayer);
+        //this.physics.add.collider(this.gun.gun, this.groundLayer);
+        //this.physics.add.collider(this.gun.gun, this.stuffLayer);
         
         
         //this.physics.add.collider(this.player.sprite, this.stuffLayer);
@@ -193,7 +193,7 @@ export default class Game extends Phaser.Scene {
         if(datosConfig.music){
             const musicConfig = {
                 mute: false,
-                volume: 0.1,
+                volume: 0.01,
                 rate: 1,
                 detune: 0,
                 seek: 0,
@@ -210,7 +210,7 @@ export default class Game extends Phaser.Scene {
         if (this.hasPlayerReachedStairs) return;
         
         this.player.update();
-        this.gun.update();
+        //this.gun.update();
         // Find the player's room using another helper method from the dungeon that converts from
         // dungeon XY (in grid units) to the corresponding room object
         const playerTileX = this.groundLayer.worldToTileX(this.player.sprite.x);
