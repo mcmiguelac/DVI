@@ -13,6 +13,11 @@ export default class Game extends Phaser.Scene {
         //Todo cargado desde la escena de carga
     }*/
     create() {
+        
+        //Creacion del cursor
+        this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
+        
+        
         var width = this.scale.width;
         var height = this.scale.height;
         /*var map = this.make.tilemap({ key: 'mapa' });

@@ -4,63 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=2.0">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="src/css/game.css">
     <script src="src/js/phaser.min.js"></script>
     <script src="src/js/dungeon.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
     <title>¡Save the Donald!</title>
 </head>
 
 
 
 <body>
-    <div class=titulo>
 
-        <div class="flag">
-            <img src="src/img/gif/flagL.gif">
-        </div>
-        <div class="letras">
-            <img src="src/img/titulo.png">
-        </div>
-        <div class="flag">
-            <img src="src/img/gif/flagR.gif">
+    <body>
+        <nav class="site-header" style="font-size: xx-large;">
+            <div class="container d-flex flex-column flex-md-row justify-content-between">
+                <a class="py-2 d-none d-md-inline-block" href="/index.html">Inicio</a>
+                <a class="py-2 d-none d-md-inline-block" href="#">About</a>
+
+            </div>
+        </nav>
+
+        <div class="position-relative overflow-hidden p-2 p-md-5 m-md-3 text-center bg-light">
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+                <img class="imagenTitulo" src="src/img/titulo.png">
+                <div class="col-md-10 p-lg-6 mx-auto my-5">
+
+                    <p class="TextoTitulo">Save the Donald es un videojuego en el que controlamos al guardaespaldas del
+                        presidente de USA ya que han asaltado la casa blanca y ha sido secuestrado quedando en nuestra
+                        mano el salvarle o no. Se trata de ir recorriendo un “laberinto” basado en la casa blanca en el
+                        que nos iremos encontrando enemigos varios. Al llegar a la última sala, encontraremos a nuestro
+                        presidente maniatado y tendremos que liberarle de su captor.</p>
+                    <a class="btn btn-primary" style="font-size: xxx-large;" href="/game.html">Jugar</a>
+                </div>
+                <div class="product-device shadow-sm d-none d-md-block"></div>
+                <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+            </div>
+
+            <div class="product-device shadow-sm d-none d-md-block"></div>
+            <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
         </div>
 
-    </div>
-    <div class="cuerpo">
-        <script type="module">
-            import LoadScene from './src/js/loadScene.js'
-            import Game from './src/js/game.js';
-            import Inicio from './src/js/inicio.js';
-            import Options from './src/js/options.js';
-            import { datosConfig } from "./src/js/config.js";
-            var config = {
-                title: "Save the Donald",
-                version: "0.0.9",
-                type: Phaser.AUTO,
-                transparent: true,
-                width: datosConfig.width,
-                height: datosConfig.height,
-                pixelArt: true,
-                backgroundColor: '#FFFFFF',
-                input: { gamepad: true },
-                scale: {
-                    mode: Phaser.Scale.FIT,
-                    /*mode: Phaser.Scale.RESIZE,*/
-                    autoCenter: Phaser.Scale.CENTER
-                },
-                scene: [LoadScene, Inicio, Options, Game],
-                physics: {
-                    default: 'arcade',
-                    arcade: {
-                        gravity: { y: 0 },
-                        debug:true
-                    }
-                }
-            };
-            new Phaser.Game(config);
-        </script>
-    </div>
+        <div class="position-relative overflow-hidden p-2 p-md-5 m-md-3 text-center bg-light">
+            <div class="container">
+
+                <div class="col-md-10 p-lg-7 mx-auto my-5">
+                    <p class="instrucciones"> Instrucciones</p>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <img class="imagen" src="src/img/wasd.png">
+                    </div>
+                    <div class="col">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">W: Arriba </li>
+                            <li class="list-group-item">A: Izquierda</li>
+                            <li class="list-group-item">S: Abajo </li>
+                            <li class="list-group-item">D: Derecha </li>
+
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <img class="imagenRaton" src="src/img/mouse.png">
+                    </div>
+                    <div class="col">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Mouse Izq : Disparar</li>
+                            <li class="list-group-item">Mouse Der : ? </li>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+                crossorigin="anonymous"></script>
+            <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+            <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+                crossorigin="anonymous"></script>
+    </body>
+
+
+
+
 
 </body>
 
