@@ -1,7 +1,7 @@
 /**
- * A small helper class that can take control of our shadow tilemap layer. It keeps track of which
- * room is currently active.
- */
+  * Una pequeña clase auxiliar que puede tomar el control de nuestra capa de sombra en mosaico. 
+  * Realiza un seguimiento de la sala que está actualmente activa.
+  */
 export default class TilemapVisibility {
   constructor(shadowLayer) {
     this.shadowLayer = shadowLayer;
@@ -9,15 +9,15 @@ export default class TilemapVisibility {
   }
 
   setActiveRoom(room) {
-    // We only need to update the tiles if the active room has changed
+    // Solo necesitamos actualizar los mosaicos si la sala activa ha cambiado
     if (room !== this.activeRoom) {
-      this.setRoomAlpha(room, 0); // Make the new room visible
-      if (this.activeRoom) this.setRoomAlpha(this.activeRoom, 0.75); // Dim the old room
+      this.setRoomAlpha(room, 0); // Hacer visible la nueva sala
+      if (this.activeRoom) this.setRoomAlpha(this.activeRoom, 0.75); // Atenúa la habitación vieja
       this.activeRoom = room;
     }
   }
 
-  // Helper to set the alpha on all tiles within a room
+  // Ayudante para establecer el alfa en todos los mosaicos dentro de una habitación
   setRoomAlpha(room, alpha) {
     this.shadowLayer.forEachTile(
       t => (t.alpha = alpha),

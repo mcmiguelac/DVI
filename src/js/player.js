@@ -1,17 +1,16 @@
 import Weapon from "./weapon.js";
 
-/**
- * A class that wraps up our top down player logic. It creates, animates and moves a sprite in
- * response to WASD keys. Call its update method from the scene's update and call its destroy
- * method when you're done with the player.
- */
+/*
+* Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
+* respuesta a las teclas WASD. 
+* método de actualización desde la actualización de la escena
+* método de destruccion cuando haya terminado con el jugador
+*/
 export default class Player {
 	constructor(scene, x, y) {
 		this.scene = scene;
 		this.anguloSprite = 0;
 		this.animation = "player-walk";
-		//this.prevVelocity = 0;
-		//this.gun = this.scene.physics.add.sprite(x,y+15,'gun');
 		this.sprite = scene.physics.add
 			.sprite(x, y, "characters", 0)
 			.setSize(30, 19)
@@ -33,7 +32,6 @@ export default class Player {
 
 		this.sprite.anims.play(this.animation);
 
-		//this.keys = scene.input.keyboard.createCursorKeys();
 		this.keys = scene.input.keyboard.addKeys(
 			{
 				up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -43,8 +41,6 @@ export default class Player {
 			});
 
 		this.weapon = new Weapon(this.scene, x, y);
-		this.scene.physics.add.collider(this.weapon, this.scene.groundLayer);
-		this.scene.physics.add.collider(this.weapon, this.scene.stuffLayer);
 	}
 
 	freeze() {
@@ -59,52 +55,30 @@ export default class Player {
 		let velocityX = 0;
 		let velocityY = 0;
 
-		// Stop any previous movement from the last frame
 		sprite.body.setVelocity(0);
-		// gun.body.setVelocity(0);
+
 		// Horizontal movement
 		if (keys.left.isDown) {
 			sprite.body.setVelocityX(-speed);
 			velocityX = -speed;
-			// gun.body.setVelocityX(-speed);
-			//sprite.setFlipX(true);
+
 		} else if (keys.right.isDown) {
 			sprite.body.setVelocityX(speed);
 			velocityX = speed;
-			// gun.body.setVelocityX(speed);
-			//sprite.setFlipX(false);
 		}
 
 		// Vertical movement
 		if (keys.up.isDown) {
 			sprite.body.setVelocityY(-speed);
-			// gun.body.setVelocityY(-speed);
 			velocityY = -speed;
 		} else if (keys.down.isDown) {
 			sprite.body.setVelocityY(speed);
 			velocityY = speed;
-			// gun.body.setVelocityY(speed);
-			//this.prevVelocity = 1;
 		}
 
-		// Normalize and scale the velocity so that sprite can't move faster along a diagonal
 		sprite.body.velocity.normalize().scale(speed);
-		// gun.body.velocity.normalize().scale(speed);
-		this.weapon.setPosition(this.sprite.x, this.sprite.y)
-
-		/*
-		// Update the animation last and give left/right/down animations precedence over up animations
-		if (keys.left.isDown || keys.right.isDown || keys.down.isDown) {
-				sprite.anims.play("player-walk", true);
-		} else if (keys.up.isDown) {
-				sprite.anims.play("player-walk-back", true);
-		} else {
-				sprite.anims.stop();
-
-				// If we were moving & now we're not, then pick a single idle frame to use
-				if (prevVelocity.y < 0) sprite.setTexture("characters", 42);
-				else sprite.setTexture("characters", 23);
-		}*/
+		//this.weapon.setPosition(this.sprite.x, this.sprite.y)
+		this.weapon.setVelocity(velocityX, velocityY);
 
 		var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
 
@@ -121,35 +95,32 @@ export default class Player {
 			if (angleDif > 50 || angleDif < -50) {
 				angleSprite = angleSnapDeg;
 				this.anguloSprite = angleSprite;
-				//console.log(angleDeg + " " + angleSnapDeg);
 
 				switch (angleSprite) {
 					case 0:
 						this.animation = "player-walk";
-						//sprite.anims.play("player-walk", true);
 						sprite.setFlipX(false);
+						this.weapon.mostrar();
 						break;
 					case 90:
 						this.animation = "player-walk";
-						//sprite.anims.play("player-walk", true);
+						this.weapon.mostrar();
 						break;
 					case 180:
 					case -180:
-						//Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
 						this.animation = "player-walk";
-						//sprite.anims.play("player-walk", true);
 						sprite.setFlipX(true);
+						this.weapon.mostrar();
 						break;
 
 					case -90:
-						//Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor2
 						this.animation = "player-walk-back";
-						//sprite.anims.play("player-walk-back", true);
+						this.weapon.ocultar();
 						break;
 				}
 			};
 
-			//Angulo bala.
+			//Angulo bala
 			this.weapon.setAngle(angleDeg);
 		}, this);
 
@@ -158,16 +129,6 @@ export default class Player {
 			this.weapon.shoot();
 		}, this);
 
-		//this.weapon.setVelocity(velocityX, velocityY);
-
-		/*if (!keys.left.isDown && !keys.right.isDown && !keys.down.isDown && !keys.up.isDown) {
-				sprite.anims.stop();
-				if (this.prevVelocity < 0) { 
-						sprite.setTexture("characters", 42); 
-				} else {
-						sprite.setTexture("characters", 23);
-				};
-		}*/
 		if (!keys.left.isDown && !keys.right.isDown && !keys.down.isDown && !keys.up.isDown) {
 			sprite.anims.stop();
 			if (this.anguloSprite == -90) {
@@ -182,6 +143,5 @@ export default class Player {
 
 	destroy() {
 		this.sprite.destroy();
-		// this.gun.destroy();
 	}
 }

@@ -4,10 +4,6 @@ export default class Options extends Phaser.Scene {
         super({ key: 'options' });
     }
 
-    /*preload() {
-        //Todo cargado desde la escena de carga
-    }*/
-
     //TODO hacer acorde con el ancho y el alto.
     create() {
         const instanciaScene = this.scene;
@@ -75,13 +71,7 @@ export default class Options extends Phaser.Scene {
                 this.scale.startFullscreen();
             }
         }, this);
-
-        /*this.input.keyboard.on("keydown_SPACE", function(){
-            if(!instanciaGame.scale.isFullscreen){
-                instanciaGame.scale.startFullscreen();
-            }
-        }, this);*/
-
+        
         atrasButton.setInteractive();
 
         atrasButton.on('pointerover', function (value) {

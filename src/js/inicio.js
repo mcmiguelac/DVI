@@ -5,16 +5,6 @@ export default class Inicio extends Phaser.Scene {
         super({ key: 'inicio' });
     }
 
-    /*preload() {
-        //Todo cargado en la carga inicial
-        this.load.image("flagGif", "assets/img/img/flagL.gif");
-        this.load.image("titulo", "assets/img/img/titulo.png");
-        this.load.image("opcion", "assets/img/img/options_button.png");
-        this.load.image("play", "assets/img/img/play_button.png");
-        this.load.image("background", "assets/img/img/title_bg.jpg");
-        this.load.audio("menuMusic", "assets/audio/shuinvy-childhood.mp3");
-    }*/
-
     create() {
         var width = this.scale.width;
         var height = this.scale.height;
@@ -93,8 +83,4 @@ export default class Inicio extends Phaser.Scene {
         miniC.body.setGravityY(rand*600+100)
         miniC.setFlipX(true);
     }
-    
-    /*update(time, delta) {
-       
-    }*/
 }

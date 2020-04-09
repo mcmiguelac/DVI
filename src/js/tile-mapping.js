@@ -1,7 +1,7 @@
-// Our custom tile mapping with:
-// - Single index for putTileAt
-// - Array of weights for weightedRandomize
-// - Array or 2D array for putTilesAt
+// Nuestro mapeo de mosaicos personalizado con:
+// - Índice único para putTileAt
+// - Matriz con pesos para weightedRandomize
+// - Matriz para putTilesAt
 const TILE_MAPPING = {
   BLANK: 735,
   WALL: {
@@ -18,23 +18,24 @@ const TILE_MAPPING = {
   FLOOR: [{ index: 64, weight: 10 }],
   RANDOM_OBJECT: [{ index: 233, weight: 1 }, { index: 278, weight: 1 }, { index: 279, weight: 1 }],
   DOOR: {
-    TOP: [[47, 64, 46],[92, 64, 91]],
+    TOP: [[47, 64, 46], [92, 64, 91]],
     // prettier-ignore
     LEFT: [
       [45],
-      [90], 
-      [64], 
+      [90],
+      [64],
       [52]
     ],
     BOTTOM: [47, 64, 46],
     // prettier-ignore
     RIGHT: [
       [45],
-      [90], 
-      [64], 
+      [90],
+      [64],
       [52]
     ]
   },
+  //Objetos varios, telefono, maceta etc...
   CHEST: 166,
   STAIRS: 234,
   // prettier-ignore

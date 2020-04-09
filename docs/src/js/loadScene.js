@@ -79,7 +79,7 @@ export default class LoadScene extends Phaser.Scene {
         }
 
         //Game
-        this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");  // urls: an array of file url
+        this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");
 
         this.load.image("tiles", "assets/tilesets/tileset_completo_64px.png");
 
@@ -92,18 +92,22 @@ export default class LoadScene extends Phaser.Scene {
             }
         );
 
+
         //Menú ajustes
         this.load.image("flagLGif", "assets/img/img/flagL.gif");
         this.load.image("flagRGif", "assets/img/img/flagR.gif");
 
         //Arma
         this.load.audio("bulletAudio", ["assets/audio/laser1.ogg", "assets/audio/pistolShoot.wav"])
-        this.load.image("gun", "assets/spritesheets/gun.png");
+        this.load.spritesheet(
+            "pistola",
+            "assets/spritesheets/pistola_anim.png",
+            {
+                frameWidth: 48,
+                frameHeight: 32
+            }
+        );
         this.load.image("bullet", "assets/spritesheets/bullet_1.png");
-
-
-
-
     }
 
     create() {
