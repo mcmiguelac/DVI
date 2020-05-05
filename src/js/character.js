@@ -60,7 +60,8 @@ export default class Player {
 		if (this.keys.left.isDown) {
 			this.sprite.body.setVelocityX(-speed);
 			velocityX = -speed;
-		}else if (this.keys.right.isDown) {
+		}
+		if (this.keys.right.isDown) {
 			this.sprite.body.setVelocityX(speed);
 			velocityX = speed;
 		}
@@ -69,7 +70,9 @@ export default class Player {
 		if (this.keys.up.isDown) {
 			this.sprite.body.setVelocityY(-speed);
 			velocityY = -speed;
-		}else if (this.keys.down.isDown) {
+		}
+		
+		if (this.keys.down.isDown) {
 			this.sprite.body.setVelocityY(speed);
 			velocityY = speed;
 		}
@@ -125,7 +128,7 @@ export default class Player {
 
 		//Disparar
 		this.scene.input.on('pointerdown', function (pointer) {
-			this.weapon.shoot();
+			this.weapon.shoot(this.scene.input.x + this.scene.cameras.main.scrollX, this.scene.input.y + this.scene.cameras.main.scrollY);
 		}, this);
 
 		if (!this.keys.left.isDown && !this.keys.right.isDown && !this.keys.down.isDown && !this.keys.up.isDown) {

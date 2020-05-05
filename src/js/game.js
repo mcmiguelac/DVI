@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import Enemy from "./enemy.js";
 import TILES from "./tile-mapping.js";
 import TilemapVisibility from "./tilemap-visibility.js";
 import { datosConfig } from "./config.js";
@@ -9,7 +10,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        //Creacion del cursor
+        //Creacion del cursor 
         this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
 
 
@@ -39,7 +40,7 @@ export default class Game extends Phaser.Scene {
         this.groundLayer = map.createBlankDynamicLayer("Ground", tileset);
         this.stuffLayer = map.createBlankDynamicLayer("Stuff", tileset);
 
-        this.shadowLayer = map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
+        this.shadowLayer = map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK).setDepth(5);
 
         this.tilemapVisibility = new TilemapVisibility(this.shadowLayer);
 
@@ -147,6 +148,7 @@ export default class Game extends Phaser.Scene {
 
         // Coloca al jugador en la primera habitación
         this.player = new Player(this, x, y);
+        this.enemy = new Enemy(this, x+150, y+150);
 
         // Mira las capas del jugador y del mapa de mosaicos para ver si hay colisiones, durante la duración de la escena
         this.physics.add.collider(this.player.sprite, this.groundLayer);
@@ -162,14 +164,15 @@ export default class Game extends Phaser.Scene {
         camera.startFollow(this.player.sprite);
 
         // Texto de ayuda que tiene una posición "fija" en la pantalla
-        this.add
-            .text(16, 16, `Find the stairs. Go deeper.\nCurrent level: ${this.level}`, {
+        /*this.add
+            .text(16, 16, `encuentra a trump.\nCurrent level: ${this.level}`, {
                 font: "18px monospace",
                 fill: "#000000",
                 padding: { x: 20, y: 10 },
                 backgroundColor: "#ffffff"
             })
-            .setScrollFactor(0);
+            .setScrollFactor(0).setDepth(5);
+            */
 
         if (datosConfig.music) {
             const musicConfig = {
@@ -191,6 +194,7 @@ export default class Game extends Phaser.Scene {
         if (this.hasPlayerReachedStairs) return;
 
         this.player.update();
+        this.enemy.update();
 
         // Encuentra la habitación del jugador usando otro método de ayuda de la mazmorra que convierte
         // mazmorra XY (en unidades de cuadrícula) al objeto de sala correspondiente
