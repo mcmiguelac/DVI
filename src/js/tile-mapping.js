@@ -42,7 +42,8 @@ const TILE_MAPPING = {
   TOWER: [
     [232],
     [277]
-  ]
+  ],
+  ENEMY:[3]
 };
 
 export default TILE_MAPPING;

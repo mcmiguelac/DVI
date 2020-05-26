@@ -25,6 +25,8 @@
         import Game from './src/js/game.js';
         import Inicio from './src/js/inicio.js';
         import Options from './src/js/options.js';
+        import Pause from './src/js/pause.js';
+        import End from './src/js/end.js';
         import { datosConfig } from "./src/js/config.js";
         var config = {
             title: "Save the Donald",
@@ -41,7 +43,7 @@
                 /*mode: Phaser.Scale.RESIZE,*/
                 autoCenter: Phaser.Scale.CENTER
             },
-            scene: [LoadScene, Inicio, Options, Game],
+            scene: [LoadScene, Inicio, Options,Pause, Game,End],
             physics: {
                 default: 'arcade',
                 arcade: {

@@ -4,6 +4,7 @@ import TILES from "./tile-mapping.js";
 import TilemapVisibility from "./tilemap-visibility.js";
 import { datosConfig } from "./config.js";
 
+
 export default class Game extends Phaser.Scene {
     constructor() {
         super({ key: 'game' });
@@ -11,9 +12,10 @@ export default class Game extends Phaser.Scene {
 
     create() {
         //Creacion del cursor 
+        var score = 0;
+        var scoreText;
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
         this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
-
-
         var width = this.scale.width;
         var height = this.scale.height;
 
@@ -25,7 +27,7 @@ export default class Game extends Phaser.Scene {
         // - Las puertas deben estar al menos a 2 mosaicos de las esquinas, para que podamos colocar un mosaico de esquina en
         // a ambos lados de la ubicación de la puerta
         this.dungeon = new Dungeon(datosConfig.dungeon);
-
+        
         // Crear un mapa de mosaicos en blanco con dimensiones que coincidan con la mazmorra
         const map = this.make.tilemap({
             tileWidth: 64,
@@ -39,9 +41,9 @@ export default class Game extends Phaser.Scene {
         this.floorLayer = map.createBlankDynamicLayer("Floor", tileset);
         this.groundLayer = map.createBlankDynamicLayer("Ground", tileset);
         this.stuffLayer = map.createBlankDynamicLayer("Stuff", tileset);
-
+        this.enemyLayer = map.createBlankDynamicLayer("Enemy", tileset);
         this.shadowLayer = map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK).setDepth(5);
-
+        
         this.tilemapVisibility = new TilemapVisibility(this.shadowLayer);
 
         this.dungeon.rooms.forEach(room => {
@@ -85,7 +87,7 @@ export default class Game extends Phaser.Scene {
                 }
             }
         });
-
+        
         // Separa las habitaciones en:
         // - La sala de inicio (índice = 0)
         // - Una habitación aleatoria que se designará como la habitación final (con escaleras y nada más)
@@ -97,18 +99,25 @@ export default class Game extends Phaser.Scene {
 
         //Escaleras TODO
         this.stuffLayer.putTileAt(TILES.STAIRS, endRoom.centerX, endRoom.centerY);
-
+        var enemies = [];
         //Cosas en las demas habitaciones TODO hacer correctamente
         otherRooms.forEach(room => {
+           
+            
             var rand = Math.random();
             if (rand <= 0.25) {
                 // 25% de probabilidad de objeto
                 this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
             } else if (rand <= 0.5) {
                 // 50% de probabilidad de que haya un objeto random en cualquier lugar de la habitación ... ¡excepto que no bloquees una puerta!
+            
+               
                 const x = Phaser.Math.Between(room.left + 2, room.right - 2);
                 const y = Phaser.Math.Between(room.top + 3, room.bottom - 2);
-                this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.RANDOM_OBJECT);
+                var valor =this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.RANDOM_OBJECT);
+                console.log(valor);
+               
+               //console.log(this.enemyLayer.weightedRandomize(x+1, y+1, 1, 1, TILES.ENEMY);
             } else {
                 // 25% de 2 o 4 torres, dependiendo del tamaño de la habitación
                 /*if (room.height >= 8) {
@@ -123,6 +132,7 @@ export default class Game extends Phaser.Scene {
                 // 25% de maceta
                 this.stuffLayer.putTilesAt(TILES.TOWER, room.left + 1, room.top + 1);
             }
+            enemies.push(room);
         });
 
 
@@ -148,7 +158,18 @@ export default class Game extends Phaser.Scene {
 
         // Coloca al jugador en la primera habitación
         this.player = new Player(this, x, y);
-        this.enemy = new Enemy(this, x+150, y+150);
+        
+        this.enemy = [];
+        console.log(enemies);
+        enemies.forEach(enemigo => {
+            var e = enemigo;
+            var a = map.tileToWorldX(e.centerX);
+            var b = map.tileToWorldY(e.centerY);
+            this.enemy.push(new Enemy(this,a ,b));
+        });
+      //  this.enemyshoot = new Enemyshoot(this, x+140, y+140);
+        
+        console.log(this.dungeon);
 
         // Mira las capas del jugador y del mapa de mosaicos para ver si hay colisiones, durante la duración de la escena
         this.physics.add.collider(this.player.sprite, this.groundLayer);
@@ -175,6 +196,7 @@ export default class Game extends Phaser.Scene {
             */
 
         if (datosConfig.music) {
+            
             const musicConfig = {
                 mute: false,
                 volume: 0.01,
@@ -185,16 +207,36 @@ export default class Game extends Phaser.Scene {
                 delay: 0
             }; // config es opcional
             var music = this.sound.add("backgroundMusic", musicConfig);
-
             // El sonido solo se activará cuando se pase a la escena de juego
-            music.play();
+            
+             music.play();
         }
+
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       
+
     }
     update(time, delta) {
         if (this.hasPlayerReachedStairs) return;
 
+        if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
+            console.log("pulsado");
+            this.scene.pause();
+            this.scene.launch('pause');
+            this.scene.setVisible(false);
+        }
+        else if(this.player.end){
+            this.scene.pause();
+            this.scene.launch('end');
+            this.scene.setVisible(false);
+        }
         this.player.update();
-        this.enemy.update();
+        
+        this.enemy.forEach(enemigo => {
+            enemigo.update();
+        });
+
+        
 
         // Encuentra la habitación del jugador usando otro método de ayuda de la mazmorra que convierte
         // mazmorra XY (en unidades de cuadrícula) al objeto de sala correspondiente

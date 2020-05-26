@@ -73,6 +73,8 @@ export default class LoadScene extends Phaser.Scene {
         //Menu Principal
         this.load.image("titulo", "assets/img/img/titulo.png");
         this.load.image("background", "assets/img/img/title_bg.png");
+        this.load.image("final", "assets/img/img/title_bg_muerte.png");
+        this.load.image("trumpDead", "assets/img/img/trumpDead2.png");
         for (let index = 1; index <= 10; index++) {
             let name = "mini " + index;
             this.load.image(name, "assets/img/img/" + name + ".png");
@@ -85,12 +87,29 @@ export default class LoadScene extends Phaser.Scene {
 
         this.load.spritesheet(
             "characters",
-            "assets/spritesheets/buch-characters-64px.png",
+            "assets/spritesheets/spritesheet.png",
             {
-                frameWidth: 64,
-                frameHeight: 64
+                frameWidth: 32,
+                frameHeight: 32
             }
         );
+        this.load.spritesheet(
+            "enemigo",
+            "assets/spritesheets/enemigo.png",
+            {
+                frameWidth: 32,
+                frameHeight: 32
+            }
+        );
+        this.load.spritesheet(
+            "vidaPlayer",
+            "assets/spritesheets/healthbar.png",
+            {
+                frameWidth: 660,
+                frameHeight: 184
+            }
+        );
+        
 
 
         //Menú ajustes

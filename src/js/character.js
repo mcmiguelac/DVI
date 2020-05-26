@@ -20,19 +20,31 @@ export default class Player {
 		const anims = scene.anims;
 		anims.create({
 			key: "player-walk",
-			frames: anims.generateFrameNumbers("characters", { start: 23, end: 26 }),
+			frames: anims.generateFrameNumbers("characters", { start: 21, end: 28 }),
 			frameRate: 8,
 			repeat: -1
 		});
 		anims.create({
 			key: "player-walk-back",
-			frames: anims.generateFrameNumbers("characters", { start: 42, end: 45 }),
+			frames: anims.generateFrameNumbers("characters", { start: 2, end: 8 }),
+			frameRate: 8,
+			repeat: -1
+		});
+		anims.create({
+			key: "player-stand",
+			frames: anims.generateFrameNumbers("characters", { start: 9, end: 15 }),
+			frameRate: 8,
+			repeat: -1
+		});
+		anims.create({
+			key: "player-stand-back",
+			frames: anims.generateFrameNumbers("characters", { start: 16, end: 20 }),
 			frameRate: 8,
 			repeat: -1
 		});
 
-		this.sprite.anims.play(this.animation);
-
+		//this.sprite.anims.play(this.animation);
+		
 		this.keys = scene.input.keyboard.addKeys(
 			{
 				up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -77,13 +89,10 @@ export default class Player {
 			velocityY = speed;
 		}
 		
-
 		this.sprite.body.velocity.normalize().scale(speed);
 		//this.weapon.setPosition(this.sprite.x, this.sprite.y)
 		this.weapon.setVelocity(velocityX, velocityY);
-
 		var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
-
 		this.scene.input.on('pointermove', function (pointer) {
 
 			//Angulos en Radianes
@@ -97,7 +106,6 @@ export default class Player {
 			if (angleDif > 50 || angleDif < -50) {
 				angleSprite = angleSnapDeg;
 				this.anguloSprite = angleSprite;
-
 				switch (angleSprite) {
 					case 0:
 						this.animation = "player-walk";
@@ -114,7 +122,6 @@ export default class Player {
 						this.sprite.setFlipX(true);
 						this.weapon.mostrar();
 						break;
-
 					case -90:
 						this.animation = "player-walk-back";
 						this.weapon.ocultar();
@@ -123,7 +130,7 @@ export default class Player {
 			};
 
 			//Angulo bala
-			this.weapon.setAngle(angleDeg);
+			this.weapon.setAngle(angleSnapDeg);
 		}, this);
 
 		//Disparar
@@ -131,16 +138,13 @@ export default class Player {
 			this.weapon.shoot(this.scene.input.x + this.scene.cameras.main.scrollX, this.scene.input.y + this.scene.cameras.main.scrollY);
 		}, this);
 
+
 		if (!this.keys.left.isDown && !this.keys.right.isDown && !this.keys.down.isDown && !this.keys.up.isDown) {
-			this.sprite.anims.stop();
-			if (this.anguloSprite == -90) {
-				this.sprite.setTexture("characters", 41);
-			} else {
-				this.sprite.setTexture("characters", 23);
-			};
-		} else {
-			this.sprite.anims.play(this.animation, true);
+			this.animation = "player-stand";
 		}
+			
+		//this.sprite.anims.play(this.animation, true);
+		
 	}
 
 	destroy() {
