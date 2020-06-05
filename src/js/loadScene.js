@@ -87,7 +87,7 @@ export default class LoadScene extends Phaser.Scene {
 
         this.load.spritesheet(
             "characters",
-            "assets/spritesheets/spritesheet.png",
+            "assets/spritesheets/definitivo.png",
             {
                 frameWidth: 32,
                 frameHeight: 32

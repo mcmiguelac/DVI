@@ -49,7 +49,11 @@ export default class Enemy {
 
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, function (sprite) {
             this.scene.player.sprite.disableBody(true,true);
-           this.scene.player.end = true;
+           // this.scene.player.end = true;
+           // this.scene.player.health -= 1;
+            //if( this.scene.player.health ==0){
+                this.scene.player.end = true;
+           // }
         }, null, this);
         
        

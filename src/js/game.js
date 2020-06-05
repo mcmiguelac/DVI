@@ -2,10 +2,13 @@ import Player from "./player.js";
 import Enemy from "./enemy.js";
 import TILES from "./tile-mapping.js";
 import TilemapVisibility from "./tilemap-visibility.js";
+
 import { datosConfig } from "./config.js";
 
 
 export default class Game extends Phaser.Scene {
+    
+
     constructor() {
         super({ key: 'game' });
     }
@@ -13,8 +16,11 @@ export default class Game extends Phaser.Scene {
     create() {
         //Creacion del cursor 
         var score = 0;
-        var scoreText;
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+      
+        var vidas;
+        
+        vidas = this.add.text(16, 16, 'vida: 100', { fontSize: '32px', fill: '#000' });
+        vidas.setDepth(10);
         this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
         var width = this.scale.width;
         var height = this.scale.height;
@@ -213,7 +219,8 @@ export default class Game extends Phaser.Scene {
         }
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-       
+        var barConfig = {x: 200, y: 100};
+	   
 
     }
     update(time, delta) {

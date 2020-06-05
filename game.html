@@ -6,6 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="./src/css/game.css">
+
 <script src="./src/js/phaser.min.js"></script>
 <script src="./src/js/dungeon.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
@@ -43,12 +44,12 @@
                 /*mode: Phaser.Scale.RESIZE,*/
                 autoCenter: Phaser.Scale.CENTER
             },
-            scene: [LoadScene, Inicio, Options,Pause, Game,End],
+            scene: [LoadScene, Inicio, Options,Pause, Game, End],
             physics: {
                 default: 'arcade',
                 arcade: {
                     gravity: { y: 0 },
-                    debug: true
+                    debug: false
                 }
             }
         };
