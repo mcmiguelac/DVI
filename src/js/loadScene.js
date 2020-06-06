@@ -82,6 +82,7 @@ export default class LoadScene extends Phaser.Scene {
 
         //Game
         this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");
+        this.load.audio("musicaIntro", "assets/audio/musicaIntro.mp3");
 
         this.load.image("tiles", "assets/tilesets/tileset_completo_64px.png");
 
@@ -127,6 +128,11 @@ export default class LoadScene extends Phaser.Scene {
             }
         );
         this.load.image("bullet", "assets/spritesheets/bullet_1.png");
+
+
+
+        this.load.text('TextoInicio', 'assets/texts/textoInicio.txt');
+        //cargar fuentes
     }
 
     create() {
