@@ -6,6 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="./src/css/game.css">
+
 <script src="./src/js/phaser.min.js"></script>
 <script src="./src/js/dungeon.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
@@ -27,6 +28,8 @@
         import Options from './src/js/options.js';
         import Pause from './src/js/pause.js';
         import End from './src/js/end.js';
+        import Intro from './src/js/intro.js';
+        import FinalKillTrump from './src/js/finalKillTrump.js';
         import { datosConfig } from "./src/js/config.js";
         var config = {
             title: "Save the Donald",
@@ -43,12 +46,12 @@
                 /*mode: Phaser.Scale.RESIZE,*/
                 autoCenter: Phaser.Scale.CENTER
             },
-            scene: [LoadScene, Inicio, Options,Pause, Game, End],
+            scene: [LoadScene, Inicio, Options,Pause, Game, End,Intro,FinalKillTrump],
             physics: {
                 default: 'arcade',
                 arcade: {
                     gravity: { y: 0 },
-                    debug: true
+                    debug: false
                 }
             }
         };

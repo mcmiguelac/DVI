@@ -37,7 +37,8 @@ export default class Inicio extends Phaser.Scene {
         })
 
         playButton.on('pointerup', function (value) {
-            instanciaScene.start('game');
+            instanciaScene.start('intro');
+            //instanciaScene.start('FinalkillTrump');
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();

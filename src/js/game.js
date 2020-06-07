@@ -3,11 +3,14 @@ import Trump from "./trump.js";
 import Enemy from "./enemy.js";
 import TILES from "./tile-mapping.js";
 import TilemapVisibility from "./tilemap-visibility.js";
+
 import { datosConfig } from "./config.js";
 import RoomFactory from "./roomFactory.js";
 
 
 export default class Game extends Phaser.Scene {
+    
+
     constructor() {
         super({ key: 'game' });
         this.level=0;
@@ -98,8 +101,16 @@ export default class Game extends Phaser.Scene {
         }
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-       
-
+        var barConfig = {x: 200, y: 100};
+	   
+        var texto =this.add.text(16, 16, `Vidas ${this.player.health}`, {
+            font: "18px monospace",
+            fill: "#000000",
+            padding: { x: 20, y: 10 },
+            backgroundColor: "#ffffff"
+          })
+          .setScrollFactor(0);
+        texto.setDepth(10);
     }
     update(time, delta) {
         //Solo si no ha encontrado las escaleras
