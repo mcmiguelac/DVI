@@ -29,6 +29,7 @@
         import Pause from './src/js/pause.js';
         import End from './src/js/end.js';
         import Intro from './src/js/intro.js';
+        import FinalKillTrump from './src/js/finalKillTrump.js';
         import { datosConfig } from "./src/js/config.js";
         var config = {
             title: "Save the Donald",
@@ -45,7 +46,7 @@
                 /*mode: Phaser.Scale.RESIZE,*/
                 autoCenter: Phaser.Scale.CENTER
             },
-            scene: [LoadScene, Inicio, Options,Pause, Game, End,Intro],
+            scene: [LoadScene, Inicio, Options,Pause, Game, End,Intro,FinalKillTrump],
             physics: {
                 default: 'arcade',
                 arcade: {

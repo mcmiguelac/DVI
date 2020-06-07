@@ -45,6 +45,6 @@ export default class Inicio extends Phaser.Scene {
         miniA.setBounce(rand);
         miniA.setCollideWorldBounds(true);
         miniA.body.setGravityY(rand*600+100)
-
+        
     }
 }
