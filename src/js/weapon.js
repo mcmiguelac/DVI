@@ -47,7 +47,8 @@ export default class Weapon {
 
            
             this.bullets.add(bullet);
-            this.bullets.killAndHide(bullet);
+            //this.bullets.killAndHide(bullet);
+            this.matar(bullet);
         }
         
     }
@@ -61,8 +62,10 @@ export default class Weapon {
     }
 
     matar(bullet) {
-        this.bullets.killAndHide(bullet);
-        this.bullets.kill(bullet)
+        //this.bullets.killAndHide(bullet);
+        this.bullets.kill(bullet);
+        //bullet.body.setEnable(false);
+        bullet.disableBody(true, true);
     }
 
     revivir(x, y, bullet) {
@@ -90,7 +93,7 @@ export default class Weapon {
         }
     }
 
-    shoot( direccion) {
+    shoot(direccion) {
         
         if (this.attackTimerPass) {
             let x = this.scene.input.x + this.scene.cameras.main.scrollX;

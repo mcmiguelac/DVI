@@ -72,7 +72,7 @@ export default class Player {
 		let velocityX = 0;
 		let velocityY = 0;
 		this.sprite.body.setVelocity(0);
-		
+		 
 		// Horizontal movement
 		if(this.keys.left.isDown) {
 			if (this.keys.up.isDown) {

@@ -8,39 +8,58 @@ import Weapon from "./weapon.js";
 */
 export default class Player {
 	constructor(scene, x, y) {
+		this.end = false;
+		this.health = 6;
 		this.scene = scene;
 		this.anguloSprite = 0;
-		this.animation = "player-walk";
+		this.animation = "player-stand";
 		this.sprite = scene.physics.add
 			.sprite(x, y, "characters", 0)
-			.setSize(30, 19)
-			.setOffset(17, 45);
+			.setSize(16, 16)
+			.setOffset(10, 10)
+			.setDepth(2);
 
 		const anims = scene.anims;
 		anims.create({
 			key: "player-walk",
-			frames: anims.generateFrameNumbers("characters", { start: 23, end: 26 }),
+			frames: anims.generateFrameNumbers("characters", { start: 20, end: 27 }),
 			frameRate: 8,
 			repeat: -1
 		});
 		anims.create({
 			key: "player-walk-back",
-			frames: anims.generateFrameNumbers("characters", { start: 42, end: 45 }),
+			frames: anims.generateFrameNumbers("characters", { start: 0, end: 7 }),
 			frameRate: 8,
 			repeat: -1
 		});
-
-		this.sprite.anims.play(this.animation);
-
+		anims.create({
+			key: "player-stand-back",
+			frames: anims.generateFrameNumbers("characters", { start: 8, end: 14 }),
+			frameRate: 8,
+			repeat: -1
+		});
+		anims.create({
+			key: "player-stand",
+			frames: anims.generateFrameNumbers("characters", { start: 15, end: 19 }),
+			frameRate: 8,
+			repeat: -1
+		});
+		this.sprite.setScale(1.75);
+		
 		this.keys = scene.input.keyboard.addKeys(
 			{
 				up: Phaser.Input.Keyboard.KeyCodes.W,
 				down: Phaser.Input.Keyboard.KeyCodes.S,
 				left: Phaser.Input.Keyboard.KeyCodes.A,
-				right: Phaser.Input.Keyboard.KeyCodes.D
+				right: Phaser.Input.Keyboard.KeyCodes.D,
+				Sup: Phaser.Input.Keyboard.KeyCodes.UP,
+				Sdown: Phaser.Input.Keyboard.KeyCodes.DOWN,
+				Sleft: Phaser.Input.Keyboard.KeyCodes.LEFT,
+				Sright: Phaser.Input.Keyboard.KeyCodes.RIGHT
 			});
 
 		this.weapon = new Weapon(this.scene, x, y);
+		this.sprite.anims.play(this.animation);
 	}
 
 	freeze() {
@@ -48,97 +67,91 @@ export default class Player {
 	}
 
 	update() {
-		const keys = this.keys;
-		const sprite = this.sprite;
+		let quieto = false;
 		const speed = 300;
-		var angleSprite = this.anguloSprite;
 		let velocityX = 0;
 		let velocityY = 0;
-
-		sprite.body.setVelocity(0);
-
+		this.sprite.body.setVelocity(0);
+		 
 		// Horizontal movement
-		if (keys.left.isDown) {
-			sprite.body.setVelocityX(-speed);
+		if(this.keys.left.isDown) {
+			if (this.keys.up.isDown) {
+				this.sprite.anims.play('player-walk-back', true);
+				this.sprite.setFlipX(false);
+				this.sprite.body.setVelocityY(-speed);
+				velocityY = -speed;
+				quieto = false;
+			}
+			else {this.sprite.anims.play('player-walk', true)
+			this.sprite.setFlipX(true);}
+			this.sprite.body.setVelocityX(-speed);
 			velocityX = -speed;
-
-		} else if (keys.right.isDown) {
-			sprite.body.setVelocityX(speed);
+			quieto = false;
+		}
+		else if (this.keys.right.isDown) {
+			if (this.keys.up.isDown) {
+				this.sprite.anims.play('player-walk-back', true)
+				this.sprite.body.setVelocityY(-speed);
+				this.sprite.setFlipX(true);
+				velocityY = -speed;
+				quieto = false;
+			}
+			else{
+				this.sprite.anims.play('player-walk', true)
+			this.sprite.setFlipX(false);}
+			this.sprite.body.setVelocityX(speed);
 			velocityX = speed;
+			quieto = false;
 		}
-
+		
 		// Vertical movement
-		if (keys.up.isDown) {
-			sprite.body.setVelocityY(-speed);
+		if (this.keys.up.isDown) {
+			this.sprite.anims.play('player-walk-back', true)
+			this.sprite.body.setVelocityY(-speed);
 			velocityY = -speed;
-		} else if (keys.down.isDown) {
-			sprite.body.setVelocityY(speed);
-			velocityY = speed;
+			quieto = false;
 		}
-
-		sprite.body.velocity.normalize().scale(speed);
-		//this.weapon.setPosition(this.sprite.x, this.sprite.y)
+		 else if (this.keys.down.isDown) {
+			this.sprite.anims.play('player-walk', true)
+			this.sprite.body.setVelocityY(speed);
+			velocityY = speed;	
+			quieto = false;
+		}
+		if (!this.keys.left.isDown && !this.keys.right.isDown && !this.keys.down.isDown && !this.keys.up.isDown) {
+			this.sprite.anims.play('player-stand', true);
+			quieto = true;
+		}
+		
+		if (this.keys.Sleft.isDown) {
+			if(!quieto)
+				this.sprite.anims.play('player-walk', true)
+			this.sprite.setFlipX(true);
+			this.weapon.setAngle(180)
+			this.weapon.shoot(180)
+		}
+		else if (this.keys.Sright.isDown) {
+			if(!quieto)
+				this.sprite.anims.play('player-walk', true)
+			this.sprite.setFlipX(false);
+			this.weapon.shoot(0)
+			this.weapon.setAngle(0)
+		}
+		
+		if (this.keys.Sup.isDown) {
+			//if(!quieto)
+			//	this.sprite.anims.play('player-walk-back', true)
+			this.weapon.shoot(-90)
+			this.weapon.setAngle(-90)
+		}
+		 else if (this.keys.Sdown.isDown) {
+			if(!quieto)
+				this.sprite.anims.play('player-walk', true)
+			this.weapon.shoot(90)
+			this.weapon.setAngle(90)
+		}
+		this.sprite.body.velocity.normalize().scale(speed);
 		this.weapon.setVelocity(velocityX, velocityY);
-
-		var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
-
-		this.scene.input.on('pointermove', function (pointer) {
-
-			//Angulos en Radianes
-			var angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, pointer.worldX, pointer.worldY);
-			var angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
-			//Angulos en Grados
-			var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
-			var angleDeg = Phaser.Math.RadToDeg(angle);
-
-			var angleDif = angleSprite - angleDeg;
-			if (angleDif > 50 || angleDif < -50) {
-				angleSprite = angleSnapDeg;
-				this.anguloSprite = angleSprite;
-
-				switch (angleSprite) {
-					case 0:
-						this.animation = "player-walk";
-						sprite.setFlipX(false);
-						this.weapon.mostrar();
-						break;
-					case 90:
-						this.animation = "player-walk";
-						this.weapon.mostrar();
-						break;
-					case 180:
-					case -180:
-						this.animation = "player-walk";
-						sprite.setFlipX(true);
-						this.weapon.mostrar();
-						break;
-
-					case -90:
-						this.animation = "player-walk-back";
-						this.weapon.ocultar();
-						break;
-				}
-			};
-
-			//Angulo bala
-			this.weapon.setAngle(angleDeg);
-		}, this);
-
-		//Disparar
-		this.scene.input.on('pointerdown', function (pointer) {
-			this.weapon.shoot();
-		}, this);
-
-		if (!keys.left.isDown && !keys.right.isDown && !keys.down.isDown && !keys.up.isDown) {
-			sprite.anims.stop();
-			if (this.anguloSprite == -90) {
-				sprite.setTexture("characters", 41);
-			} else {
-				sprite.setTexture("characters", 23);
-			};
-		} else {
-			sprite.anims.play(this.animation, true);
-		}
+	
 	}
 
 	destroy() {

@@ -83,7 +83,7 @@ export default class LoadScene extends Phaser.Scene {
         //Game
         this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");
 
-        this.load.image("tiles", "assets/tilesets/tileset_completo_64px.png");
+        this.load.image("tiles", "assets/tilesets/tileset.png");
 
         this.load.spritesheet(
             "characters",
