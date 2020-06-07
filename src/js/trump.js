@@ -16,7 +16,7 @@ export default class Trump {
         this.anguloSprite = 0;
         this.animation = "enemy-walk";
         this.sprite = scene.physics.add
-            .sprite(x, y, "a", 0)
+            .sprite(x, y, "enemigo", 0)
             .setSize(19, 25)
             .setOffset(10, 10);
 
@@ -49,8 +49,8 @@ export default class Trump {
 
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, ganador, null, this.scene);
         function ganador(enemy, player) {
-            if (!this.hasPlayerReachedStairs) {
-                this.hasPlayerReachedStairs = true;
+            if (!this.hasPlayerReachedTrump) {
+                this.hasPlayerReachedTrump = true;
                 this.player.freeze();
                 this.score += 100;
                 this.cameras.main.fade(250, 0, 0, 0);

@@ -44,7 +44,7 @@ export default class Player {
 		});
 
 		//this.sprite.anims.play(this.animation);
-		
+
 		this.keys = scene.input.keyboard.addKeys(
 			{
 				up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -83,12 +83,12 @@ export default class Player {
 			this.sprite.body.setVelocityY(-speed);
 			velocityY = -speed;
 		}
-		
+
 		if (this.keys.down.isDown) {
 			this.sprite.body.setVelocityY(speed);
 			velocityY = speed;
 		}
-		
+
 		this.sprite.body.velocity.normalize().scale(speed);
 		//this.weapon.setPosition(this.sprite.x, this.sprite.y)
 		this.weapon.setVelocity(velocityX, velocityY);
@@ -142,9 +142,9 @@ export default class Player {
 		if (!this.keys.left.isDown && !this.keys.right.isDown && !this.keys.down.isDown && !this.keys.up.isDown) {
 			this.animation = "player-stand";
 		}
-			
+
 		//this.sprite.anims.play(this.animation, true);
-		
+
 	}
 
 	destroy() {

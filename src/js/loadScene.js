@@ -114,7 +114,7 @@ export default class LoadScene extends Phaser.Scene {
                 frameHeight: 184
             }
         );
-        
+
 
 
         //Menú ajustes
@@ -137,7 +137,7 @@ export default class LoadScene extends Phaser.Scene {
 
         this.load.text('TextoInicio', 'assets/texts/textoInicio.txt');
         //cargar fuentes
-    }   
+    }
 
     create() {
         this.scene.start('inicio');

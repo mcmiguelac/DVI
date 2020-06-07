@@ -72,8 +72,11 @@ export default class LoadScene extends Phaser.Scene {
     loadAll() {
         //Menu Principal
         this.load.image("titulo", "assets/img/img/titulo.png");
+        this.load.image("finTirania", "assets/img/img/finTirania.png");
         this.load.image("background", "assets/img/img/title_bg.png");
         this.load.image("final", "assets/img/img/title_bg_muerte.png");
+        this.load.image("honor", "assets/img/img/honorBW.png");
+        this.load.image("banderaNegra", "assets/img/img/flagsinfondoBW.png");
         this.load.image("trumpDead", "assets/img/img/trumpDead2.png");
         for (let index = 1; index <= 10; index++) {
             let name = "mini " + index;
@@ -82,12 +85,14 @@ export default class LoadScene extends Phaser.Scene {
 
         //Game
         this.load.audio("backgroundMusic", "assets/audio/Capt-America-Theme.mp3");
+        this.load.audio("musicaIntro", "assets/audio/musicaIntro.mp3");
+        this.load.audio("himno", "assets/audio/himno.mp3");
 
         this.load.image("tiles", "assets/tilesets/tileset.png");
 
         this.load.spritesheet(
             "characters",
-            "assets/spritesheets/spritesheet.png",
+            "assets/spritesheets/definitivo.png",
             {
                 frameWidth: 32,
                 frameHeight: 32
@@ -109,7 +114,7 @@ export default class LoadScene extends Phaser.Scene {
                 frameHeight: 184
             }
         );
-        
+
 
 
         //Menú ajustes
@@ -127,6 +132,11 @@ export default class LoadScene extends Phaser.Scene {
             }
         );
         this.load.image("bullet", "assets/spritesheets/bullet_1.png");
+
+
+
+        this.load.text('TextoInicio', 'assets/texts/textoInicio.txt');
+        //cargar fuentes
     }
 
     create() {

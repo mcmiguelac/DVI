@@ -7,8 +7,8 @@ export var datosConfig = {
         height: 30,
         doorPadding: 3,
         rooms: {
-            width: { min: 6, max: 18},
-            height: { min: 7, max: 10}
+            width: { min: 6, max: 18 },
+            height: { min: 7, max: 10 }
         }
     },
     musicConfig: {

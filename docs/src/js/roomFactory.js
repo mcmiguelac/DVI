@@ -445,8 +445,8 @@ export default class RoomFactory {
                 case 1:
                     switch (ancho) {
                         case 1:
-                            if(room.arrayOcupados[posicion[0]][posicion[1]-1] != 2 && room.arrayOcupados[posicion[0]][posicion[1]+1] != 2)
-                            game.stuffLayer.putTileAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
+                            if (room.arrayOcupados[posicion[0]][posicion[1] - 1] != 2 && room.arrayOcupados[posicion[0]][posicion[1] + 1] != 2)
+                                game.stuffLayer.putTileAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
                             room.arrayOcupados[posicion[0]][posicion[1]] = 4;
                             colocado = true;
                             break;
@@ -464,8 +464,8 @@ export default class RoomFactory {
                 case 2:
                     switch (ancho) {
                         case 1:
-                            if (room.arrayOcupados[posicion[0] - 1][posicion[1]] <= 1 && 
-                                room.arrayOcupados[posicion[0]+1][posicion[1]] == 0) {
+                            if (room.arrayOcupados[posicion[0] - 1][posicion[1]] <= 1 &&
+                                room.arrayOcupados[posicion[0] + 1][posicion[1]] == 0) {
 
                                 game.stuffLayer.putTilesAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
                                 room.arrayOcupados[posicion[0]][posicion[1]] = 3;
@@ -482,8 +482,8 @@ export default class RoomFactory {
                             if (room.arrayOcupados[posicion[0] - 1][posicion[1]] <= 1 &&
                                 room.arrayOcupados[posicion[0] - 1][posicion[1] + 1] <= 1 &&
                                 room.arrayOcupados[posicion[0]][posicion[1] + 1] == 0 &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1]] == 0 &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1]+1] == 0) {
+                                room.arrayOcupados[posicion[0] + 1][posicion[1]] == 0 &&
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] + 1] == 0) {
 
                                 game.stuffLayer.putTilesAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
                                 room.arrayOcupados[posicion[0]][posicion[1]] = 3;
@@ -506,10 +506,10 @@ export default class RoomFactory {
                                 room.arrayOcupados[posicion[0] - 1][posicion[1] + 1] <= 1 &&
                                 room.arrayOcupados[posicion[0] - 1][posicion[1] + 2] <= 1 &&
                                 room.arrayOcupados[posicion[0]][posicion[1] + 1] == 0 &&
-                                room.arrayOcupados[posicion[0]][posicion[1] + 2] == 0  &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1]] == 0 &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1]+1] == 0 &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1]+2] == 0) {
+                                room.arrayOcupados[posicion[0]][posicion[1] + 2] == 0 &&
+                                room.arrayOcupados[posicion[0] + 1][posicion[1]] == 0 &&
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] + 1] == 0 &&
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] + 2] == 0) {
 
                                 game.stuffLayer.putTilesAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
                                 room.arrayOcupados[posicion[0]][posicion[1]] = 3;
@@ -542,29 +542,29 @@ export default class RoomFactory {
                             if (room.arrayOcupados[posicion[0] - 1][posicion[1]] <= 1 &&
                                 room.arrayOcupados[posicion[0] - 1][posicion[1] + 1] <= 1 &&
                                 room.arrayOcupados[posicion[0]][posicion[1] + 1] == 0 &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1]] == 0 &&
-                                room.arrayOcupados[posicion[0]+1][posicion[1] + 1] == 0 &&
-                                room.arrayOcupados[posicion[0]+2][posicion[1]] == 0 &&
-                                room.arrayOcupados[posicion[0]+2][posicion[1]+1] == 0) {
+                                room.arrayOcupados[posicion[0] + 1][posicion[1]] == 0 &&
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] + 1] == 0 &&
+                                room.arrayOcupados[posicion[0] + 2][posicion[1]] == 0 &&
+                                room.arrayOcupados[posicion[0] + 2][posicion[1] + 1] == 0) {
 
                                 game.stuffLayer.putTilesAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
                                 room.arrayOcupados[posicion[0]][posicion[1]] = 3;
                                 room.arrayOcupados[posicion[0]][posicion[1] + 1] = 3;
                                 room.arrayOcupados[posicion[0] - 1][posicion[1]] = 3;
                                 room.arrayOcupados[posicion[0] - 1][posicion[1] + 1] = 3;
-                                room.arrayOcupados[posicion[0]+1][posicion[1]] = 3;
-                                room.arrayOcupados[posicion[0]+1][posicion[1] + 1] = 3;
+                                room.arrayOcupados[posicion[0] + 1][posicion[1]] = 3;
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] + 1] = 3;
 
-                                room.arrayOcupados[posicion[0]-1][posicion[1]-1] = 4;
-                                room.arrayOcupados[posicion[0]-1][posicion[1]+2] = 4;
-                                room.arrayOcupados[posicion[0]][posicion[1]-1] = 4;
-                                room.arrayOcupados[posicion[0]][posicion[1]+2] = 4;
-                                room.arrayOcupados[posicion[0]+1][posicion[1]-1] = 4;
-                                room.arrayOcupados[posicion[0]+1][posicion[1]+2] = 4;
-                                room.arrayOcupados[posicion[0]+2][posicion[1]-1] = 4;
-                                room.arrayOcupados[posicion[0]+2][posicion[1]] = 4;
-                                room.arrayOcupados[posicion[0]+2][posicion[1]+1] = 4;
-                                room.arrayOcupados[posicion[0]+2][posicion[1]+2] = 4;
+                                room.arrayOcupados[posicion[0] - 1][posicion[1] - 1] = 4;
+                                room.arrayOcupados[posicion[0] - 1][posicion[1] + 2] = 4;
+                                room.arrayOcupados[posicion[0]][posicion[1] - 1] = 4;
+                                room.arrayOcupados[posicion[0]][posicion[1] + 2] = 4;
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] - 1] = 4;
+                                room.arrayOcupados[posicion[0] + 1][posicion[1] + 2] = 4;
+                                room.arrayOcupados[posicion[0] + 2][posicion[1] - 1] = 4;
+                                room.arrayOcupados[posicion[0] + 2][posicion[1]] = 4;
+                                room.arrayOcupados[posicion[0] + 2][posicion[1] + 1] = 4;
+                                room.arrayOcupados[posicion[0] + 2][posicion[1] + 2] = 4;
                                 colocado = true;
                             }
                             break;

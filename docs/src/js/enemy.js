@@ -6,7 +6,7 @@
 * método de destruccion cuando haya terminado con el jugador
 */
 export default class Enemy {
-    
+
     constructor(scene, x, y) {
         this.end = false;
         this.health = 25;
@@ -16,39 +16,39 @@ export default class Enemy {
         this.anguloSprite = 0;
         this.animation = "enemy-walk";
         this.sprite = scene.physics.add
-            .sprite(x, y, "a", 0)
+            .sprite(x, y, "enemigo", 0)
             .setSize(19, 25)
             .setOffset(10, 10);
-        
+
         const anims = scene.anims;
         this.sprite.setScale(1.75);
         anims.create({
-			key: "enemy-walk-back",
-			frames: anims.generateFrameNumbers("enemigo", { start: 22, end: 29 }),
-			frameRate: 8,
-			repeat: -1
-		});
-		anims.create({
-			key: "enemy-walk",
-			frames: anims.generateFrameNumbers("enemigo", { start: 30, end: 37 }),
-			frameRate: 8,
-			repeat: -1
-		});
-		anims.create({
-			key: "enemy-stand-back",
-			frames: anims.generateFrameNumbers("enemigo", { start: 9, end: 21 }),
-			frameRate: 8,
-			repeat: -1
-		});
-		anims.create({
-			key: "enemy-stand",
-			frames: anims.generateFrameNumbers("enemigo", { start: 0, end: 8 }),
-			frameRate: 8,
-			repeat: -1
-		});
+            key: "enemy-walk-back",
+            frames: anims.generateFrameNumbers("enemigo", { start: 22, end: 29 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        anims.create({
+            key: "enemy-walk",
+            frames: anims.generateFrameNumbers("enemigo", { start: 30, end: 37 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        anims.create({
+            key: "enemy-stand-back",
+            frames: anims.generateFrameNumbers("enemigo", { start: 9, end: 21 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        anims.create({
+            key: "enemy-stand",
+            frames: anims.generateFrameNumbers("enemigo", { start: 0, end: 8 }),
+            frameRate: 8,
+            repeat: -1
+        });
 
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, function (enemy, player) {
-            player.disableBody(true,true);
+            player.disableBody(true, true);
             this.scene.player.end = true;
         }, null, this);
 
@@ -70,101 +70,100 @@ export default class Enemy {
         {
             this.scene.hasPlayerReachedStairs = true;
         }*/
-        
+
         //TODO no se para que vale esto
         this.scene.physics.add.collider(this.sprite, this.scene.player.weapon.gun);
         this.scene.physics.add.overlap(this.sprite, this.scene.player.weapon.bullets, disparoCertero, null, this);
 
-        function disparoCertero(enemy, bullet)
-        {
+        function disparoCertero(enemy, bullet) {
             //this.sprite.disableBody(true, true);
             //Puede que en un futuro cuando haya muchos enemigosnnecesitemos hacer un kill
             enemy.disableBody(true, true);
             this.scene.player.weapon.matar(bullet);
-            this.scene.score+=100;
-        }   
+            this.scene.score += 100;
+        }
         this.sprite.anims.play('enemy-stand', true);
     }
 
     freeze() {
-        this.sprite.body.moves = false;   
+        this.sprite.body.moves = false;
     }
 
-    ocultar(){
+    ocultar() {
         this.sprite.setDepth(1);
     }
-    
-    mostrar(){
+
+    mostrar() {
         this.sprite.setDepth(4);
     }
     destroy() {
         this.sprite.destroy();
     }
     update() {
-        if(!this.end){
-        const sprite = this.sprite;
-        var angleSprite = this.anguloSprite;
-        var cercano = false;
-        var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
+        if (!this.end) {
+            const sprite = this.sprite;
+            var angleSprite = this.anguloSprite;
+            var cercano = false;
+            var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
 
-        if (distancia > 20 && distancia < 250) {
-            this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 100);
-            cercano = true;
-            //this.scene.physics.moveTo(sprite, this.scene.player.sprite.x, this.scene.player.sprite.y, 50);
-        } else {
-            cercano = false;
-            this.sprite.body.setVelocityX(0);
-            this.sprite.body.setVelocityY(0);
-            this.sprite.anims.play('enemy-stand', true);
-        }
+            if (distancia > 20 && distancia < 250) {
+                this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 100);
+                cercano = true;
+                //this.scene.physics.moveTo(sprite, this.scene.player.sprite.x, this.scene.player.sprite.y, 50);
+            } else {
+                cercano = false;
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play('enemy-stand', true);
+            }
 
-        if(sprite.y < this.scene.player.sprite.y){
-            this.ocultar();
-        }else{
-            this.mostrar();
-        }
+            if (sprite.y < this.scene.player.sprite.y) {
+                this.ocultar();
+            } else {
+                this.mostrar();
+            }
 
-        var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
+            var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
 
-        //Angulos en Radianes
-        var angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
-        var angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
-        //Angulos en Grados
-        var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
-        var angleDeg = Phaser.Math.RadToDeg(angle);
+            //Angulos en Radianes
+            var angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
+            var angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
+            //Angulos en Grados
+            var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
+            var angleDeg = Phaser.Math.RadToDeg(angle);
 
-        var angleDif = angleSprite - angleDeg;
-        
+            var angleDif = angleSprite - angleDeg;
+
             angleSprite = angleSnapDeg;
             this.anguloSprite = angleSprite;
-        if(cercano){
-            switch (angleSprite) {
-                case 0:
-                    this.sprite.anims.play('enemy-walk', true);
-                    sprite.setFlipX(false);
-                    break;
-                case 90:
-                    this.sprite.anims.play('enemy-walk', true);
-                    break;
-                case 180:
-                case -180:
-                    this.sprite.anims.play('enemy-walk', true);
-                    sprite.setFlipX(true);
-                    break;
+            if (cercano) {
+                switch (angleSprite) {
+                    case 0:
+                        this.sprite.anims.play('enemy-walk', true);
+                        sprite.setFlipX(false);
+                        break;
+                    case 90:
+                        this.sprite.anims.play('enemy-walk', true);
+                        break;
+                    case 180:
+                    case -180:
+                        this.sprite.anims.play('enemy-walk', true);
+                        sprite.setFlipX(true);
+                        break;
 
-                case -90:
-                    this.sprite.anims.play('enemy-walk-back', true);
-                    break;
-                break;
+                    case -90:
+                        this.sprite.anims.play('enemy-walk-back', true);
+                        break;
+                        break;
+                }
+
             }
-        
+            if (this.anguloSprite == -90) {
+                // sprite.setTexture("characters", 64);
+            } else {
+                // sprite.setTexture("characters", 46);
+            };
         }
-        if (this.anguloSprite == -90) {
-           // sprite.setTexture("characters", 64);
-        } else {
-           // sprite.setTexture("characters", 46);
-        };
     }
-    }
-    
+
 }

@@ -9,12 +9,12 @@ import RoomFactory from "./roomFactory.js";
 
 
 export default class Game extends Phaser.Scene {
-    
+
 
     constructor() {
         super({ key: 'game' });
-        this.level=0;
-        this.score=0;
+        this.level = 0;
+        this.score = 0;
     }
 
     create() {
@@ -25,7 +25,7 @@ export default class Game extends Phaser.Scene {
         var width = this.scale.width;
         var height = this.scale.height;
         this.level++;
-        this.hasPlayerReachedStairs = false;
+        this.hasPlayerReachedTrump = false;
 
         // Genera un mundo aleatorio con algunas opciones adicionales:
         // - Las habitaciones solo deben tener dimensiones de números impares para que tengan un mosaico central.
@@ -47,7 +47,7 @@ export default class Game extends Phaser.Scene {
             floor: "☁️",
             door: "🚪"
         });
-        
+
         // Append the element to an existing element on the page
         document.body.appendChild(html);
 
@@ -62,19 +62,19 @@ export default class Game extends Phaser.Scene {
 
         // Coloca al jugador en la primera habitación
         this.player = new Player(this, x, y);
-        
+
         this.enemy = [];
-        this.otherRoomsEmpty.forEach(salaEnemigo => {
+        this.otherRoomsFull.forEach(salaEnemigo => {
             var x = map.tileToWorldX(salaEnemigo.centerX);
             var y = map.tileToWorldY(salaEnemigo.centerY);
-            this.enemy.push(new Enemy(this,x ,y));
+            this.enemy.push(new Enemy(this, x, y));
         });
         //this.enemyshoot = new Enemyshoot(this, x+140, y+140);
 
         var centroFinalX = map.tileToWorldX(this.endRoom.centerX);
-        var centroFinalY = map.tileToWorldX(this.endRoom.centerY+2);
+        var centroFinalY = map.tileToWorldX(this.endRoom.centerY + 2);
         this.trump = new Trump(this, centroFinalX, centroFinalY);
-        
+
         console.log(this.dungeon);
 
         // Mira las capas del jugador y del mapa de mosaicos para ver si hay colisiones, durante la duración de la escena
@@ -92,29 +92,28 @@ export default class Game extends Phaser.Scene {
 
         //Musica
         if (datosConfig.music) {
-            
+
             const musicConfig = datosConfig.musicConfig;
-             // config es opcional
+            // config es opcional
             this.music = this.sound.add("backgroundMusic", musicConfig);
             // El sonido solo se activará cuando se pase a la escena de juego
             this.music.play();
         }
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        var barConfig = {x: 200, y: 100};
-	   
-        var texto =this.add.text(16, 16, `Vidas ${this.player.health}`, {
+        var barConfig = { x: 200, y: 100 };
+
+        this.textInfo = this.add.text(16, 16, `Encuentra a trump. Nivel: ${this.level} Puntuación: ${this.score} Vidas ${this.player.health}`, {
             font: "18px monospace",
             fill: "#000000",
             padding: { x: 20, y: 10 },
-            backgroundColor: "#ffffff"
-          })
-          .setScrollFactor(0);
-        texto.setDepth(10);
+            backgroundColor: "#FFFFFFB0",
+
+        }).setScrollFactor(0).setDepth(5);
     }
     update(time, delta) {
         //Solo si no ha encontrado las escaleras
-        if (!this.hasPlayerReachedStairs) {
+        if (!this.hasPlayerReachedTrump) {
 
             if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
                 console.log("pulsado");
@@ -127,8 +126,8 @@ export default class Game extends Phaser.Scene {
                 this.scene.pause();
                 this.scene.launch('end');
                 this.scene.setVisible(false);
-                this.level=0;
-                this.score=0;
+                this.level = 0;
+                this.score = 0;
             }
             this.player.update();
             this.trump.update();
@@ -136,23 +135,16 @@ export default class Game extends Phaser.Scene {
             this.enemy.forEach(enemigo => {
                 enemigo.update();
             });
-
-            // Texto de ayuda que tiene una posición "fija" en la pantalla
-            this.add.text(16, 16, `Encuentra a trump. Nivel: ${this.level} Puntuación: ${this.score}`, {
-                font: "18px monospace",
-                fill: "#000000",
-                padding: { x: 20, y: 10 },
-                backgroundColor: "#FFFFFFB0",
-
-            }).setScrollFactor(0).setDepth(5);
         }
+
+        this.textInfo.setText(`Encuentra a trump. Nivel: ${this.level} Puntuación: ${this.score} Vidas ${this.player.health}`);
 
         // Encuentra la habitación del jugador usando otro método de ayuda de la mazmorra que convierte
         // mazmorra XY (en unidades de cuadrícula) al objeto de sala correspondiente
         const playerTileX = this.groundLayer.worldToTileX(this.player.sprite.x);
         const playerTileY = this.groundLayer.worldToTileY(this.player.sprite.y);
         const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
-        if (this.playerRoom != playerRoom){
+        if (this.playerRoom != playerRoom) {
             this.tilemapVisibility.setActiveRoom(playerRoom);
             this.playerRoom = playerRoom;
         }

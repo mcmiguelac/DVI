@@ -1,28 +1,24 @@
+import { datosConfig } from "./config.js";
 export default class Weapon {
     constructor(scene, x, y) {
         this.scene = scene;
         this.x = x;
         this.y = y;
-        var musicAttackConfig = {
-            mute: false,
-            volume: 0.1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: false,
-            delay: 0
-        };
 
-        this.attackSpeed = 100;
+
+        this.delayAttackSpeed = 500;//No bajar mucho o causa fallo.
         this.attackTimerPass = true;
+
+        const musicAttackConfig = datosConfig.musicConfig;
+        musicAttackConfig.loop = false;
         this.attackAudio = this.scene.sound.add("bulletAudio", musicAttackConfig);
 
         //Pool 50 bullets
         this.bullets = this.scene.add.group();
-        
+
         for (let index = 0; index < 30; index++) {
             let bullet = this.scene.physics.add.sprite(this.x, this.y, 'bullet').setDisplaySize(20, 20).setSize(4, 4);
-          
+
             this.scene.physics.add.collider(bullet, this.scene.groundLayer, this.matar, null, this);
             this.scene.physics.add.collider(bullet, this.scene.stuffLayer, this.matar, null, this);
 
@@ -30,10 +26,10 @@ export default class Weapon {
             //this.bullets.killAndHide(bullet);
             this.matar(bullet);
         }
-        
+
     }
 
-    
+
     matar(bullet) {
         //this.bullets.killAndHide(bullet);
         this.bullets.kill(bullet);
@@ -55,30 +51,30 @@ export default class Weapon {
         }
     }
 
-    shoot( direccion ,x,y) {
-        
+    shoot(direccion, x, y) {
+
         if (this.attackTimerPass) {
-            
-            let shotVelocity =1000;
+
+            let shotVelocity = 1000;
 
             var bullet = this.bullets.getFirstDead(false);
 
             this.scene.physics.add.collider(bullet, this.scene.enemy, this.matar(bullet));
 
             this.revivir(x, y, bullet);
-           
-            
-            switch(direccion){
-                case 0: bullet.body.setVelocityX(shotVelocity);bullet.angle = 0; break;
-                case 90:  bullet.body.setVelocityY(shotVelocity);bullet.angle = 90; break;
-                case -90: bullet.body.setVelocityY(-shotVelocity);bullet.angle = 90 ;break;
-                case 180:  bullet.body.setVelocityX(-shotVelocity);bullet.angle = 0;break;
+
+
+            switch (direccion) {
+                case 0: bullet.body.setVelocityX(shotVelocity); bullet.angle = 0; break;
+                case 90: bullet.body.setVelocityY(shotVelocity); bullet.angle = 90; break;
+                case -90: bullet.body.setVelocityY(-shotVelocity); bullet.angle = 90; break;
+                case 180: bullet.body.setVelocityX(-shotVelocity); bullet.angle = 0; break;
             }
 
             // this.scene.physics.moveTo(bullet, x, y, shotVelocity);
             this.attackAudio.play();
             this.attackTimerPass = false;
-            this.scene.time.delayedCall(this.attackSpeed, function () {
+            this.scene.time.delayedCall(this.delayAttackSpeed, function () {
                 this.attackTimerPass = true;
             }, [], this);
 
