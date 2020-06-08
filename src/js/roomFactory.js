@@ -11,6 +11,8 @@ export default class RoomFactory {
         game.groundLayer = tileMap.createBlankDynamicLayer("Ground", tileset);
         //Decoracion
         game.stuffLayer = tileMap.createBlankDynamicLayer("Stuff", tileset);
+        //Decoracion artrabesable
+        game.stuffLayerAtravesable = tileMap.createBlankDynamicLayer("StuffAtravesable", tileset);
         //game.enemyLayer = tileMap.createBlankDynamicLayer("Enemy", tileset);
         //Capa de ocultacion
         game.shadowLayer = tileMap.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK).setDepth(5);
@@ -134,9 +136,11 @@ export default class RoomFactory {
         var tilesBound = Array.apply(null, { length: 30 }).map(function (value, index) {
             return index + 15;
         });
-        game.groundLayer.setCollision(tilesBound);
 
-        //game.stuffLayer.setCollisionByExclusion([-1]);
+        game.groundLayer.setCollision(tilesBound);
+        //Excluimos todas la que corresponden con alfombras o puertas
+        game.stuffLayer.setCollisionByExclusion([-1]);
+        
 
         //Encontró la salida
         /*game.stuffLayer.setTileIndexCallback(TILES.COFRE, () => {
@@ -159,16 +163,16 @@ export default class RoomFactory {
         endRoom.getDoorLocations().forEach(door => {
             if (door.y === 0) {
                 //game.groundLayer.putTilesAt(TILES.DOOR.TOP, x + doors[i].x - 1, y + doors[i].y);
-                game.stuffLayer.putTilesAt(TILES.DOOR.SALIDA_TOP, endRoom.x + door.x, endRoom.y + door.y - 1);
+                game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_TOP, endRoom.x + door.x, endRoom.y + door.y - 1);
             } else if (door.y === endRoom.height - 1) {
                 //game.groundLayer.putTilesAt(TILES.DOOR.BOTTOM, x + doors[i].x - 1, y + doors[i].y);
-                game.stuffLayer.putTilesAt(TILES.DOOR.SALIDA_BOTTOM, endRoom.x + door.x, endRoom.y + door.y);
+                game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_BOTTOM, endRoom.x + door.x, endRoom.y + door.y);
             } else if (door.x === 0) {
                 //game.groundLayer.putTilesAt(TILES.DOOR.LEFT, x + doors[i].x, y + doors[i].y - 2);
-                game.stuffLayer.putTilesAt(TILES.DOOR.SALIDA_LEFT, endRoom.x + door.x - 1, endRoom.y + door.y);
+                game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_LEFT, endRoom.x + door.x - 1, endRoom.y + door.y);
             } else if (door.x === endRoom.width - 1) {
                 //game.groundLayer.putTilesAt(TILES.DOOR.RIGHT, x + doors[i].x, y + doors[i].y - 2);
-                game.stuffLayer.putTilesAt(TILES.DOOR.SALIDA_RIGHT, endRoom.x + door.x, endRoom.y + door.y);
+                game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_RIGHT, endRoom.x + door.x, endRoom.y + door.y);
             }
         });
     }
@@ -242,7 +246,7 @@ export default class RoomFactory {
     }
     otherRoomsEmptyNew(game, otherRoomsEmpty) {
         otherRoomsEmpty.forEach(room => {
-            game.stuffLayer.putTilesAt(TILES.ALFOMBRA_EEUU, room.centerX - 1, room.centerY);
+            game.stuffLayerAtravesable.putTilesAt(TILES.ALFOMBRA_EEUU, room.centerX - 1, room.centerY);
         });
     }
 

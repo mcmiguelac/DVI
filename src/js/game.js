@@ -124,17 +124,26 @@ export default class Game extends Phaser.Scene {
 
             if (this.player.end) {
                 this.scene.pause();
+
+                this.player.destroy();
+                this.music.destroy();
+                //TODO destoy todos los elementos
+                this.enemy.forEach(enemigo => {
+                    enemigo.destroy();
+                });
+                this.trump.destroy();
                 this.scene.launch('end');
                 this.scene.setVisible(false);
                 this.level = 0;
                 this.score = 0;
-            }
-            this.player.update();
-            this.trump.update();
+            } else {
+                this.player.update();
+                this.trump.update();
 
-            this.enemy.forEach(enemigo => {
-                enemigo.update();
-            });
+                this.enemy.forEach(enemigo => {
+                    enemigo.update();
+                });
+            }
         }
 
         this.textInfo.setText(`Encuentra a trump. Nivel: ${this.level} Puntuación: ${this.score} Vidas ${this.player.health}`);

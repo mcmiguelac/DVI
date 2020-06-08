@@ -52,6 +52,7 @@ export default class Trump {
             if (!this.hasPlayerReachedTrump) {
                 this.hasPlayerReachedTrump = true;
                 this.player.freeze();
+                this.trump.freeze();
                 this.score += 100;
                 this.cameras.main.fade(250, 0, 0, 0);
                 this.cameras.main.once("camerafadeoutcomplete", () => {
