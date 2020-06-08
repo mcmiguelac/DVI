@@ -4,7 +4,7 @@ export default class Intro extends Phaser.Scene {
     constructor() {
         super({ key: 'intro' });
     }
-    
+
     create() {
         var width = this.scale.width;
         var height = this.scale.height;
@@ -37,13 +37,11 @@ export default class Intro extends Phaser.Scene {
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
         if (datosConfig.music) {
-
             const musicConfig = datosConfig.musicConfig;
             this.music = this.sound.add("musicaIntro", musicConfig);
-            // El sonido solo se activará cuando se pase a la escena de juego
-
             this.music.play();
         }
+
         gobackButton.on('pointerup', function (value) {
 
             instanciaScene.start('game');
@@ -52,18 +50,16 @@ export default class Intro extends Phaser.Scene {
     }
 
     update() {
-
         if (this.contador < 17) {
             this.texto.y -= 0.3;
         }
         else {
             this.music.destroy();
-            this.scene.start("game",{reinicio :true});
+            this.scene.start("game", { reinicio: true });
         }
-
     }
-
 }
+
 function onEvent() {
     this.contador += 1; // One second
     console.log(this.contador);

@@ -1,5 +1,3 @@
-
-
 export default class Pause extends Phaser.Scene {
     constructor() {
         super({ key: 'pause' });
@@ -63,12 +61,11 @@ export default class Pause extends Phaser.Scene {
 
             this.gameScene.player.destroy();
             this.gameScene.music.destroy();
-            //TODO destoy todos los elementos
             this.gameScene.enemy.forEach(enemigo => {
                 enemigo.destroy();
             });
             this.gameScene.trump.destroy();
-            instanciaScene.start('inicio'/*,{modificado : false}*/);
+            instanciaScene.start('inicio');
             this.gameScene.level = 0;
             this.gameScene.score = 0;
             this.gameScene.destroy();
@@ -79,7 +76,6 @@ export default class Pause extends Phaser.Scene {
 
         this.add.image(0, 0, 'background').setOrigin(0.01).setDepth(0).setScale(1.75);
 
-        //Personas inicio
         var rand = Math.random();
         var miniA = this.physics.add.sprite(100, 100, 'mini ' + Math.floor(rand * 10 + 1));
         miniA.setBounce(rand);

@@ -109,7 +109,8 @@ export default class LoadScene extends Phaser.Scene {
         this.load.scenePlugin({
             key: 'rexuiplugin',
             url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
-            sceneKey: 'rexUI'});    
+            sceneKey: 'rexUI'
+        });
         this.load.spritesheet(
             "trump",
             "assets/spritesheets/trumpSprite.png",

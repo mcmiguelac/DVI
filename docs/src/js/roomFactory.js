@@ -22,10 +22,6 @@ export default class RoomFactory {
         game.dungeon.rooms.forEach(room => {
             //const { x, y, width, height } = room;
             const { x, y, width, height, left, right, top, bottom } = room;
-            // Llena el suelo con baldosas en su mayoría limpias, pero ocasionalmente coloca una baldosa sucia
-            // Consulte el ejemplo de "Aleatorización ponderada" para obtener más información sobre cómo usar weightedRandomize.
-            // Esto se ha modificado para que todas las balsodas sean iguales, TODO en otra version se ensuciarán
-            //game.floorLayer.weightedRandomize(x, y, width, height, TILES.FLOOR);
             game.floorLayer.fill(TILES.FLOOR, left, top, width, height);
         });
 
@@ -46,11 +42,6 @@ export default class RoomFactory {
             game.groundLayer.fill(TILES.WALL.BOTTOM, left + 1, bottom, width - 2, 1);
             game.groundLayer.fill(TILES.WALL.LEFT, left, top + 1, 1, height - 2);
             game.groundLayer.fill(TILES.WALL.RIGHT, right, top + 1, 1, height - 2);
-            /*game.groundLayer.weightedRandomize(left + 1, top, width - 2, 1, TILES.WALL.TOP);
-            game.groundLayer.weightedRandomize(left + 1, top + 1, width - 2, 1, TILES.WALL.SECOND_TOP);
-            game.groundLayer.weightedRandomize(left + 1, bottom, width - 2, 1, TILES.WALL.BOTTOM);
-            game.groundLayer.weightedRandomize(left, top + 1, 1, height - 2, TILES.WALL.LEFT);
-            game.groundLayer.weightedRandomize(right, top + 1, 1, height - 2, TILES.WALL.RIGHT);*/
 
             // Las mazmorras tienen habitaciones conectadas con puertas. Cada puerta tiene una x, y relativa a la
             // ubicación de la habitación. Cada dirección tiene una puerta diferente para el mapeo de mosaicos.
@@ -113,8 +104,6 @@ export default class RoomFactory {
                 }
             }
 
-            //puntTemp = puntTemp + (room.height*2 + room.width);
-
             if (puntTemp > puntuacion) {
                 puntuacion = puntTemp;
                 roomStudy = room;
@@ -140,46 +129,25 @@ export default class RoomFactory {
         game.groundLayer.setCollision(tilesBound);
         //Excluimos todas la que corresponden con alfombras o puertas
         game.stuffLayer.setCollisionByExclusion([-1]);
-
-
-        //Encontró la salida
-        /*game.stuffLayer.setTileIndexCallback(TILES.COFRE, () => {
-            game.stuffLayer.setTileIndexCallback(TILES.COFRE, null);
-            game.hasPlayerReachedStairs = true;
-            game.player.freeze();
-            game.score+=100;
-            game.cameras.main.fade(250, 0, 0, 0);
-            game.cameras.main.once("camerafadeoutcomplete", () => {
-                game.player.destroy();
-                game.scene.restart();
-                //TODO destoy todos los elementos
-            });
-        });*/
     }
     endRoomNew(game, endRoom) {
-        //Escaleras TODO
         game.stuffLayer.putTilesAt(TILES.TRONO, endRoom.centerX - 1, endRoom.centerY);
         game.stuffLayer.putTileAt(TILES.COFRE, endRoom.left + 1, endRoom.top + 2);
         endRoom.getDoorLocations().forEach(door => {
             if (door.y === 0) {
-                //game.groundLayer.putTilesAt(TILES.DOOR.TOP, x + doors[i].x - 1, y + doors[i].y);
                 game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_TOP, endRoom.x + door.x, endRoom.y + door.y - 1);
             } else if (door.y === endRoom.height - 1) {
-                //game.groundLayer.putTilesAt(TILES.DOOR.BOTTOM, x + doors[i].x - 1, y + doors[i].y);
                 game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_BOTTOM, endRoom.x + door.x, endRoom.y + door.y);
             } else if (door.x === 0) {
-                //game.groundLayer.putTilesAt(TILES.DOOR.LEFT, x + doors[i].x, y + doors[i].y - 2);
                 game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_LEFT, endRoom.x + door.x - 1, endRoom.y + door.y);
             } else if (door.x === endRoom.width - 1) {
-                //game.groundLayer.putTilesAt(TILES.DOOR.RIGHT, x + doors[i].x, y + doors[i].y - 2);
                 game.stuffLayerAtravesable.putTilesAt(TILES.DOOR.SALIDA_RIGHT, endRoom.x + door.x, endRoom.y + door.y);
             }
         });
     }
     otherRoomsFullNew(game, otherRoomsFull) {
-        //Cosas en las demas habitaciones TODO hacer correctament
+        //Cosas en las demas habitaciones
         otherRoomsFull.forEach(room => {
-            //var rand = Math.random();
             var rand = Math.round(Math.random() * 100) % 8;
             switch (rand) {
                 case 0:
@@ -217,31 +185,6 @@ export default class RoomFactory {
                 default:
                     break;
             }
-
-            if (rand <= 0.12) {
-                // 25% de probabilidad de objeto
-                //game.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
-                //game.stuffLayer.putTilesAt(TILES.ALFOMBRA_EEUU, room.centerX-1, room.centerY);
-            } else if (rand <= 0.24) {
-                // 50% de probabilidad de que haya un objeto random en cualquier lugar de la habitación ... ¡excepto que no bloquees una puerta!
-                const x = Phaser.Math.Between(room.left + 2, room.right - 2);
-                const y = Phaser.Math.Between(room.top + 3, room.bottom - 2);
-                //var valor =game.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.PLANTA);
-                //console.log(valor);
-            } else {
-                // 25% de 2 o 4 torres, dependiendo del tamaño de la habitación
-                /*if (room.height >= 8) {
-                    game.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY + 1);
-                    game.stuffLayer.putTilesAt(TILES.TOWER, room.centerX + 1, room.centerY + 1);
-                    game.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY - 2);
-                    game.stuffLayer.putTilesAt(TILES.TOWER, room.centerX + 1, room.centerY - 2);
-                } else {
-                    game.stuffLayer.putTilesAt(TILES.TOWER, room.centerX - 1, room.centerY - 1);
-                    game.stuffLayer.putTilesAt(TILES.TOWER, room.centerX + 1, room.centerY - 1);
-                }*/
-                // 25% de maceta
-                //game.stuffLayer.putTilesAt(TILES.TOWER, room.left + 1, room.top + 1);
-            }
         });
     }
     otherRoomsEmptyNew(game, otherRoomsEmpty) {
@@ -249,8 +192,6 @@ export default class RoomFactory {
             game.stuffLayerAtravesable.putTilesAt(TILES.ALFOMBRA_EEUU, room.centerX - 1, room.centerY);
         });
     }
-
-    //TODO añadir banderas a todo
 
     //Decoracion de la cocina
     cocina(game, room) {
@@ -271,7 +212,7 @@ export default class RoomFactory {
 
     salon(game, room) {
         this.inicializarArray(room);
-        const listaObjetos = [TILES.TELE, TILES.ESTANTE_VACIO,TILES.BANDERA,  TILES.TELEFONO, TILES.PLANTA];
+        const listaObjetos = [TILES.TELE, TILES.ESTANTE_VACIO, TILES.BANDERA, TILES.TELEFONO, TILES.PLANTA];
         this.colocarObjetosArriba(game, room, listaObjetos);
         this.colocarSofa(game, room);
         const listaObjetos3 = [TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO];
@@ -310,7 +251,6 @@ export default class RoomFactory {
     }
 
     laboratorio(game, room) {
-        //Poner cosas por mitad
         this.inicializarArray(room);
         const listaObjetos = [TILES.LABORATORIO];
         this.colocarObjetosMedio(game, room, listaObjetos);
@@ -327,7 +267,6 @@ export default class RoomFactory {
     }
 
     toilete(game, room) {
-        //Poner cosas por mitad
         this.inicializarArray(room);
         const listaObjetos = [TILES.WC, TILES.LABAVO, TILES.DUCHA, TILES.BANDERA, TILES.PLANTA, TILES.BANDERA_PAREZ];
         this.colocarObjetosArriba(game, room, listaObjetos);
@@ -446,14 +385,14 @@ export default class RoomFactory {
                 case 1:
                     switch (ancho) {
                         case 1:
-                            if (room.arrayOcupados[posicion[0]][posicion[1] - 1] <= 1 && 
+                            if (room.arrayOcupados[posicion[0]][posicion[1] - 1] <= 1 &&
                                 room.arrayOcupados[posicion[0]][posicion[1] + 1] <= 1 &&
-                                room.arrayOcupados[posicion[0]-1][posicion[1]] <= 1 && 
-                                room.arrayOcupados[posicion[0]-1][posicion[1] - 1] <= 1 && 
-                                room.arrayOcupados[posicion[0]-1][posicion[1] + 1] <= 1) {
+                                room.arrayOcupados[posicion[0] - 1][posicion[1]] <= 1 &&
+                                room.arrayOcupados[posicion[0] - 1][posicion[1] - 1] <= 1 &&
+                                room.arrayOcupados[posicion[0] - 1][posicion[1] + 1] <= 1) {
                                 game.stuffLayer.putTileAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
                                 room.arrayOcupados[posicion[0]][posicion[1]] = 4;
-                                room.arrayOcupados[posicion[0]-1][posicion[1]] = 3;
+                                room.arrayOcupados[posicion[0] - 1][posicion[1]] = 3;
                                 colocado = true;
                             }
                             break;
@@ -533,9 +472,6 @@ export default class RoomFactory {
                     break;
                 case 3:
                     switch (ancho) {
-                        case 1:
-                            //No existen objetos
-                            break;
                         case 2:
                             if (room.arrayOcupados[posicion[0] - 1][posicion[1]] <= 1 &&
                                 room.arrayOcupados[posicion[0] - 1][posicion[1] + 1] <= 1 &&
@@ -565,9 +501,6 @@ export default class RoomFactory {
                                 room.arrayOcupados[posicion[0] + 2][posicion[1] + 2] = 4;
                                 colocado = true;
                             }
-                            break;
-                        case 3:
-                            //No existen
                             break;
                     }
                     break;

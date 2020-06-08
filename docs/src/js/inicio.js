@@ -1,15 +1,8 @@
 
-import { datosConfig } from "./config.js";
 export default class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: 'inicio' });
     }
-    /*init(data){
-        if(data.modificado==false){
-            datosConfig.dungeon.height=30;
-            datosConfig.dungeon.width=30;
-        }
-    }*/
     create() {
         var width = this.scale.width;
         var height = this.scale.height;
@@ -43,7 +36,6 @@ export default class Inicio extends Phaser.Scene {
 
         playButton.on('pointerup', function (value) {
             instanciaScene.start('intro');
-            //instanciaScene.start('FinalkillTrump');
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();
@@ -68,7 +60,6 @@ export default class Inicio extends Phaser.Scene {
 
         this.add.image(0, 0, 'background').setOrigin(0.01).setDepth(0).setScale(1.75);
 
-        //Personas inicio
         var rand = Math.random();
         var miniA = this.physics.add.sprite(100, 100, 'mini ' + Math.floor(rand * 10 + 1));
         miniA.setBounce(rand);

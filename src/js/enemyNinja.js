@@ -1,4 +1,4 @@
-
+import Character from "./character.js";
 /*
 * Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
 * respuesta a las teclas WASD. 
@@ -7,46 +7,43 @@
 */
 
 
-export default class EnemyNinja {
-
+export default class EnemyNinja extends Character{
     constructor(scene, x, y) {
-        this.hit = false;
+        super(scene, x, y)
         this.vida = 0;
+
+        this.hit = false;
         this.end = false;
-        this.x = x;
-        this.y = y;
-        this.scene = scene;
-        this.anguloSprite = 0;
-        this.animation = "ninja-walk";
+
+        super.animationName ="ninja-stand";
+
         this.sprite = scene.physics.add
             .sprite(x, y, "ninja", 0)
             .setSize(14, 25)
             .setOffset(10, 5);
 
-        const anims = scene.anims;
         this.sprite.setScale(1.75);
-        anims.create({
+        scene.anims.create({
             key: "ninja-walk-back",
-            frames: anims.generateFrameNumbers("ninja", { start: 0, end: 7 }),
+            frames: scene.anims.generateFrameNumbers("ninja", { start: 0, end: 7 }),
             frameRate: 16,
             repeat: -1
         });
-        anims.create({
+        scene.anims.create({
             key: "ninja-walk",
-            frames: anims.generateFrameNumbers("ninja", { start: 8, end: 15 }),
+            frames: scene.anims.generateFrameNumbers("ninja", { start: 8, end: 15 }),
             frameRate: 16,
             repeat: -1
         });
-        anims.create({
+        scene.anims.create({
             key: "ninja-stand",
-            frames: anims.generateFrameNumbers("ninja", { start: 16, end: 16 }),
+            frames: scene.anims.generateFrameNumbers("ninja", { start: 16, end: 16 }),
             frameRate: 8,
             repeat: -1
         });
 
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, function (enemyNinja, player) {
             if (!this.scene.player.inmune) {
-                //player.disableBody(true, true);
                 this.scene.player.inmune = true;
                 this.scene.player.health -= 1;
                 if (this.scene.player.health == 0) {
@@ -64,32 +61,9 @@ export default class EnemyNinja {
 
         }, null, this);
 
-        /*this.scene.physics.add.overlap(this.sprite, this.scene.player.sprite, ganador, null, this.scene);
-        function ganador(enemy, player)
-        {
-            this.hasPlayerReachedStairs = true;
-            this.player.freeze();
-            this.score+=100;
-            this.cameras.main.fade(250, 0, 0, 0);
-            this.cameras.main.once("camerafadeoutcomplete", () => {
-                this.player.destroy();
-                this.scene.restart();
-                //TODO destoy todos los elementos
-            });
-        }*/
-        /*this.scene.physics.add.overlap(this.sprite, this.scene.player.sprite, ganador, null, this);
-        function ganador(enemy, player)
-        {
-            this.scene.hasPlayerReachedStairs = true;
-        }*/
-
-        //TODO no se para que vale esto
-        this.scene.physics.add.collider(this.sprite, this.scene.player.weapon.gun);
         this.scene.physics.add.overlap(this.sprite, this.scene.player.weapon.bullets, disparoCertero, null, this);
 
         function disparoCertero(enemyNinja, bullet) {
-            //this.sprite.disableBody(true, true);
-            //Puede que en un futuro cuando haya muchos enemigosnnecesitemos hacer un kill
             this.scene.player.weapon.matar(bullet);
             if (this.vida == 0) {
                 enemyNinja.disableBody(true, true);
@@ -98,7 +72,6 @@ export default class EnemyNinja {
             this.vida -= 1;
             this.scene.score += 100;
             if (!this.hit) {
-                //player.disableBody(true, true);
                 this.hit = true;
                 this.scene.time.delayedCall(100, function () {
                     this.hit = false;
@@ -108,7 +81,7 @@ export default class EnemyNinja {
                 this.sprite.setTintFill("0xfc2525")
             }
         }
-        this.sprite.anims.play('ninja-stand', true);
+        this.sprite.anims.play(this.animation, true);
         
         this.scene.physics.add.collider(this.sprite, this.scene.groundLayer);
         this.scene.physics.add.collider(this.sprite, this.scene.stuffLayer);
@@ -120,25 +93,9 @@ export default class EnemyNinja {
 
         }
     }
-
-    freeze() {
-        this.sprite.body.moves = false;
-    }
-
-    ocultar() {
-        this.sprite.setDepth(1);
-    }
-
-    mostrar() {
-        this.sprite.setDepth(4);
-    }
-    destroy() {
-        this.sprite.destroy();
-    }
     update() {
         if (!this.end) {
             const sprite = this.sprite;
-            var angleSprite = this.anguloSprite;
             var cercano = false;
             var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
 
@@ -152,15 +109,11 @@ export default class EnemyNinja {
                     var angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
                     //Angulos en Grados
                     var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
-                    var angleDeg = Phaser.Math.RadToDeg(angle);
-
-                    var angleDif = angleSprite - angleDeg;
-
-                    angleSprite = angleSnapDeg;
-                    this.anguloSprite = angleSprite;
+              
+                    this.anguloSprite = angleSnapDeg;
                     cercano = true;
                     if (cercano) {
-                        switch (angleSprite) {
+                        switch (this.anguloSprite) {
                             case 0:
                                 this.sprite.anims.play('ninja-walk', true);
                                 sprite.setFlipX(false);
@@ -186,7 +139,6 @@ export default class EnemyNinja {
                 this.sprite.body.setVelocityX(0);
                 this.sprite.body.setVelocityY(0);
 
-                //this.scene.physics.moveTo(sprite, this.scene.player.sprite.x, this.scene.player.sprite.y, 50);
             } else {
                 cercano = false;
                 this.sprite.body.setVelocityX(0);
@@ -199,13 +151,6 @@ export default class EnemyNinja {
             } else {
                 this.mostrar();
             }
-
-
-            if (this.anguloSprite == -90) {
-                // sprite.setTexture("characters", 64);
-            } else {
-                // sprite.setTexture("characters", 46);
-            };
         }
     }
 

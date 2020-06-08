@@ -12,23 +12,15 @@ const TILE_MAPPING = {
     BOTTOM_RIGHT: calculo(2, 9),
     BOTTOM_LEFT: calculo(2, 8),
     TOP: calculo(1, 3),
-    /*TOP: [{ index: 39, weight: 4 }, { index: [57, 58, 59], weight: 1 }],
-    SECOND_TOP: [{ index: calculo(2,3), weight: 10 }],
-    LEFT: [{ index: calculo(2,10), weight: 10 }],
-    RIGHT: [{ index: calculo(2,10), weight: 10 }],
-    BOTTOM: [{ index: calculo(1,3), weight: 10 }]*/
     SECOND_TOP: calculo(2, 3),
     LEFT: calculo(2, 10),
     RIGHT: calculo(2, 10),
     BOTTOM: calculo(1, 3)
   },
   FLOOR: calculo(15, 9),
-  //FLOOR: [{ index: calculo(15,9), weight: 5 }],
-  //RANDOM_OBJECT: [{ index: 233, weight: 1 }, { index: 278, weight: 1 }, { index: 279, weight: 1 }],
   DOOR: {
     TOP: [[calculo(2, 9), calculo(15, 9), calculo(2, 8)],
     [calculo(2, 2), calculo(15, 9), calculo(2, 1)]],
-    // prettier-ignore
     LEFT: [
       [calculo(2, 9)],
       [calculo(2, 2)],
@@ -164,7 +156,6 @@ const TILE_MAPPING = {
     [calculo(9, 2)],
     [calculo(10, 2)]
   ],
-  //SUELO_DUCHA: [[2]],
   //Centro
   TRONO: [
     [calculo(9, 11), calculo(9, 12)],

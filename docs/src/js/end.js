@@ -30,14 +30,12 @@ export default class End extends Phaser.Scene {
         })
 
         gobackButton.on('pointerup', function (value) {
-            //Ejecutar destroy de tooo
-            instanciaScene.start('inicio'/*, {modificado :false}*/);
+            instanciaScene.start('inicio');
             miniA.destroy();
         })
 
         this.add.image(0, 0, 'final').setOrigin(0.01).setDepth(0).setScale(1.75);
 
-        //Personas inicio
         var rand = Math.random();
         var miniA = this.physics.add.sprite(100, 100, 'trumpDead');
         miniA.setScale(2);

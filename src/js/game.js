@@ -1,16 +1,12 @@
 import Player from "./player.js";
 import Trump from "./trump.js";
-import Enemy from "./enemy.js";
-import TILES from "./tile-mapping.js";
-import TilemapVisibility from "./tilemap-visibility.js";
+import EnemyKiller from "./enemyKiller.js";
 import EnemyNinja from "./enemyNinja.js";
 import { datosConfig } from "./config.js";
 import RoomFactory from "./roomFactory.js";
 
 
 export default class Game extends Phaser.Scene {
-
-
     constructor() {
         super({ key: 'game' });
         this.level = 0;
@@ -19,7 +15,6 @@ export default class Game extends Phaser.Scene {
 
     init(data) {
         console.log(data.reinicio)
-        let ok = true;
 
         if (data.reinicio == true) {
             console.log("entro")
@@ -29,9 +24,6 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        //Creacion del cursor
-        //var scoreText;
-        //this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000000' }).setScrollFactor(0).setDepth(6);
         this.victoria = false;
         this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
         var width = this.scale.width;
@@ -51,14 +43,12 @@ export default class Game extends Phaser.Scene {
                 this.textInfo6.setText("Le encontraste pero ha huido ! Que raro... ")
                 this.time.delayedCall(3000, function () {
                     this.textInfo6.setText(" ");
-                    // this.matar(bullet);
                 }, [], this)
             }
             if (this.level == 3) {
                 this.textInfo6.setText("Quizás huye porque Él sabe que es\n el culpable de todo...")
                 this.time.delayedCall(3000, function () {
                     this.textInfo6.setText(" ");
-                    // this.matar(bullet);
                 }, [], this);
             }
             this.configMapa.height = Math.round(this.configMapa.height * 1.5);
@@ -118,8 +108,6 @@ export default class Game extends Phaser.Scene {
         this.enemy = [];
 
         this.otherRoomsFull.forEach(salaEnemigo => {
-            // var x = map.tileToWorldX(salaEnemigo.centerX);
-            // var y = map.tileToWorldY(salaEnemigo.centerY);
             let alto = salaEnemigo.height;
             let ancho = salaEnemigo.width;
 
@@ -141,20 +129,12 @@ export default class Game extends Phaser.Scene {
                     let num = Math.floor(Math.random() * 10);
                     if (num < 5)
                         this.enemy.push(new EnemyNinja(this, x, y));
-                    else this.enemy.push(new Enemy(this, x, y));
+                    else this.enemy.push(new EnemyKiller(this, x, y));
                     salaEnemigo.arrayOcupados[rand_i][rand_j] = 5;
                     numero_colocados++;
                 }
-
-
-
             }
-
-
-
-            //this.enemy.push(new Enemy(this, x, y));
         });
-        //this.enemyshoot = new Enemyshoot(this, x+140, y+140);
 
         var centroFinalX = map.tileToWorldX(this.endRoom.centerX);
         var centroFinalY = map.tileToWorldX(this.endRoom.centerY + 2);
@@ -184,7 +164,6 @@ export default class Game extends Phaser.Scene {
         }
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        var barConfig = { x: 200, y: 100 };
 
         this.textInfo1 = this.add.text(16, 16, `Encuentra a trump. Nivel: ${this.level} `, {
             font: "25px monospace",
@@ -224,7 +203,6 @@ export default class Game extends Phaser.Scene {
 
                 this.player.destroy();
                 this.music.destroy();
-                //TODO destoy todos los elementos
                 this.enemy.forEach(enemigo => {
                     enemigo.destroy();
                 });
@@ -235,7 +213,6 @@ export default class Game extends Phaser.Scene {
                 this.score = 0;
             } else {
                 this.player.update();
-                this.trump.update();
 
                 this.enemy.forEach(enemigo => {
                     enemigo.update();

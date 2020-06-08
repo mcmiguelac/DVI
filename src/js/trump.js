@@ -1,20 +1,16 @@
-
+import Character from "./character.js";
 /*
 * Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
 * respuesta a las teclas WASD. 
 * método de actualización desde la actualización de la escena
 * método de destruccion cuando haya terminado con el jugador
 */
-//TODO hacer que esto sea trump
-export default class Trump {
+export default class Trump extends Character {
     constructor(scene, x, y) {
+        super(scene, x, y)
         this.end = false;
         this.health = 25;
-        this.x = x;
-        this.y = y;
-        this.scene = scene;
-        this.anguloSprite = 0;
-        this.animation = "enemy-walk";
+        super.animationName = "trump_quieto";
         this.sprite = scene.physics.add
             .sprite(x, y, "trump", 0)
             .setSize(19, 25)
@@ -46,15 +42,15 @@ export default class Trump {
             frameRate: 8,
             repeat: -1
         });
-        const instanciaScene = this.scene;
+
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, ganador, null, this.scene);
         function ganador(enemy, player) {
             // Define el nivel donde quieres que este el final de trump;
             // Los textos de historia estan hechos para 3 niveles
-            
-            if(this.level == 3){
+
+            if (this.level == 3) {
                 this.music.destroy();
-                this.scene.start('FinalkillTrump',{score : this.score, vidas : this.player.health});
+                this.scene.start('FinalkillTrump', { score: this.score, vidas: this.player.health });
             }
 
             else if (!this.hasPlayerReachedTrump) {
@@ -66,8 +62,7 @@ export default class Trump {
                 this.cameras.main.once("camerafadeoutcomplete", () => {
                     this.player.destroy();
                     this.music.destroy();
-                    this.scene.restart({reinicio :false});
-                    //TODO destoy todos los elementos
+                    this.scene.restart({ reinicio: false });
                     this.enemy.forEach(enemigo => {
                         enemigo.destroy();
                     });
@@ -76,27 +71,10 @@ export default class Trump {
             }
         }
 
-        this.sprite.anims.play('trump_quieto', true);
+        this.sprite.anims.play(this.animation, true);
 
 
 
-    }
-
-    freeze() {
-        this.sprite.body.moves = false;
-    }
-
-    ocultar() {
-        this.sprite.setDepth(1);
-    }
-
-    mostrar() {
-        this.sprite.setDepth(4);
-    }
-    destroy() {
-        this.sprite.destroy();
-    }
-    update() {
     }
 
 }

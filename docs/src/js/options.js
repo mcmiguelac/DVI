@@ -3,11 +3,7 @@ export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
     }
-    /*init(){
-         datosConfig.dungeon.width=30;
-         datosConfig.dungeon.height=30;
-    }*/
-    //TODO hacer acorde con el ancho y el alto.
+
     create() {
         const instanciaScene = this.scene;
         var width = this.scale.width;
@@ -47,7 +43,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
 
-        let diffPlusButton = this.add.text(width / 2 + 70 , height / 2 + 150, '+',
+        let diffPlusButton = this.add.text(width / 2 + 70, height / 2 + 150, '+',
             {
                 fontSize: '40px',
                 fontStyle: 'bold',
@@ -89,11 +85,6 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
 
-
-
-
-
-
         diffPlusButton.setInteractive();
 
         diffPlusButton.on('pointerover', function (value) {
@@ -125,8 +116,6 @@ export default class Options extends Phaser.Scene {
                 }
 
                 diffValue.text = text;
-                //datosConfig.dungeon.height = datosConfig.dungeon.height +20;
-                //datosConfig.dungeon.width = datosConfig.dungeon.width +20;
             }
         }, this);
 
@@ -159,9 +148,6 @@ export default class Options extends Phaser.Scene {
                         text = "Extremo";
                         break;
                 }
-
-                //datosConfig.dungeon.height = datosConfig.dungeon.height - 20;
-                //datosConfig.dungeon.width = datosConfig.dungeon.width - 20;
                 diffValue.text = text;
             }
         }, this);
@@ -284,7 +270,7 @@ export default class Options extends Phaser.Scene {
         })
 
         atrasButton.on('pointerup', function (value) {
-            instanciaScene.start('inicio'/*,{modificado :true}*/);
+            instanciaScene.start('inicio');
         })
     }
 
