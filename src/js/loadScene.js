@@ -99,8 +99,28 @@ export default class LoadScene extends Phaser.Scene {
             }
         );
         this.load.spritesheet(
+            "ninja",
+            "assets/spritesheets/ninja.png",
+            {
+                frameWidth: 32,
+                frameHeight: 32
+            }
+        );
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+            sceneKey: 'rexUI'});    
+        this.load.spritesheet(
+            "trump",
+            "assets/spritesheets/trumpSprite.png",
+            {
+                frameWidth: 32,
+                frameHeight: 32
+            }
+        );
+        this.load.spritesheet(
             "enemigo",
-            "assets/spritesheets/enemigo.png",
+            "assets/spritesheets/enemigoFixed.png",
             {
                 frameWidth: 32,
                 frameHeight: 32

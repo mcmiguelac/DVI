@@ -8,6 +8,7 @@ import Weapon from "./weapon.js";
 */
 export default class Player {
 	constructor(scene, x, y) {
+		this.inmume = false;
 		this.end = false;
 		this.health = 6;
 		this.scene = scene;
@@ -15,8 +16,8 @@ export default class Player {
 		this.animation = "player-stand";
 		this.sprite = scene.physics.add
 			.sprite(x, y, "characters", 0)
-			.setSize(16, 16)
-			.setOffset(10, 10)
+			.setSize(14, 17)
+			.setOffset(10, 15)
 			.setDepth(2);
 
 		const anims = scene.anims;
@@ -372,10 +373,9 @@ export default class Player {
 			// }
 
 			this.sprite.body.velocity.normalize().scale(speed);
-
 		}
 	}
-
+	
 	destroy() {
 		this.sprite.destroy();
 	}

@@ -69,20 +69,20 @@ export default class Inicio extends Phaser.Scene {
         var miniA = this.physics.add.sprite(100, 100, 'mini ' + Math.floor(rand * 10 + 1));
         miniA.setBounce(rand);
         miniA.setCollideWorldBounds(true);
-        miniA.body.setGravityY(rand * 600 + 100)
+        miniA.body.setGravityY(rand * 600 + 100);
 
         rand = Math.random();
         var miniB = this.physics.add.sprite(400, 300, 'mini ' + Math.floor(rand * 10 + 1));
         miniB.setBounce(rand);
         miniB.setCollideWorldBounds(true);
-        miniB.body.setGravityY(rand * 600 + 100)
+        miniB.body.setGravityY(rand * 600 + 100);
         miniB.setFlipX(true);
 
         rand = Math.random();
         var miniC = this.physics.add.sprite(900, 200, 'mini ' + Math.floor(rand * 10 + 1));
         miniC.setBounce(rand);
         miniC.setCollideWorldBounds(true);
-        miniC.body.setGravityY(rand * 600 + 100)
+        miniC.body.setGravityY(rand * 600 + 100);
         miniC.setFlipX(true);
     }
 }

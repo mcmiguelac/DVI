@@ -18,7 +18,7 @@ export default class RoomFactory {
         game.shadowLayer = tileMap.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK).setDepth(5);
 
         game.tilemapVisibility = new TilemapVisibility(game.shadowLayer);
-
+        
         game.dungeon.rooms.forEach(room => {
             //const { x, y, width, height } = room;
             const { x, y, width, height, left, right, top, bottom } = room;

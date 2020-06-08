@@ -35,6 +35,89 @@ export default class Options extends Phaser.Scene {
                 fontFaminly: 'monospace',
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
+
+        let diffInfo = this.add.text(width / 2 - 120, height / 2 + 150, '<Dificultad>',
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#004dc9"
+            }).setDepth(1).setOrigin(0.5);
+
+        let diffPlusButton = this.add.text(width / 2 + 70, height / 2 + 150, '+',
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#004dc9"
+
+            }).setDepth(1).setOrigin(0.5);
+        let valor = 1;
+        let diffValue = this.add.text(width / 2 + 120, height / 2 + 150, valor,
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#ffffff",
+                backgroundColor: "#004dc9"
+            }).setDepth(1).setOrigin(0.5);
+
+        let diffMinButton = this.add.text(width / 2 + 170, height / 2 + 150, '-',
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#004dc9"
+            }).setDepth(1).setOrigin(0.5);
+
+
+
+
+
+
+        diffPlusButton.setInteractive();
+
+        diffPlusButton.on('pointerover', function (value) {
+            diffPlusButton.setScale(1.5);
+        });
+
+        diffPlusButton.on('pointerout', function (value) {
+            diffPlusButton.setScale(1);
+        });
+
+        diffPlusButton.on('pointerup', function (value) {
+            if (valor < 4) {
+                valor++;
+
+                diffValue.text = valor;
+                datosConfig.dungeon.height = datosConfig.dungeon.height +20;
+                datosConfig.dungeon.width = datosConfig.dungeon.width +20;
+                console.log(datosConfig.dungeon.height);
+                console.log( datosConfig.dungeon.width);
+            }
+        }, this);
+
+        diffMinButton.setInteractive();
+
+        diffMinButton.on('pointerover', function (value) {
+            diffMinButton.setScale(1.5);
+        });
+
+        diffMinButton.on('pointerout', function (value) {
+            diffMinButton.setScale(1);
+        });
+
+        diffMinButton.on('pointerup', function (value) {
+            console
+            if (valor > 1) {
+                valor--;
+                datosConfig.dungeon.height = datosConfig.dungeon.height - 20;
+                datosConfig.dungeon.width = datosConfig.dungeon.width - 20;
+                console.log(datosConfig.dungeon.height);
+                console.log( datosConfig.dungeon.width);
+                diffValue.text = valor;
+            }
+        }, this);
         let volumePlusButton = this.add.text(width / 2 + 70, height / 2 + 50, '+',
             {
                 fontSize: '40px',
@@ -43,6 +126,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
 
             }).setDepth(1).setOrigin(0.5);
+
         let volumeValue = this.add.text(width / 2 + 120, height / 2 + 50, datosConfig.musicConfig.volume * 100,
             {
                 fontSize: '40px',
