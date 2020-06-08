@@ -4,7 +4,7 @@ export default class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: 'intro' });
     }
-
+    
     create() {
         var width = this.scale.width;
         var height = this.scale.height;
@@ -46,7 +46,7 @@ export default class Inicio extends Phaser.Scene {
         }
         gobackButton.on('pointerup', function (value) {
 
-            instanciaScene.start('game',{reinicio :true});
+            instanciaScene.start('game');
             this.music.destroy();
         }, this)
     }
