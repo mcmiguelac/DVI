@@ -51,7 +51,7 @@ export default class Weapon {
     shoot(direccion, x, y) {
 
         if (this.attackTimerPass) {
-            const delayAttackSpeed = 150;
+            const delayAttackSpeed = 300;
             let shotVelocity = 1000;
 
             var bullet = this.bullets.getFirstDead(false);

@@ -44,8 +44,26 @@ export default class Game extends Phaser.Scene {
             doorPadding: datosConfig.dungeon.doorPadding,
             rooms: datosConfig.dungeon.rooms
         };
-
+        this.textInfo6 = this.add.text(width/2 -300 , height/2-100, " ", {
+            font: "25px monospace",
+            fill: "#000000",
+            padding: { x: 20, y: 10 },
+            
+        }).setScrollFactor(0).setDepth(6);
         if (this.level != 1) {
+            if(this.level==2){
+                this.textInfo6.setText("Le encontraste pero ha huido ! Que raro... ")
+                this.time.delayedCall(3000, function () {
+                this.textInfo6.setText(" ");
+               // this.matar(bullet);
+            }, [],this)}
+            if(this.level==3){
+            this.textInfo6.setText("Quizás huye porque Él sabe que es\n el culpable de todo...")
+            this.time.delayedCall(3000, function () {
+                this.textInfo6.setText(" ");
+               // this.matar(bullet);
+            }, [],this);
+            }
             this.configMapa.height += 15;
             this.configMapa.width += 15;
         } else {
