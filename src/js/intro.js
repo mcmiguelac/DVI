@@ -46,7 +46,7 @@ export default class Inicio extends Phaser.Scene {
         }
         gobackButton.on('pointerup', function (value) {
 
-            instanciaScene.start('game');
+            instanciaScene.start('game',{reinicio :true});
             this.music.destroy();
         }, this)
     }
@@ -58,7 +58,7 @@ export default class Inicio extends Phaser.Scene {
         }
         else {
             this.music.destroy();
-            this.scene.start("game");
+            this.scene.start("game",{reinicio :true});
         }
 
     }

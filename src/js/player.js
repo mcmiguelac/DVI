@@ -8,6 +8,7 @@ import Weapon from "./weapon.js";
 */
 export default class Player {
 	constructor(scene, x, y) {
+		this.inmume = false;
 		this.end = false;
 		this.health = 6;
 		this.scene = scene;
@@ -15,8 +16,8 @@ export default class Player {
 		this.animation = "player-stand";
 		this.sprite = scene.physics.add
 			.sprite(x, y, "characters", 0)
-			.setSize(16, 16)
-			.setOffset(10, 10)
+			.setSize(14, 17)
+			.setOffset(10, 15)
 			.setDepth(2);
 
 		const anims = scene.anims;
@@ -102,103 +103,6 @@ export default class Player {
 		let velocityX = 0;
 		let velocityY = 0;
 		this.sprite.body.setVelocity(0);
-
-		// Arriba y Abajo
-
-		// if(this.keys.arriba.isDown){
-		// 	this.sprite.body.setVelocityY(-speed);
-		// 	velocityY = -speed;
-		// 	if(this.keys.fArriba.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunUp', true);
-		// 	}
-		// 	else if(this.keys.fAbajo.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunDown', true);
-		// 	}
-		// 	else if(this.keys.fIzq.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunRight', true);
-		// 		this.sprite.setFlipX(true);
-		// 	}
-		// 	else if(this.keys.fDer.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunRight', true);
-		// 		this.sprite.setFlipX(false);
-		// 	}
-		// 	else {
-		// 		this.sprite.anims.play('player-runVertical-gunUp', true);
-		// 		console.log("arriba");
-		// 	}
-		// }
-
-		// else if(this.keys.abajo.isDown){
-		// 	this.sprite.body.setVelocityY(speed);
-		// 	velocityY = speed
-		// 	if(this.keys.fArriba.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunUp', true);
-		// 	}
-		// 	else if(this.keys.fAbajo.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunDown', true);
-		// 	}
-		// 	else if(this.keys.fIzq.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunRight', true);
-		// 		this.sprite.setFlipX(true);
-		// 	}
-		// 	else if(this.keys.fDer.isDown){
-		// 		this.sprite.anims.play('player-runVertical-gunRight', true);
-		// 		this.sprite.setFlipX(false);
-		// 	}
-		// 	else this.sprite.anims.play('player-runVertical-gunDown', true);
-		// }
-		// // Derecha e izquierda
-		//  if(this.keys.der.isDown){
-
-		// 	this.sprite.body.setVelocityX(speed);
-		// 	velocityX = speed;
-		// 	if(this.keys.fArriba.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunUP', true);
-		// 	}
-		// 	else if(this.keys.fAbajo.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunDown', true);
-		// 	}
-		// 	else if(this.keys.fIzq.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-		// 		this.sprite.setFlipX(true);
-		// 	}
-		// 	else if(this.keys.fDer.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-		// 			this.sprite.setFlipX(false);
-		// 		}
-		// 		else {
-		// 			this.sprite.anims.play('player-runRight-gunRight', true);
-		// 			this.sprite.setFlipX(false);	
-		// 		}
-
-		// 	}
-		// else if(this.keys.izq.isDown){
-		// 	this.sprite.body.setVelocityX(-speed);
-		// 	velocityX = -speed;
-		// 	if(this.keys.fArriba.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunUP', true);
-		// 		this.sprite.setFlipX(true);
-		// 	}
-		// 	else if(this.keys.fAbajo.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunDown', true);
-		// 		this.sprite.setFlipX(true);
-		// 	}
-		// 	else if(this.keys.fIzq.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-		// 		this.sprite.setFlipX(true);
-		// 	}
-		// 	else if(this.keys.fDer.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-		// 		this.sprite.setFlipX(false);
-		// 	}
-		// 	else{
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-		// 		this.sprite.setFlipX(true);	
-		// 		} 
-
-		//  }
-
-
 
 		if (!this.keys.arriba.isDown && !this.keys.abajo.isDown && !this.keys.izq.isDown && !this.keys.der.isDown) {
 			animacion = 'player-stand';
@@ -317,64 +221,13 @@ export default class Player {
 
 
 
-		// else if(this.keys.izq.isDown){
-		// 	this.sprite.body.setVelocityX(-speed);
-		// 	velocityX = -speed;
-		// 	if(this.keys.fArriba.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunUp', true);
-
-		// 	}
-		// 	else if(this.keys.fAbajo.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunDown', true);
-
-		// 	}
-		// 	else if(this.keys.fIzq.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-
-		// 	}
-		// 	else if(this.keys.fDer.isDown){
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-
-		// 	}
-		// 	else{
-		// 		this.sprite.anims.play('player-runRight-gunRight', true);
-
-		// 	} 
-
-
-		//  if (this.keys.Sleft.isDown) {
-		// 	if(!quieto)
-		// 		this.sprite.anims.play('player-walk', true)
-		// 	this.sprite.setFlipX(true);
-		// 	this.weapon.setAngle(180)
-		// 	this.weapon.shoot(180)
-		// }
-		// else if (this.keys.Sright.isDown) {
-		// 	if(!quieto)
-		// 		this.sprite.anims.play('player-walk', true)
-		// 	this.sprite.setFlipX(false);
-		// 	this.weapon.shoot(0)
-		// 	this.weapon.setAngle(0)
-		// }
-
-		// if (this.keys.Sup.isDown) {
-		// 	//if(!quieto)
-		// 	//	this.sprite.anims.play('player-walk-back', true)
-		// 	this.weapon.shoot(-90)
-		// 	this.weapon.setAngle(-90)
-		// }
-		//  else if (this.keys.Sdown.isDown) {
-		// 	if(!quieto)
-		// 		this.sprite.anims.play('player-walk', true)
-		// 	this.weapon.shoot(90)
-		// 	this.weapon.setAngle(90)
-		// }
+		
 
 		this.sprite.body.velocity.normalize().scale(speed);
 
 
 	}
-
+	
 	destroy() {
 		this.sprite.destroy();
 	}
