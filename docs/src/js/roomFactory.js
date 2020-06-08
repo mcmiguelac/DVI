@@ -18,7 +18,7 @@ export default class RoomFactory {
         game.shadowLayer = tileMap.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK).setDepth(5);
 
         game.tilemapVisibility = new TilemapVisibility(game.shadowLayer);
-        
+
         game.dungeon.rooms.forEach(room => {
             //const { x, y, width, height } = room;
             const { x, y, width, height, left, right, top, bottom } = room;
@@ -140,7 +140,7 @@ export default class RoomFactory {
         game.groundLayer.setCollision(tilesBound);
         //Excluimos todas la que corresponden con alfombras o puertas
         game.stuffLayer.setCollisionByExclusion([-1]);
-        
+
 
         //Encontró la salida
         /*game.stuffLayer.setTileIndexCallback(TILES.COFRE, () => {
@@ -255,145 +255,84 @@ export default class RoomFactory {
     //Decoracion de la cocina
     cocina(game, room) {
         this.inicializarArray(room);
-        const array = [TILES.FRIGO1, TILES.COCINA_FUEGOS, TILES.FREGADEROS, TILES.MESA_COCINA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetosConTransparencia = [TILES.COCINA_FUEGOS, TILES.FREGADEROS, TILES.BANDERA_PAREZ, TILES.MESA_COCINA, TILES.BANDERA];
+        this.colocarObjetosArriba(game, room, listaObjetosConTransparencia);
+        const listaObjetos = [TILES.FRIGO1, TILES.FRIGO_GRANDE, TILES.SILLA_R];
+        this.colocarObjetosMedio(game, room, listaObjetos);
     }
 
     biblioteca(game, room) {
         this.inicializarArray(room);
-        const array = [TILES.RADIO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO, TILES.TELE];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetos = [TILES.RADIO, TILES.BANDERA_PAREZ, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.BANDERA_PAREZ, TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO, TILES.RADIO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO];
+        this.colocarObjetosArriba(game, room, listaObjetos);
+        const listaObjetos2 = [TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO, TILES.RADIO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO];
+        this.colocarObjetosMedio(game, room, listaObjetos2);
     }
 
     salon(game, room) {
-        //TODO aniadir sofa
         this.inicializarArray(room);
-        const array = [TILES.TELEFONO, TILES.ESTANTE_VACIO, TILES.TELE, TILES.PLANTA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetos = [TILES.TELE, TILES.ESTANTE_VACIO,TILES.BANDERA,  TILES.TELEFONO, TILES.PLANTA];
+        this.colocarObjetosArriba(game, room, listaObjetos);
+        this.colocarSofa(game, room);
+        const listaObjetos3 = [TILES.ESTANTE_LLENO, TILES.ESTANTE_LLENO];
+        this.colocarObjetosMedio(game, room, listaObjetos3);
     }
 
     estudio(game, room) {
-        //TODO añadir estudio y silla
         this.inicializarArray(room);
-        const array = [TILES.TELEFONO, TILES.ESTANTE_VACIO, TILES.RADIO, TILES.TELE, TILES.PLANTA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetos = [TILES.TELEFONO, TILES.BANDERA_PAREZ, TILES.ESTANTE_VACIO, TILES.BANDERA, TILES.RADIO, TILES.TELE, TILES.PLANTA];
+        this.colocarObjetosArriba(game, room, listaObjetos);
+        const listaObjetos1 = [TILES.ESTUDIO];
+        this.colocarObjetosDerecha(game, room, listaObjetos1);
+        this.colocarSofa(game, room);
+        const listaObjetos3 = [TILES.SILLA_L, TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO, TILES.RADIO];
+        this.colocarObjetosMedio(game, room, listaObjetos3);
     }
 
     habitacion(game, room) {
-        //Añadir estudio y silla
         this.inicializarArray(room);
-        const array = [TILES.TELEFONO, TILES.CAMA, TILES.TELE, TILES.PLANTA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetos = [TILES.TELEFONO, TILES.CAMA, TILES.TELE, TILES.BANDERA, TILES.PLANTA, TILES.BANDERA_PAREZ];
+        this.colocarObjetosArriba(game, room, listaObjetos);
+        this.colocarSofa(game, room);
+        const listaObjetos3 = [TILES.ESTANTE_LLENO, TILES.ESTANTE_VACIO, TILES.SILLA_R, TILES.RADIO, TILES.SILLA_L];
+        this.colocarObjetosMedio(game, room, listaObjetos3);
+        const listaObjetos1 = [TILES.ESTUDIO];
+        this.colocarObjetosDerecha(game, room, listaObjetos1);
     }
 
     comedor(game, room) {
-        //Arreglar mesa y sillas
         this.inicializarArray(room);
-        const array = [TILES.FRIGO2, TILES.BAR, TILES.FRIGO_GRANDE, TILES.TELE, TILES.PLANTA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetos3 = [TILES.BAR, TILES.SILLA_L, TILES.MESA_LLENA, TILES.SILLA_R, TILES.FRIGO2, TILES.FRIGO_GRANDE];
+        this.colocarObjetosMedio(game, room, listaObjetos3);
+        const listaObjetos = [TILES.PLANTA, TILES.BANDERA, TILES.PLANTA, TILES.BANDERA_PAREZ, TILES.PLANTA, TILES.BANDERA_PAREZ, TILES.PLANTA, TILES.PLANTA, TILES.PLANTA];
+        this.colocarObjetosArriba(game, room, listaObjetos);
+        this.colocarSofa(game, room);
     }
 
     laboratorio(game, room) {
         //Poner cosas por mitad
         this.inicializarArray(room);
-        const array = [TILES.PIZZARA, TILES.LABORATORIO, TILES.RADIO, TILES.TELEFONO, TILES.LABORATORIO, TILES.PLANTA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
-
+        const listaObjetos = [TILES.LABORATORIO];
+        this.colocarObjetosMedio(game, room, listaObjetos);
+        const listaObjetos1 = [TILES.PIZZARA, TILES.BANDERA, TILES.TELEFONO, TILES.LABORATORIO, TILES.PLANTA];
+        this.colocarObjetosArriba(game, room, listaObjetos1);
+        const listaObjetos2 = [TILES.RADIO];
+        this.colocarObjetosMedio(game, room, listaObjetos2);
+        const listaObjetos3 = [TILES.BANDERA_PAREZ, TILES.TELEFONO];
+        this.colocarObjetosArriba(game, room, listaObjetos3);
+        const listaObjetos4 = [TILES.LABORATORIO, TILES.LABORATORIO, TILES.LABORATORIO];
+        this.colocarObjetosMedio(game, room, listaObjetos4);
+        const listaObjetos5 = [TILES.TELEFONO, TILES.RADIO, TILES.LABORATORIO];
+        this.colocarObjetosArriba(game, room, listaObjetos5);
     }
 
     toilete(game, room) {
         //Poner cosas por mitad
         this.inicializarArray(room);
-        const array = [TILES.WC, TILES.LABAVO, TILES.DUCHA, TILES.PLANTA];
-        array.forEach(element => {
-            let colocado = false;
-            let posicion = [0, 0];
-            while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
-                    colocado = this.colocaObjeto(game, room, posicion, element);
-                    posicion[1] += 1;
-                }
-                posicion[1] = 0;
-                posicion[0] += 1;
-            }
-        });
+        const listaObjetos = [TILES.WC, TILES.LABAVO, TILES.DUCHA, TILES.BANDERA, TILES.PLANTA, TILES.BANDERA_PAREZ];
+        this.colocarObjetosArriba(game, room, listaObjetos);
+        const listaObjetos2 = [TILES.SILLA_L];
+        this.colocarObjetosMedio(game, room, listaObjetos2);
     }
 
     compareRooms(a, b) {
@@ -439,6 +378,64 @@ export default class RoomFactory {
         }
     }
 
+    //Busca un hueco y coloca los objetos que entren en la fila superior
+    colocarObjetosArriba(game, room, listaObjetos) {
+        listaObjetos.forEach(element => {
+            let colocado = false;
+            let posicion = [0, 0];
+            while (!colocado && posicion[0] < 3) {
+                while (!colocado && posicion[1] < room.width) {
+                    colocado = this.colocaObjeto(game, room, posicion, element);
+                    posicion[1] += 1;
+                }
+                posicion[1] = 0;
+                posicion[0] += 1;
+            }
+        });
+    }
+    //Busca un hueco y coloca los objetos que entren en cualquier lado de la sala
+    colocarObjetosMedio(game, room, listaObjetos) {
+        listaObjetos.forEach(element => {
+            let colocado = false;
+            let posicion = [4, 0];
+            while (!colocado && posicion[0] < room.height) {
+                while (!colocado && posicion[1] < room.width) {
+                    colocado = this.colocaObjeto(game, room, posicion, element);
+                    posicion[1] += 1;
+                }
+                posicion[1] = 0;
+                posicion[0] += 1;
+            }
+        });
+    }
+
+    colocarObjetosDerecha(game, room, listaObjetos) {
+        listaObjetos.forEach(element => {
+            let colocado = false;
+            let posicion = [0, room.width - 2];
+            while (!colocado && posicion[0] < room.height) {
+                colocado = this.colocaObjeto(game, room, posicion, element);
+                posicion[0] += 1;
+            }
+        });
+    }
+
+    colocarSofa(game, room) {
+        let colocado = false;
+        let posicion = [room.height - 2, 0];
+        while (!colocado && posicion[1] < room.width) {
+            if (room.arrayOcupados[posicion[0]][posicion[1]] == 0 && room.arrayOcupados[posicion[0]][posicion[1] + 1] == 0) {
+                game.stuffLayer.putTilesAt(TILES.SOFA, room.left + posicion[1], room.top + posicion[0]);
+                //El alrededor a ocupado
+                room.arrayOcupados[posicion[0]][posicion[1]] = 4;
+                room.arrayOcupados[posicion[0]][posicion[1] + 1] = 4;
+                colocado = true;
+            }
+            posicion[1] += 1;
+        }
+    }
+
+    //Array ocupados 0=libre 1=pared 2=puerta 3=tile de mueble(Si no es pared) 4=no tile de mueble pero no colocar mas objetos
     //Array ocupados 3 donde esta el tile del mueble y 4 a los alrededores para que no se coloque nada
     colocaObjeto(game, room, posicion, objeto) {
         let colocado = false;
@@ -449,17 +446,14 @@ export default class RoomFactory {
                 case 1:
                     switch (ancho) {
                         case 1:
-                            if (room.arrayOcupados[posicion[0]][posicion[1] - 1] != 2 && room.arrayOcupados[posicion[0]][posicion[1] + 1] != 2)
+                            if (room.arrayOcupados[posicion[0]][posicion[1] - 1] <= 1 && 
+                                room.arrayOcupados[posicion[0]][posicion[1] + 1] <= 1 &&
+                                room.arrayOcupados[posicion[0]-1][posicion[1]] <= 1 && 
+                                room.arrayOcupados[posicion[0]-1][posicion[1] - 1] <= 1 && 
+                                room.arrayOcupados[posicion[0]-1][posicion[1] + 1] <= 1) {
                                 game.stuffLayer.putTileAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
-                            room.arrayOcupados[posicion[0]][posicion[1]] = 4;
-                            colocado = true;
-                            break;
-                        case 2:
-                            if (room.arrayOcupados[posicion[0]][posicion[1] + 1] == 0) {
-                                game.stuffLayer.putTilesAt(objeto, room.left + posicion[1], room.top + posicion[0] - 1);
-                                //El alrededor a ocupado
                                 room.arrayOcupados[posicion[0]][posicion[1]] = 4;
-                                room.arrayOcupados[posicion[0]][posicion[1] + 1] = 4;
+                                room.arrayOcupados[posicion[0]-1][posicion[1]] = 3;
                                 colocado = true;
                             }
                             break;

@@ -52,7 +52,7 @@ export default class Weapon {
 
         if (this.attackTimerPass) {
             const delayAttackSpeed = 150;
-            let shotVelocity = 1000;
+            const shotVelocity = 1000;
 
             var bullet = this.bullets.getFirstDead(false);
             this.scene.physics.add.collider(bullet, this.scene.enemy, this.matar(bullet));

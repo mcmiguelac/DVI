@@ -69,7 +69,8 @@ export default class Pause extends Phaser.Scene {
             });
             this.gameScene.trump.destroy();
             instanciaScene.start('inicio'/*,{modificado : false}*/);
-
+            this.gameScene.level = 0;
+            this.gameScene.score = 0;
             this.gameScene.destroy();
             miniA.destroy();
             miniB.destroy();
