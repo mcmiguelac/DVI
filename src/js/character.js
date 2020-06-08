@@ -6,7 +6,7 @@ import Weapon from "./weapon.js";
 * método de actualización desde la actualización de la escena
 * método de destruccion cuando haya terminado con el jugador
 */
-export default class Player {
+export default class Character {
 	constructor(scene, x, y) {
 		this.scene = scene;
 		this.anguloSprite = 0;

@@ -38,15 +38,31 @@ export default class Game extends Phaser.Scene {
         var height = this.scale.height;
         this.level += 1;
         this.hasPlayerReachedTrump = false;
+        this.configMapa = {
+            width: datosConfig.dungeon.width,
+            height: datosConfig.dungeon.height,
+            doorPadding: datosConfig.dungeon.doorPadding,
+            rooms: datosConfig.dungeon.rooms
+        };
+
         if (this.level != 1) {
-            datosConfig.dungeon.height += 15;
-            datosConfig.dungeon.width += 15;
+            this.configMapa.height += 15;
+            this.configMapa.width += 15;
+        } else {
+            if(datosConfig.dificultad > 1){
+                this.configMapa.height = datosConfig.dungeon.height + Math.round(datosConfig.dungeon.height * (datosConfig.dificultad/10));
+                this.configMapa.width = datosConfig.dungeon.width + Math.round(datosConfig.dungeon.width * (datosConfig.dificultad/10));
+            } else {
+                this.configMapa.height = datosConfig.dungeon.height;
+                this.configMapa.width = datosConfig.dungeon.width;
+            }
         }
         // Genera un mundo aleatorio con algunas opciones adicionales:
         // - Las habitaciones solo deben tener dimensiones de números impares para que tengan un mosaico central.
         // - Las puertas deben estar al menos a 2 mosaicos de las esquinas, para que podamos colocar un mosaico de esquina en
         // a ambos lados de la ubicación de la puerta
-        this.dungeon = new Dungeon(datosConfig.dungeon);
+
+        this.dungeon = new Dungeon(this.configMapa);
 
         // Crear un mapa de mosaicos en blanco con dimensiones que coincidan con la mazmorra
         const map = this.make.tilemap({
@@ -177,7 +193,7 @@ export default class Game extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
                 console.log("pulsado");
                 this.scene.pause();
-                this.scene.launch('pause');
+                this.scene.launch('pause',{game : this});
                 this.scene.setVisible(false);
             }
 

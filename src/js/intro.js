@@ -1,6 +1,6 @@
 
 import { datosConfig } from "./config.js";
-export default class Inicio extends Phaser.Scene {
+export default class Intro extends Phaser.Scene {
     constructor() {
         super({ key: 'intro' });
     }

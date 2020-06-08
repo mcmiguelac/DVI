@@ -1,12 +1,11 @@
 import { datosConfig } from "./config.js";
 
 
-export default class Inicio extends Phaser.Scene {
+export default class FinalkillTrump extends Phaser.Scene {
     constructor() {
         super({ key: 'FinalkillTrump' });
     }
     init(data){
-       
         this.puntuacion = data.score;
         this.life = data.vidas;
         console.log(this.life);
@@ -89,7 +88,7 @@ export default class Inicio extends Phaser.Scene {
 
         gobackButton.on('pointerup', function (value) {
             this.music.destroy();   
-            this.scene.start("inicio",{modificado :false});
+            this.scene.start("inicio" /*,{modificado :false}*/);
         }, this)
         this.add.image(0, 0, 'final').setOrigin(0.01).setDepth(0).setScale(1.75);
         this.nombres.setVisible(false);

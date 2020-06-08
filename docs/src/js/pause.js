@@ -1,8 +1,12 @@
 
 
-export default class Inicio extends Phaser.Scene {
+export default class Pause extends Phaser.Scene {
     constructor() {
         super({ key: 'pause' });
+    }
+
+    init(data) {
+        this.gameScene = data.game;
     }
 
     create() {
@@ -30,11 +34,11 @@ export default class Inicio extends Phaser.Scene {
 
         resumeButton.on('pointerover', function (value) {
             resumeButton.setScale(1.5);
-        })
+        });
 
         resumeButton.on('pointerout', function (value) {
             resumeButton.setScale(1);
-        })
+        });
 
         resumeButton.on('pointerup', function (value) {
             instanciaScene.setVisible(true, 'game');
@@ -43,24 +47,34 @@ export default class Inicio extends Phaser.Scene {
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();
-        })
+        });
 
         exitButton.setInteractive();
 
         exitButton.on('pointerover', function (value) {
             exitButton.setScale(1.3);
-        })
+        });
 
         exitButton.on('pointerout', function (value) {
             exitButton.setScale(1);
-        })
+        });
 
         exitButton.on('pointerup', function (value) {
-            instanciaScene.start('inicio');
+
+            this.gameScene.player.destroy();
+            this.gameScene.music.destroy();
+            //TODO destoy todos los elementos
+            this.gameScene.enemy.forEach(enemigo => {
+                enemigo.destroy();
+            });
+            this.gameScene.trump.destroy();
+            instanciaScene.start('inicio'/*,{modificado : false}*/);
+
+            this.gameScene.destroy();
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();
-        })
+        }, this);
 
         this.add.image(0, 0, 'background').setOrigin(0.01).setDepth(0).setScale(1.75);
 
@@ -69,20 +83,20 @@ export default class Inicio extends Phaser.Scene {
         var miniA = this.physics.add.sprite(100, 100, 'mini ' + Math.floor(rand * 10 + 1));
         miniA.setBounce(rand);
         miniA.setCollideWorldBounds(true);
-        miniA.body.setGravityY(rand * 600 + 100)
+        miniA.body.setGravityY(rand * 600 + 100);
 
         rand = Math.random();
         var miniB = this.physics.add.sprite(400, 300, 'mini ' + Math.floor(rand * 10 + 1));
         miniB.setBounce(rand);
         miniB.setCollideWorldBounds(true);
-        miniB.body.setGravityY(rand * 600 + 100)
+        miniB.body.setGravityY(rand * 600 + 100);
         miniB.setFlipX(true);
 
         rand = Math.random();
         var miniC = this.physics.add.sprite(900, 200, 'mini ' + Math.floor(rand * 10 + 1));
         miniC.setBounce(rand);
         miniC.setCollideWorldBounds(true);
-        miniC.body.setGravityY(rand * 600 + 100)
+        miniC.body.setGravityY(rand * 600 + 100);
         miniC.setFlipX(true);
     }
 }

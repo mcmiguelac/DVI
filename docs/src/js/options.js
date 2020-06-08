@@ -3,7 +3,10 @@ export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
     }
-
+    /*init(){
+         datosConfig.dungeon.width=30;
+         datosConfig.dungeon.height=30;
+    }*/
     //TODO hacer acorde con el ancho y el alto.
     create() {
         const instanciaScene = this.scene;
@@ -35,6 +38,133 @@ export default class Options extends Phaser.Scene {
                 fontFaminly: 'monospace',
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
+
+        let diffInfo = this.add.text(width / 2 - 150, height / 2 + 150, '<Dificultad>',
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#004dc9"
+            }).setDepth(1).setOrigin(0.5);
+
+        let diffPlusButton = this.add.text(width / 2 + 70 , height / 2 + 150, '+',
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#004dc9"
+
+            }).setDepth(1).setOrigin(0.5);
+
+        let text = "";
+        switch (datosConfig.dificultad) {
+            case 1:
+                text = "Fácil";
+                break;
+            case 2:
+                text = "Normal";
+                break;
+            case 3:
+                text = "Dificil";
+                break;
+            case 4:
+                text = "Extremo";
+                break;
+        }
+
+        let diffValue = this.add.text(width / 2 + 180, height / 2 + 150, text,
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#ffffff",
+                backgroundColor: "#004dc9"
+            }).setDepth(1).setOrigin(0.5);
+
+        let diffMinButton = this.add.text(width / 2 + 280, height / 2 + 150, '-',
+            {
+                fontSize: '40px',
+                fontStyle: 'bold',
+                fontFaminly: 'monospace',
+                fill: "#004dc9"
+            }).setDepth(1).setOrigin(0.5);
+
+
+
+
+
+
+        diffPlusButton.setInteractive();
+
+        diffPlusButton.on('pointerover', function (value) {
+            diffPlusButton.setScale(1.5);
+        });
+
+        diffPlusButton.on('pointerout', function (value) {
+            diffPlusButton.setScale(1);
+        });
+
+        diffPlusButton.on('pointerup', function (value) {
+            if (datosConfig.dificultad < 4) {
+                datosConfig.dificultad++;
+
+                let text = "";
+                switch (datosConfig.dificultad) {
+                    case 1:
+                        text = "Fácil";
+                        break;
+                    case 2:
+                        text = "Normal";
+                        break;
+                    case 3:
+                        text = "Dificil";
+                        break;
+                    case 4:
+                        text = "Extremo";
+                        break;
+                }
+
+                diffValue.text = text;
+                //datosConfig.dungeon.height = datosConfig.dungeon.height +20;
+                //datosConfig.dungeon.width = datosConfig.dungeon.width +20;
+            }
+        }, this);
+
+        diffMinButton.setInteractive();
+
+        diffMinButton.on('pointerover', function (value) {
+            diffMinButton.setScale(1.5);
+        });
+
+        diffMinButton.on('pointerout', function (value) {
+            diffMinButton.setScale(1);
+        });
+
+        diffMinButton.on('pointerup', function (value) {
+            if (datosConfig.dificultad > 1) {
+                datosConfig.dificultad--;
+
+                let text = "";
+                switch (datosConfig.dificultad) {
+                    case 1:
+                        text = "Fácil";
+                        break;
+                    case 2:
+                        text = "Normal";
+                        break;
+                    case 3:
+                        text = "Dificil";
+                        break;
+                    case 4:
+                        text = "Extremo";
+                        break;
+                }
+
+                //datosConfig.dungeon.height = datosConfig.dungeon.height - 20;
+                //datosConfig.dungeon.width = datosConfig.dungeon.width - 20;
+                diffValue.text = text;
+            }
+        }, this);
         let volumePlusButton = this.add.text(width / 2 + 70, height / 2 + 50, '+',
             {
                 fontSize: '40px',
@@ -43,6 +173,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
 
             }).setDepth(1).setOrigin(0.5);
+
         let volumeValue = this.add.text(width / 2 + 120, height / 2 + 50, datosConfig.musicConfig.volume * 100,
             {
                 fontSize: '40px',
@@ -153,7 +284,7 @@ export default class Options extends Phaser.Scene {
         })
 
         atrasButton.on('pointerup', function (value) {
-            instanciaScene.start('inicio');
+            instanciaScene.start('inicio'/*,{modificado :true}*/);
         })
     }
 

@@ -1,8 +1,12 @@
 
 
-export default class Inicio extends Phaser.Scene {
+export default class Pause extends Phaser.Scene {
     constructor() {
         super({ key: 'pause' });
+    }
+
+    init(data) {
+        this.gameScene = data.game;
     }
 
     create() {
@@ -30,11 +34,11 @@ export default class Inicio extends Phaser.Scene {
 
         resumeButton.on('pointerover', function (value) {
             resumeButton.setScale(1.5);
-        })
+        });
 
         resumeButton.on('pointerout', function (value) {
             resumeButton.setScale(1);
-        })
+        });
 
         resumeButton.on('pointerup', function (value) {
             instanciaScene.setVisible(true, 'game');
@@ -43,26 +47,34 @@ export default class Inicio extends Phaser.Scene {
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();
-        })
+        });
 
         exitButton.setInteractive();
 
         exitButton.on('pointerover', function (value) {
             exitButton.setScale(1.3);
-        })
+        });
 
         exitButton.on('pointerout', function (value) {
             exitButton.setScale(1);
-        })
+        });
 
-        exitButton.on('pointerup', function (value) 
-        {
-           // this.scene.scene.music.destroy();
-            instanciaScene.start('inicio',{modificado : false});
+        exitButton.on('pointerup', function (value) {
+
+            this.gameScene.player.destroy();
+            this.gameScene.music.destroy();
+            //TODO destoy todos los elementos
+            this.gameScene.enemy.forEach(enemigo => {
+                enemigo.destroy();
+            });
+            this.gameScene.trump.destroy();
+            instanciaScene.start('inicio'/*,{modificado : false}*/);
+
+            this.gameScene.destroy();
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();
-        })
+        }, this);
 
         this.add.image(0, 0, 'background').setOrigin(0.01).setDepth(0).setScale(1.75);
 

@@ -3,10 +3,10 @@ export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
     }
-   init(){
-        datosConfig.dungeon.width=30;
-        datosConfig.dungeon.height=30;
-   }
+    /*init(){
+         datosConfig.dungeon.width=30;
+         datosConfig.dungeon.height=30;
+    }*/
     //TODO hacer acorde con el ancho y el alto.
     create() {
         const instanciaScene = this.scene;
@@ -39,7 +39,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
 
-        let diffInfo = this.add.text(width / 2 - 120, height / 2 + 150, '<Dificultad>',
+        let diffInfo = this.add.text(width / 2 - 150, height / 2 + 150, '<Dificultad>',
             {
                 fontSize: '40px',
                 fontStyle: 'bold',
@@ -47,7 +47,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
 
-        let diffPlusButton = this.add.text(width / 2 + 70, height / 2 + 150, '+',
+        let diffPlusButton = this.add.text(width / 2 + 70 , height / 2 + 150, '+',
             {
                 fontSize: '40px',
                 fontStyle: 'bold',
@@ -55,7 +55,24 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
 
             }).setDepth(1).setOrigin(0.5);
-        let diffValue = this.add.text(width / 2 + 120, height / 2 + 150, datosConfig.dificultad,
+
+        let text = "";
+        switch (datosConfig.dificultad) {
+            case 1:
+                text = "Fácil";
+                break;
+            case 2:
+                text = "Normal";
+                break;
+            case 3:
+                text = "Dificil";
+                break;
+            case 4:
+                text = "Extremo";
+                break;
+        }
+
+        let diffValue = this.add.text(width / 2 + 180, height / 2 + 150, text,
             {
                 fontSize: '40px',
                 fontStyle: 'bold',
@@ -64,7 +81,7 @@ export default class Options extends Phaser.Scene {
                 backgroundColor: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
 
-        let diffMinButton = this.add.text(width / 2 + 170, height / 2 + 150, '-',
+        let diffMinButton = this.add.text(width / 2 + 280, height / 2 + 150, '-',
             {
                 fontSize: '40px',
                 fontStyle: 'bold',
@@ -90,7 +107,24 @@ export default class Options extends Phaser.Scene {
         diffPlusButton.on('pointerup', function (value) {
             if (datosConfig.dificultad < 4) {
                 datosConfig.dificultad++;
-                diffValue.text = datosConfig.dificultad;
+
+                let text = "";
+                switch (datosConfig.dificultad) {
+                    case 1:
+                        text = "Fácil";
+                        break;
+                    case 2:
+                        text = "Normal";
+                        break;
+                    case 3:
+                        text = "Dificil";
+                        break;
+                    case 4:
+                        text = "Extremo";
+                        break;
+                }
+
+                diffValue.text = text;
                 //datosConfig.dungeon.height = datosConfig.dungeon.height +20;
                 //datosConfig.dungeon.width = datosConfig.dungeon.width +20;
             }
@@ -109,9 +143,26 @@ export default class Options extends Phaser.Scene {
         diffMinButton.on('pointerup', function (value) {
             if (datosConfig.dificultad > 1) {
                 datosConfig.dificultad--;
+
+                let text = "";
+                switch (datosConfig.dificultad) {
+                    case 1:
+                        text = "Fácil";
+                        break;
+                    case 2:
+                        text = "Normal";
+                        break;
+                    case 3:
+                        text = "Dificil";
+                        break;
+                    case 4:
+                        text = "Extremo";
+                        break;
+                }
+
                 //datosConfig.dungeon.height = datosConfig.dungeon.height - 20;
                 //datosConfig.dungeon.width = datosConfig.dungeon.width - 20;
-                diffValue.text = datosConfig.dificultad;
+                diffValue.text = text;
             }
         }, this);
         let volumePlusButton = this.add.text(width / 2 + 70, height / 2 + 50, '+',
@@ -233,7 +284,7 @@ export default class Options extends Phaser.Scene {
         })
 
         atrasButton.on('pointerup', function (value) {
-            instanciaScene.start('inicio',{modificado :true});
+            instanciaScene.start('inicio'/*,{modificado :true}*/);
         })
     }
 

@@ -19,5 +19,6 @@ export var datosConfig = {
         seek: 0,
         loop: true,
         delay: 0
-    }
+    },
+    dificultad: 1
 }

@@ -1,10 +1,15 @@
 
-
+import { datosConfig } from "./config.js";
 export default class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: 'inicio' });
     }
-
+    /*init(data){
+        if(data.modificado==false){
+            datosConfig.dungeon.height=30;
+            datosConfig.dungeon.width=30;
+        }
+    }*/
     create() {
         var width = this.scale.width;
         var height = this.scale.height;

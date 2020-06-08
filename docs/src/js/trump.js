@@ -16,48 +16,55 @@ export default class Trump {
         this.anguloSprite = 0;
         this.animation = "enemy-walk";
         this.sprite = scene.physics.add
-            .sprite(x, y, "enemigo", 0)
+            .sprite(x, y, "trump", 0)
             .setSize(19, 25)
             .setOffset(10, 10);
 
         const anims = scene.anims;
-        this.sprite.setScale(1.75);
+        this.sprite.setScale(2);
         anims.create({
-            key: "enemy-walk-back",
-            frames: anims.generateFrameNumbers("enemigo", { start: 22, end: 29 }),
+            key: "trump_quieto",
+            frames: anims.generateFrameNumbers("trump", { start: 0, end: 8 }),
             frameRate: 8,
             repeat: -1
         });
         anims.create({
-            key: "enemy-walk",
-            frames: anims.generateFrameNumbers("enemigo", { start: 30, end: 37 }),
+            key: "trump-walk",
+            frames: anims.generateFrameNumbers("trump", { start: 9, end: 16 }),
             frameRate: 8,
             repeat: -1
         });
         anims.create({
             key: "enemy-stand-back",
-            frames: anims.generateFrameNumbers("enemigo", { start: 9, end: 21 }),
+            frames: anims.generateFrameNumbers("trump", { start: 17, end: 29 }),
             frameRate: 8,
             repeat: -1
         });
         anims.create({
             key: "enemy-stand",
-            frames: anims.generateFrameNumbers("enemigo", { start: 0, end: 8 }),
+            frames: anims.generateFrameNumbers("trump", { start: 30, end: 37 }),
             frameRate: 8,
             repeat: -1
         });
-
+        const instanciaScene = this.scene;
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, ganador, null, this.scene);
         function ganador(enemy, player) {
-            if (!this.hasPlayerReachedTrump) {
+            // Define el nivel donde quieres que este el final de trump;
+            if(this.level == 2){
+                this.music.destroy();
+                this.scene.start('FinalkillTrump',{score : this.score, vidas : this.player.health});
+            }
+
+            else if (!this.hasPlayerReachedTrump) {
                 this.hasPlayerReachedTrump = true;
                 this.player.freeze();
+                this.trump.freeze();
                 this.score += 100;
                 this.cameras.main.fade(250, 0, 0, 0);
                 this.cameras.main.once("camerafadeoutcomplete", () => {
                     this.player.destroy();
                     this.music.destroy();
-                    this.scene.restart();
+                    this.scene.restart({reinicio :false});
                     //TODO destoy todos los elementos
                     this.enemy.forEach(enemigo => {
                         enemigo.destroy();
@@ -67,7 +74,10 @@ export default class Trump {
             }
         }
 
-        this.sprite.anims.play('enemy-stand', true);
+        this.sprite.anims.play('trump_quieto', true);
+
+
+
     }
 
     freeze() {

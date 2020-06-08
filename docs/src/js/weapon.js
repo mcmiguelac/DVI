@@ -6,7 +6,7 @@ export default class Weapon {
         this.y = y;
 
 
-        this.delayAttackSpeed = 500;//No bajar mucho o causa fallo.
+        //No bajar mucho o causa fallo.
         this.attackTimerPass = true;
 
         const musicAttackConfig = datosConfig.musicConfig;
@@ -16,7 +16,7 @@ export default class Weapon {
         //Pool 50 bullets
         this.bullets = this.scene.add.group();
 
-        for (let index = 0; index < 30; index++) {
+        for (let index = 0; index < 50; index++) {
             let bullet = this.scene.physics.add.sprite(this.x, this.y, 'bullet').setDisplaySize(20, 20).setSize(4, 4);
 
             this.scene.physics.add.collider(bullet, this.scene.groundLayer, this.matar, null, this);
@@ -26,10 +26,7 @@ export default class Weapon {
             //this.bullets.killAndHide(bullet);
             this.matar(bullet);
         }
-
     }
-
-
     matar(bullet) {
         //this.bullets.killAndHide(bullet);
         this.bullets.kill(bullet);
@@ -54,15 +51,24 @@ export default class Weapon {
     shoot(direccion, x, y) {
 
         if (this.attackTimerPass) {
-
+            const delayAttackSpeed = 150;
             let shotVelocity = 1000;
 
             var bullet = this.bullets.getFirstDead(false);
-
             this.scene.physics.add.collider(bullet, this.scene.enemy, this.matar(bullet));
-
             this.revivir(x, y, bullet);
+            // this.scene.physics.moveTo(bullet, x, y, shotVelocity);
+            this.attackAudio.play();
+            this.attackTimerPass = false; 
+            this.scene.time.delayedCall(delayAttackSpeed, function () {
+                this.attackTimerPass = true;
+               // this.matar(bullet);
+            }, [], this);
 
+            //Matar pasado un tiempo (las balas no llegan lejos)
+            // this.scene.time.delayedCall(1000, function () {
+            //     this.matar(bullet);
+            // }, [], this);
 
             switch (direccion) {
                 case 0: bullet.body.setVelocityX(shotVelocity); bullet.angle = 0; break;
@@ -70,18 +76,6 @@ export default class Weapon {
                 case -90: bullet.body.setVelocityY(-shotVelocity); bullet.angle = 90; break;
                 case 180: bullet.body.setVelocityX(-shotVelocity); bullet.angle = 0; break;
             }
-
-            // this.scene.physics.moveTo(bullet, x, y, shotVelocity);
-            this.attackAudio.play();
-            this.attackTimerPass = false;
-            this.scene.time.delayedCall(this.delayAttackSpeed, function () {
-                this.attackTimerPass = true;
-            }, [], this);
-
-            //Matar pasado un tiempo (las balas no llegan lejos)
-            this.scene.time.delayedCall(1000, function () {
-                this.matar(bullet);
-            }, [], this);
         }
     }
 }

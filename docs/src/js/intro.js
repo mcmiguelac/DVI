@@ -1,10 +1,10 @@
 
 import { datosConfig } from "./config.js";
-export default class Inicio extends Phaser.Scene {
+export default class Intro extends Phaser.Scene {
     constructor() {
         super({ key: 'intro' });
     }
-
+    
     create() {
         var width = this.scale.width;
         var height = this.scale.height;
@@ -51,7 +51,6 @@ export default class Inicio extends Phaser.Scene {
         }, this)
     }
 
-    //TODO ARREGLAR; no me cuadra que en el update se haga esto, cuantas escenas se están abriendo
     update() {
 
         if (this.contador < 17) {
@@ -59,8 +58,9 @@ export default class Inicio extends Phaser.Scene {
         }
         else {
             this.music.destroy();
-            this.scene.start("game");
+            this.scene.start("game",{reinicio :true});
         }
+
     }
 
 }

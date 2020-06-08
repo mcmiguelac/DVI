@@ -1,6 +1,6 @@
 
 
-export default class Inicio extends Phaser.Scene {
+export default class End extends Phaser.Scene {
     constructor() {
         super({ key: 'end' });
     }
@@ -31,7 +31,7 @@ export default class Inicio extends Phaser.Scene {
 
         gobackButton.on('pointerup', function (value) {
             //Ejecutar destroy de tooo
-            instanciaScene.start('inicio', {modificado :false});
+            instanciaScene.start('inicio'/*, {modificado :false}*/);
             miniA.destroy();
         })
 
