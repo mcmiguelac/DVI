@@ -38,20 +38,21 @@ export default class Game extends Phaser.Scene {
         var height = this.scale.height;
         this.level += 1;
         this.hasPlayerReachedTrump = false;
-        this.configMapa = {
-            width: datosConfig.dungeon.width,
-            height: datosConfig.dungeon.height,
-            doorPadding: datosConfig.dungeon.doorPadding,
-            rooms: datosConfig.dungeon.rooms
-        };
+
 
         if (this.level != 1) {
-            this.configMapa.height += 15;
-            this.configMapa.width += 15;
+            this.configMapa.height = Math.round(this.configMapa.height * 1.5);
+            this.configMapa.width = Math.round(this.configMapa.width * 1.5);
         } else {
-            if(datosConfig.dificultad > 1){
-                this.configMapa.height = datosConfig.dungeon.height + Math.round(datosConfig.dungeon.height * (datosConfig.dificultad/10));
-                this.configMapa.width = datosConfig.dungeon.width + Math.round(datosConfig.dungeon.width * (datosConfig.dificultad/10));
+            this.configMapa = {
+                width: datosConfig.dungeon.width,
+                height: datosConfig.dungeon.height,
+                doorPadding: datosConfig.dungeon.doorPadding,
+                rooms: datosConfig.dungeon.rooms
+            };
+            if (datosConfig.dificultad > 1) {
+                this.configMapa.height = datosConfig.dungeon.height + Math.round(datosConfig.dungeon.height * (datosConfig.dificultad / 10));
+                this.configMapa.width = datosConfig.dungeon.width + Math.round(datosConfig.dungeon.width * (datosConfig.dificultad / 10));
             } else {
                 this.configMapa.height = datosConfig.dungeon.height;
                 this.configMapa.width = datosConfig.dungeon.width;
@@ -95,6 +96,7 @@ export default class Game extends Phaser.Scene {
         this.player = new Player(this, x, y);
 
         this.enemy = [];
+
         this.otherRoomsFull.forEach(salaEnemigo => {
             // var x = map.tileToWorldX(salaEnemigo.centerX);
             // var y = map.tileToWorldY(salaEnemigo.centerY);
@@ -193,7 +195,7 @@ export default class Game extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
                 console.log("pulsado");
                 this.scene.pause();
-                this.scene.launch('pause',{game : this});
+                this.scene.launch('pause', { game: this });
                 this.scene.setVisible(false);
             }
 
