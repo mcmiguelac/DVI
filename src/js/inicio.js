@@ -4,9 +4,11 @@ export default class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: 'inicio' });
     }
-    init(){
-        datosConfig.dungeon.width=30;
-        datosConfig.dungeon.height=30;
+    init(data){
+        if(data.modificado==false){
+            datosConfig.dungeon.height=30;
+            datosConfig.dungeon.width=30;
+        }
     }
     create() {
         var width = this.scale.width;

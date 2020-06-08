@@ -31,7 +31,7 @@ export default class Inicio extends Phaser.Scene {
 
         gobackButton.on('pointerup', function (value) {
             //Ejecutar destroy de tooo
-            instanciaScene.start('inicio');
+            instanciaScene.start('inicio', {modificado :false});
             miniA.destroy();
         })
 

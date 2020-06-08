@@ -19,7 +19,6 @@ export default class Game extends Phaser.Scene {
     init(data){
         console.log(data.reinicio)
         let ok = true;
-        
         if(data.reinicio==true){
             console.log("entro")
             this.level = 0;

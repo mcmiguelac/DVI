@@ -55,8 +55,10 @@ export default class Inicio extends Phaser.Scene {
             exitButton.setScale(1);
         })
 
-        exitButton.on('pointerup', function (value) {
-            instanciaScene.start('inicio');
+        exitButton.on('pointerup', function (value) 
+        {
+           // this.scene.scene.music.destroy();
+            instanciaScene.start('inicio',{modificado : false});
             miniA.destroy();
             miniB.destroy();
             miniC.destroy();

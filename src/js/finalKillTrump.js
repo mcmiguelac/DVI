@@ -89,7 +89,7 @@ export default class Inicio extends Phaser.Scene {
 
         gobackButton.on('pointerup', function (value) {
             this.music.destroy();   
-            this.scene.start("inicio");
+            this.scene.start("inicio",{modificado :false});
         }, this)
         this.add.image(0, 0, 'final').setOrigin(0.01).setDepth(0).setScale(1.75);
         this.nombres.setVisible(false);

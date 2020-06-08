@@ -3,7 +3,10 @@ export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
     }
-
+   init(){
+        datosConfig.dungeon.width=30;
+        datosConfig.dungeon.height=30;
+   }
     //TODO hacer acorde con el ancho y el alto.
     create() {
         const instanciaScene = this.scene;
@@ -237,7 +240,7 @@ export default class Options extends Phaser.Scene {
         })
 
         atrasButton.on('pointerup', function (value) {
-            instanciaScene.start('inicio');
+            instanciaScene.start('inicio',{modificado :true});
         })
     }
 
