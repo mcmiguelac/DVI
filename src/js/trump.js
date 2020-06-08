@@ -50,6 +50,8 @@ export default class Trump {
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, ganador, null, this.scene);
         function ganador(enemy, player) {
             // Define el nivel donde quieres que este el final de trump;
+            // Los textos de historia estan hechos para 3 niveles
+            
             if(this.level == 3){
                 this.music.destroy();
                 this.scene.start('FinalkillTrump',{score : this.score, vidas : this.player.health});
