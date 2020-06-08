@@ -16,11 +16,12 @@ export default class Game extends Phaser.Scene {
         this.level = 0;
         this.score = 0;
     }
-    init(data){
+
+    init(data) {
         console.log(data.reinicio)
         let ok = true;
-        
-        if(data.reinicio==true){
+
+        if (data.reinicio == true) {
             console.log("entro")
             this.level = 0;
             this.score = 0;
@@ -37,14 +38,14 @@ export default class Game extends Phaser.Scene {
         var height = this.scale.height;
         this.level += 1;
         this.hasPlayerReachedTrump = false;
-        if(this.level!=1)
-            datosConfig.dungeon.height+=15;
-            datosConfig.dungeon.width+=15;
+        if (this.level != 1) {
+            datosConfig.dungeon.height += 15;
+            datosConfig.dungeon.width += 15;
+        }
         // Genera un mundo aleatorio con algunas opciones adicionales:
         // - Las habitaciones solo deben tener dimensiones de números impares para que tengan un mosaico central.
         // - Las puertas deben estar al menos a 2 mosaicos de las esquinas, para que podamos colocar un mosaico de esquina en
         // a ambos lados de la ubicación de la puerta
-
         this.dungeon = new Dungeon(datosConfig.dungeon);
 
         // Crear un mapa de mosaicos en blanco con dimensiones que coincidan con la mazmorra
@@ -83,29 +84,29 @@ export default class Game extends Phaser.Scene {
             // var y = map.tileToWorldY(salaEnemigo.centerY);
             let alto = salaEnemigo.height;
             let ancho = salaEnemigo.width;
-            
+
             let piezas_libres = 0;
-            for (let i = 1; i < alto-1; i++) {
-                for (let j = 2; j < ancho-1; j++) {
+            for (let i = 1; i < alto - 1; i++) {
+                for (let j = 2; j < ancho - 1; j++) {
                     if (salaEnemigo.arrayOcupados[i][j] == 0)
                         piezas_libres++;
                 }
             }
             let numero_enemigos = piezas_libres / 10;
             let numero_colocados = 0;
-            while (numero_colocados < numero_enemigos){
-                    let rand_i =  Math.round(Math.random() *( alto-3) ) + 2;
-                    let rand_j =  Math.round(Math.random() *( ancho-2) ) + 1;
-                    if(salaEnemigo.arrayOcupados[rand_i][rand_j]==0){
-                        let x = map.tileToWorldX(salaEnemigo.left+rand_j);
-                        let y = map.tileToWorldY(salaEnemigo.top+rand_i);
-                        let num =  Math.floor(Math.random() * 10);
-                        if(num<5)
-                            this.enemy.push(new EnemyNinja(this, x, y));
-                        else this.enemy.push(new Enemy(this, x, y));
-                         salaEnemigo.arrayOcupados[rand_i][rand_j] = 5;
-                        numero_colocados++;
-                    }
+            while (numero_colocados < numero_enemigos) {
+                let rand_i = Math.round(Math.random() * (alto - 3)) + 2;
+                let rand_j = Math.round(Math.random() * (ancho - 2)) + 1;
+                if (salaEnemigo.arrayOcupados[rand_i][rand_j] == 0) {
+                    let x = map.tileToWorldX(salaEnemigo.left + rand_j);
+                    let y = map.tileToWorldY(salaEnemigo.top + rand_i);
+                    let num = Math.floor(Math.random() * 10);
+                    if (num < 5)
+                        this.enemy.push(new EnemyNinja(this, x, y));
+                    else this.enemy.push(new Enemy(this, x, y));
+                    salaEnemigo.arrayOcupados[rand_i][rand_j] = 5;
+                    numero_colocados++;
+                }
 
 
 
@@ -139,7 +140,7 @@ export default class Game extends Phaser.Scene {
 
             const musicConfig = datosConfig.musicConfig;
             // config es opcional
-            this.music = this.sound.add("backgroundMusic", musicConfig );
+            this.music = this.sound.add("backgroundMusic", musicConfig);
             // El sonido solo se activará cuando se pase a la escena de juego
             this.music.play();
         }
@@ -151,21 +152,21 @@ export default class Game extends Phaser.Scene {
             font: "25px monospace",
             fill: "#000000",
             padding: { x: 20, y: 10 },
-            
+
 
         }).setScrollFactor(0).setDepth(5);
         this.textInfo2 = this.add.text(16, 46, `Puntuación: ${this.score} `, {
             font: "25px monospace",
             fill: "#0252CE",
-            padding: { x: 20, y: 10},
-            
+            padding: { x: 20, y: 10 },
+
 
         }).setScrollFactor(0).setDepth(5);
         this.textInfo3 = this.add.text(16, 76, `Vidas: ${this.player.health}`, {
             font: "25px monospace",
             fill: "#12CE02",
-            padding: { x: 20, y: 10},
-            
+            padding: { x: 20, y: 10 },
+
 
         }).setScrollFactor(0).setDepth(5);
     }
@@ -203,7 +204,7 @@ export default class Game extends Phaser.Scene {
                 });
             }
         }
-        
+
         this.textInfo1.setText(`Encuentra a trump. Nivel: ${this.level} `);
         this.textInfo2.setText(`Puntuación: ${this.score} `);
         this.textInfo3.setText(`Vidas: ${this.player.health}`);

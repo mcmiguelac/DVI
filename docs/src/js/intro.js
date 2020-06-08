@@ -51,6 +51,7 @@ export default class Inicio extends Phaser.Scene {
         }, this)
     }
 
+    //TODO ARREGLAR; no me cuadra que en el update se haga esto, cuantas escenas se están abriendo
     update() {
 
         if (this.contador < 17) {
@@ -60,7 +61,6 @@ export default class Inicio extends Phaser.Scene {
             this.music.destroy();
             this.scene.start("game");
         }
-
     }
 
 }

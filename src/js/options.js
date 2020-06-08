@@ -52,8 +52,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#004dc9"
 
             }).setDepth(1).setOrigin(0.5);
-        let valor = 1;
-        let diffValue = this.add.text(width / 2 + 120, height / 2 + 150, valor,
+        let diffValue = this.add.text(width / 2 + 120, height / 2 + 150, datosConfig.dificultad,
             {
                 fontSize: '40px',
                 fontStyle: 'bold',
@@ -86,14 +85,11 @@ export default class Options extends Phaser.Scene {
         });
 
         diffPlusButton.on('pointerup', function (value) {
-            if (valor < 4) {
-                valor++;
-
-                diffValue.text = valor;
-                datosConfig.dungeon.height = datosConfig.dungeon.height +20;
-                datosConfig.dungeon.width = datosConfig.dungeon.width +20;
-                console.log(datosConfig.dungeon.height);
-                console.log( datosConfig.dungeon.width);
+            if (datosConfig.dificultad < 4) {
+                datosConfig.dificultad++;
+                diffValue.text = datosConfig.dificultad;
+                //datosConfig.dungeon.height = datosConfig.dungeon.height +20;
+                //datosConfig.dungeon.width = datosConfig.dungeon.width +20;
             }
         }, this);
 
@@ -108,14 +104,11 @@ export default class Options extends Phaser.Scene {
         });
 
         diffMinButton.on('pointerup', function (value) {
-            console
-            if (valor > 1) {
-                valor--;
-                datosConfig.dungeon.height = datosConfig.dungeon.height - 20;
-                datosConfig.dungeon.width = datosConfig.dungeon.width - 20;
-                console.log(datosConfig.dungeon.height);
-                console.log( datosConfig.dungeon.width);
-                diffValue.text = valor;
+            if (datosConfig.dificultad > 1) {
+                datosConfig.dificultad--;
+                //datosConfig.dungeon.height = datosConfig.dungeon.height - 20;
+                //datosConfig.dungeon.width = datosConfig.dungeon.width - 20;
+                diffValue.text = datosConfig.dificultad;
             }
         }, this);
         let volumePlusButton = this.add.text(width / 2 + 70, height / 2 + 50, '+',

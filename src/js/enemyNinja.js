@@ -50,7 +50,6 @@ export default class EnemyNinja {
                 this.scene.player.inmune = true;
                 this.scene.player.health -= 1;
                 if (this.scene.player.health == 0) {
-                    this.scene.music.destroy();
                     this.scene.player.end = true;
                 }
                 this.scene.time.delayedCall(1000, function () {

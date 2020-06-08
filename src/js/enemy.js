@@ -53,7 +53,6 @@ export default class Enemy {
                 this.scene.player.inmune = true;
                 this.scene.player.health -= 1;
                 if(this.scene.player.health==0){
-                    this.scene.music.destroy();
                     this.scene.player.end = true;
                 }
                 this.scene.time.delayedCall(1000, function () {
@@ -191,6 +190,7 @@ export default class Enemy {
                 }
 
             }
+            //TODO BORRAR
             if (this.anguloSprite == -90) {
                 // sprite.setTexture("characters", 64);
             } else {

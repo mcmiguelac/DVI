@@ -16,7 +16,7 @@ export default class Weapon {
         //Pool 50 bullets
         this.bullets = this.scene.add.group();
 
-        for (let index = 0; index < 500; index++) {
+        for (let index = 0; index < 50; index++) {
             let bullet = this.scene.physics.add.sprite(this.x, this.y, 'bullet').setDisplaySize(20, 20).setSize(4, 4);
 
             this.scene.physics.add.collider(bullet, this.scene.groundLayer, this.matar, null, this);
@@ -26,13 +26,7 @@ export default class Weapon {
             //this.bullets.killAndHide(bullet);
             this.matar(bullet);
         }
-
-
-
-
     }
-
-
     matar(bullet) {
         //this.bullets.killAndHide(bullet);
         this.bullets.kill(bullet);
