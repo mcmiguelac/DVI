@@ -11,6 +11,7 @@ export default class Trump extends Character {
     constructor(scene, x, y) {
         super(scene, x, y)
         this.end = false;
+        this.hit = false;
         switch (datosConfig.dificultad) {
 			case 1:
 				this.health = 50;
@@ -67,6 +68,14 @@ export default class Trump extends Character {
             this.scene.player.weapon.matar(bullet);
             if (this.health > 0) {
                 this.health -= 1;
+                if (!this.hit) {
+                    this.hit = true; 
+                    this.scene.time.delayedCall(50, function () {
+                        this.hit = false;
+                        this.sprite.clearTint();
+                    }, [], this);
+                    this.sprite.setTintFill("0xfc2525")
+                }
             } else {
                 this.sprite.anims.play('trump_stand', true);
                 this.scene.textInfo7 = this.scene.add.text(this.scene.scale.width / 2 - 300, this.scene.scale.height / 2 - 100, "Acercate y arresta al malvado Trump", {
@@ -85,7 +94,7 @@ export default class Trump extends Character {
         function ganador(enemy, player) {
             // Define el nivel donde quieres que este el final de trump;
             // Los textos de historia estan hechos para 3 niveles
-            if (this.level == 3) {
+            if (this.level == 1) {
                 if (!this.hasPlayerReachedTrump && this.trump.health <= 0) {
                     this.hasPlayerReachedTrump = true;
                     this.music.destroy();
@@ -160,7 +169,7 @@ export default class Trump extends Character {
     }
 
     update() {
-        if (!this.scene.player.end && this.scene.level == 3 && this.health > 0) {
+        if (!this.scene.player.end && this.scene.level == 1 && this.health > 0) {
             const sprite = this.sprite;
             var cercano = false;
             var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);

@@ -77,11 +77,11 @@ export default class EnemyNinja extends Character{
 
         function disparoCertero(enemyNinja, bullet) {
             this.scene.player.weapon.matar(bullet);
-            if (this.vida == 0) {
+            this.vida -= 1;
+            if (this.vida <= 0) {
                 enemyNinja.disableBody(true, true);
                 this.scene.score += 100;
             }
-            this.vida -= 1;
             if (!this.hit) {
                 this.hit = true;
                 this.scene.time.delayedCall(100, function () {

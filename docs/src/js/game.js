@@ -134,7 +134,7 @@ export default class Game extends Phaser.Scene {
                     numero_enemigos = piezas_libres / 5;
                     break;
             }
-            
+
             let numero_colocados = 0;
             while (numero_colocados < numero_enemigos) {
                 let rand_i = Math.round(Math.random() * (alto - 3)) + 2;
@@ -194,8 +194,9 @@ export default class Game extends Phaser.Scene {
         if (!this.hasPlayerReachedTrump) {
             if (this.playerRoom == this.endRoom) {
                 this.stuffLayerAtravesable.setCollisionByExclusion([-1]);
-                this.physics.add.collider(this.player.sprite, this.stuffLayerAtravesable);
-                this.physics.add.collider(this.trump.sprite, this.stuffLayerAtravesable);
+                //Descomentar si se quiere que la habitación final encierre al personaje
+                //this.physics.add.collider(this.player.sprite, this.stuffLayerAtravesable);
+                //this.physics.add.collider(this.trump.sprite, this.stuffLayerAtravesable);
                 this.player.sprite.setSize(14, 25).setOffset(10, 5);
             }
             if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
