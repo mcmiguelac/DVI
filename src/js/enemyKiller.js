@@ -1,12 +1,5 @@
 import Character from "./character.js";
 import { datosConfig } from "./config.js";
-/*
-* Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
-* respuesta a las teclas WASD. 
-* método de actualización desde la actualización de la escena
-* método de destruccion cuando haya terminado con el jugador
-*/
-
 // Enemigo con apariencia "Killer" que su comportamiento  es perseguirte constantemente
 
 export default class EnemyKiller extends Character{
