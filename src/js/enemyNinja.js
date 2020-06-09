@@ -7,7 +7,8 @@ import { datosConfig } from "./config.js";
 * método de destruccion cuando haya terminado con el jugador
 */
 
-
+// Enemigo con apariencia "Ninja" que su comportamiento
+// es perseguirte por intervalos.
 export default class EnemyNinja extends Character{
     constructor(scene, x, y) {
         super(scene, x, y)
@@ -31,13 +32,14 @@ export default class EnemyNinja extends Character{
         this.end = false;
 
         super.animationName ="ninja-stand";
-
+        //selecionamos el sprite correspondiente
         this.sprite = scene.physics.add
             .sprite(x, y, "ninja", 0)
             .setSize(14, 25)
             .setOffset(10, 5);
 
         this.sprite.setScale(1.75);
+        // animamos los sprites
         scene.anims.create({
             key: "ninja-walk-back",
             frames: scene.anims.generateFrameNumbers("ninja", { start: 0, end: 7 }),
@@ -56,7 +58,8 @@ export default class EnemyNinja extends Character{
             frameRate: 8,
             repeat: -1
         });
-
+        // logica para hacer que nuestro personaje pierda vida y se ponga en rojo cuando reciba un hit de un enemigo 
+        // y se quede durante un intervalo de tiempo invulnerable 
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, function (enemyNinja, player) {
             if (!this.scene.player.inmune) {
                 this.scene.player.inmune = true;
@@ -75,7 +78,7 @@ export default class EnemyNinja extends Character{
 
 
         }, null, this);
-
+        // logica para hacer que el enmigo pierda vida por hit de bala y se ponga en rojo para que sea mas visual
         this.scene.physics.add.overlap(this.sprite, this.scene.player.weapon.bullets, disparoCertero, null, this);
 
         function disparoCertero(enemyNinja, bullet) {
@@ -103,7 +106,9 @@ export default class EnemyNinja extends Character{
         this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
         function onEvent() {
             this.contador += 1;
-            if (this.contador == 50) this.contador = 0; // One second
+            // para que los calculos de la logica no se hagan
+            // muy grande cada vez que llega a 50 vuelve el contador a 0
+            if (this.contador == 50) this.contador = 0; 
 
         }
     }
@@ -112,7 +117,8 @@ export default class EnemyNinja extends Character{
             const sprite = this.sprite;
             var cercano = false;
             var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
-
+            // Logica que implementa que el enemigo se mueva hacia la direccion donde esta el personaje 
+            // en este caso cada dos segundos se movera hacia a el protragonista si esta en el rango de accion
             if (distancia > 20 && distancia < 300 && this.contador % 2 == 0) {
                 this.scene.time.delayedCall(100, function () {
                     this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 300);

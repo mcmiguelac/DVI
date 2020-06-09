@@ -1,4 +1,21 @@
 
+
+
+//Menu de Inicio
+/* 
+Aqui podremos encontrar varias opciones
+    - Iniciar partida
+    - Entrar al Menu de opciones
+    
+
+*/
+// con setInteractive() hacemos que lo textos funciones como botones
+// con pointOver y pointerOut hacemos que el texto se agrande cuando pasamos el raton por encima
+
+
+// Encontramos una serie de sprites que apareceran de forma random cada vez que entremos en el menu  
+// y tendran una fisica aleatoria.
+
 export default class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: 'inicio' });
@@ -59,6 +76,8 @@ export default class Inicio extends Phaser.Scene {
         })
 
         this.add.image(0, 0, 'background').setOrigin(0.01).setDepth(0).setScale(1.75);
+
+      
 
         var rand = Math.random();
         var miniA = this.physics.add.sprite(100, 100, 'mini ' + Math.floor(rand * 10 + 1));
