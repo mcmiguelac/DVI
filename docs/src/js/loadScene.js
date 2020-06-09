@@ -151,6 +151,11 @@ export default class LoadScene extends Phaser.Scene {
         );
         this.load.image("bullet", "assets/spritesheets/bullet_1.png");
         this.load.text('TextoInicio', 'assets/texts/textoInicio.txt');
+
+        //Instrucciones
+        this.load.image("keys", "assets/img/img/keys.png");
+        this.load.image("wasd", "assets/img/img/wasd.png");
+        this.load.image("spacebar", "assets/img/img/spacebar.png");
         
     }
     //Muestra el menu de inicio

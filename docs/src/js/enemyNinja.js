@@ -67,7 +67,7 @@ export default class EnemyNinja extends Character{
 
                 }, [], this);
                 this.scene.player.sprite.setTint(null);
-                this.scene.player.sprite.setTintFill("0xfc2525")
+                this.scene.player.sprite.setTintFill("0xfc2525");
             }
 
 
