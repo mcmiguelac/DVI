@@ -20,5 +20,5 @@ export var datosConfig = {
         loop: true,
         delay: 0
     },
-    dificultad: 1
+    dificultad: 2
 }

@@ -1,4 +1,3 @@
-import Weapon from "./weapon.js";
 
 /*
 * Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en

@@ -1,5 +1,6 @@
-import Weapon from "./weapon.js";
+import WeaponOne from "./weaponOne.js";
 import Character from "./character.js";
+import { datosConfig } from "./config.js";
 /*
 * Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
 * respuesta a las teclas WASD. 
@@ -11,7 +12,24 @@ export default class Player extends Character {
 		super(scene, x, y)
 		this.inmume = false;
 		this.end = false;
-		this.health = 6;
+		switch (datosConfig.dificultad) {
+			case 1:
+				this.health = 15;
+				break;
+			case 2:
+				this.health = 12;
+				break;
+			case 3:
+				this.health = 10;
+				break;
+			case 4:
+				this.health = 8;
+				break;
+			default:
+				this.health = 10;
+				break;
+		}
+
 
 		super.animationName = "player-stand";
 		this.sprite = scene.physics.add
@@ -89,7 +107,7 @@ export default class Player extends Character {
 				fDer: Phaser.Input.Keyboard.KeyCodes.RIGHT
 			});
 
-		this.weapon = new Weapon(this.scene, this.sprite.x, this.sprite.y);
+		this.weapon = new WeaponOne(this.scene, this.sprite.x, this.sprite.y);
 		this.sprite.anims.play(this.animation);
 	}
 

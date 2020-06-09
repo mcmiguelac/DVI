@@ -1,4 +1,5 @@
 import Character from "./character.js";
+import { datosConfig } from "./config.js";
 /*
 * Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
 * respuesta a las teclas WASD. 
@@ -8,7 +9,23 @@ import Character from "./character.js";
 export default class EnemyKiller extends Character{
     constructor(scene, x, y) {
         super(scene, x, y)
-        this.vida = 1;
+        switch (datosConfig.dificultad) {
+			case 1:
+                this.vida = 2;
+				break;
+			case 2:
+				this.vida = 3;
+				break;
+			case 3:
+                this.vida = 4;
+				break;
+			case 4:
+				this.vida = 5;
+				break;
+			default:
+				this.vida = 3;
+				break;
+		}
 
         this.hit = false;
         this.end = false;
@@ -69,10 +86,9 @@ export default class EnemyKiller extends Character{
             this.scene.player.weapon.matar(bullet);
             if( this.vida == 0){
                 enemy.disableBody(true, true);
+                this.scene.score += 100;
             }
-            console.log(this.vida);
             this.vida -= 1;
-            this.scene.score += 100;
             if (!this.hit) {
                  this.hit = true; 
                  this.scene.time.delayedCall(100, function () {

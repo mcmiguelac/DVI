@@ -233,9 +233,7 @@ export default class Options extends Phaser.Scene {
 
         volumePlusButton.on('pointerup', function (value) {
             if (datosConfig.musicConfig.volume <= 0.95) {
-                console.log(datosConfig.musicConfig.volume)
                 datosConfig.musicConfig.volume = parseFloat((datosConfig.musicConfig.volume + 0.05).toFixed(2));
-                console.log(datosConfig.musicConfig.volume)
                 volumeValue.text = Math.round(datosConfig.musicConfig.volume * 100);
             }
         }, this);
@@ -252,9 +250,7 @@ export default class Options extends Phaser.Scene {
 
         volumeMinButton.on('pointerup', function (value) {
             if (datosConfig.musicConfig.volume >= 0.05) {
-                console.log(datosConfig.musicConfig.volume)
                 datosConfig.musicConfig.volume = parseFloat((datosConfig.musicConfig.volume - 0.05).toFixed(2));
-                console.log(datosConfig.musicConfig.volume)
                 volumeValue.text = Math.round(datosConfig.musicConfig.volume * 100);
             }
         }, this);

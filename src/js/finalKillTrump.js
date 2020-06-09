@@ -8,7 +8,6 @@ export default class FinalkillTrump extends Phaser.Scene {
     init(data) {
         this.puntuacion = data.score;
         this.life = data.vidas;
-        console.log(this.life);
     }
     create() {
 
@@ -93,7 +92,6 @@ export default class FinalkillTrump extends Phaser.Scene {
     update() {
 
         if (Phaser.Input.Keyboard.JustDown(this.fkey)) {
-            console.log("XD");
             this.nombres.setVisible(true);
             this.f.setVisible(false);
         }

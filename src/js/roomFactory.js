@@ -151,35 +151,27 @@ export default class RoomFactory {
             var rand = Math.round(Math.random() * 100) % 8;
             switch (rand) {
                 case 0:
-                    console.log("cocina");
                     this.cocina(game, room);
                     break;
                 case 1:
-                    console.log("Biblioteca");
                     this.biblioteca(game, room);
                     break;
                 case 2:
-                    console.log("Salon");
                     this.salon(game, room);
                     break;
                 case 3:
-                    console.log("Estudio");
                     this.estudio(game, room);
                     break;
                 case 4:
-                    console.log("Habitacion");
                     this.habitacion(game, room);
                     break;
                 case 5:
-                    console.log("Comedor");
                     this.comedor(game, room);
                     break;
                 case 6:
-                    console.log("Laboratorio");
                     this.laboratorio(game, room);
                     break;
                 case 7:
-                    console.log("Toilette");
                     this.toilete(game, room);
                     break;
                 default:

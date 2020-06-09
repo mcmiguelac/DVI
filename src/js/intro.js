@@ -44,7 +44,7 @@ export default class Intro extends Phaser.Scene {
 
         gobackButton.on('pointerup', function (value) {
 
-            instanciaScene.start('game');
+            instanciaScene.start('game', { reinicio: true });
             this.music.destroy();
         }, this)
     }
@@ -62,5 +62,4 @@ export default class Intro extends Phaser.Scene {
 
 function onEvent() {
     this.contador += 1; // One second
-    console.log(this.contador);
 }
