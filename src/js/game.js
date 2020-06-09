@@ -227,7 +227,7 @@ export default class Game extends Phaser.Scene {
             }
         }
 
-        this.textInfo.setText(`Encuentra a trump. Nivel: ${this.level} \nPuntuación: ${this.score}\nVidas: ${this.player.health}`);
+        this.textInfo.setText(`Encuentra a Trump. Nivel: ${this.level} \nPuntuación: ${this.score}\nVidas: ${this.player.health}`);
         /*this.textInfo1.setText(`Encuentra a trump. Nivel: ${this.level} `);
         this.textInfo2.setText(`Puntuación: ${this.score} `);
         this.textInfo3.setText(`Vidas: ${this.player.health}`);*/
