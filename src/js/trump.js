@@ -94,7 +94,7 @@ export default class Trump extends Character {
         function ganador(enemy, player) {
             // Define el nivel donde quieres que este el final de trump;
             // Los textos de historia estan hechos para 3 niveles
-            if (this.level == 1) {
+            if (this.level == 3) {
                 if (!this.hasPlayerReachedTrump && this.trump.health <= 0) {
                     this.hasPlayerReachedTrump = true;
                     this.music.destroy();
@@ -169,7 +169,7 @@ export default class Trump extends Character {
     }
 
     update() {
-        if (!this.scene.player.end && this.scene.level == 1 && this.health > 0) {
+        if (!this.scene.player.end && this.scene.level == 3 && this.health > 0) {
             const sprite = this.sprite;
             var cercano = false;
             var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
