@@ -1,3 +1,22 @@
+
+
+
+
+//Menu de pausa
+//Podremos acceder pulsando en la barra espaciodora desde dentro del juego
+/* 
+Aqui podremos encontrar varias opciones
+    - Continuar con el juego
+    - Volver al menu de inicio
+
+*/
+// con setInteractive() hacemos que lo textos funciones como botones
+// con pointOver y pointerOut hacemos que el texto se agrande cuando pasamos el raton por encima
+
+
+// Encontramos una serie de sprites que apareceran de forma random cada vez que entremos en el menu  
+// y tendran una fisica aleatoria.
+
 export default class Pause extends Phaser.Scene {
     constructor() {
         super({ key: 'pause' });
