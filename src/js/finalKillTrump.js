@@ -1,5 +1,12 @@
 import { datosConfig } from "./config.js";
 
+// Escena final del juego que muestra la puntuacion 
+// que se ha obtenido al final
+
+// Si pulsas el boton de volver atras te vuelve al inicio.
+
+// con setInteractive() hacemos que lo textos funciones como botones
+// con pointOver y pointerOut hacemos que el texto se agrande cuando pasamos el raton por encima
 
 export default class FinalkillTrump extends Phaser.Scene {
     constructor() {

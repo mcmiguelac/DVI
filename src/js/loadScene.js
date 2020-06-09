@@ -1,11 +1,16 @@
+/* 
+    Clase que carga todos los elementos que vamos a utilziar en el juego
+    Ademas muestra una escena que muestra una barra de progreso de carga.
 
+*/
 
 export default class LoadScene extends Phaser.Scene {
     constructor() {
         super({ key: 'loadScene' });
     }
-
+    
     preload() {
+        //Escena que simula una barra de carga 
         var progressBar = this.add.graphics();
         var progressBox = this.add.graphics();
         var width = this.scale.width;
@@ -68,8 +73,9 @@ export default class LoadScene extends Phaser.Scene {
 
         this.loadAll();
     }
-
+    //cargamos todos los componentes que vamos a necesitar en el juego
     loadAll() {
+        
         //Menu Principal
         this.load.image("titulo", "assets/img/img/titulo.png");
         this.load.image("finTirania", "assets/img/img/finTirania.png");
@@ -127,16 +133,7 @@ export default class LoadScene extends Phaser.Scene {
                 frameHeight: 32
             }
         );
-        this.load.spritesheet(
-            "vidaPlayer",
-            "assets/spritesheets/healthbar.png",
-            {
-                frameWidth: 660,
-                frameHeight: 184
-            }
-        );
-
-
+      
 
         //Menú ajustes
         this.load.image("flagLGif", "assets/img/img/flagL.gif");
@@ -153,13 +150,10 @@ export default class LoadScene extends Phaser.Scene {
             }
         );
         this.load.image("bullet", "assets/spritesheets/bullet_1.png");
-
-
-
         this.load.text('TextoInicio', 'assets/texts/textoInicio.txt');
-        //cargar fuentes
+        
     }
-
+    //Muestra el menu de inicio
     create() {
         this.scene.start('inicio');
     }

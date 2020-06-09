@@ -1,4 +1,19 @@
 import { datosConfig } from "./config.js";
+
+
+//Menu de opciones 
+//Podremos acceder solo desde el menu de inicio
+/* 
+Aqui podremos encontrar varias opciones
+    - Activar/Desactivar pantalla completa
+    - Activar /Desactivar volumen
+    - Subir/Bajar volumen
+    - Aumentar/ Disminuir dificultad
+
+*/
+// con setInteractive() hacemos que lo textos funciones como botones
+// con pointOver y pointerOut hacemos que el texto se agrande cuando pasamos el raton por encima
+
 export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
@@ -11,7 +26,7 @@ export default class Options extends Phaser.Scene {
 
         this.add.image(0, height - 450, 'flagLGif').setOrigin(0.05).setDepth(0).setScale(1);
         this.add.image(width - 450, height - 450, 'flagRGif').setOrigin(0.05).setDepth(0).setScale(1);
-
+        // Boton de ON/OFF de la musica
         let musicaButton = this.add.text(width / 2, height / 2, '<Musica> ON',
             {
                 fontSize: '40px',
@@ -19,6 +34,7 @@ export default class Options extends Phaser.Scene {
                 fontFaminly: 'monospace',
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
+        // Boton de ON/OFF de la pantalla completa
         let fullButton = this.add.text(width / 2, height / 2 + 100, '<Activar Pantalla Completa>',
             {
                 fontSize: '40px',
@@ -26,7 +42,7 @@ export default class Options extends Phaser.Scene {
                 fontFaminly: 'monospace',
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
-
+       
         let volumeInfo = this.add.text(width / 2 - 120, height / 2 + 50, '<Volumen>',
             {
                 fontSize: '40px',
@@ -42,7 +58,7 @@ export default class Options extends Phaser.Scene {
                 fontFaminly: 'monospace',
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
-
+        //boton para subir Volumen
         let diffPlusButton = this.add.text(width / 2 + 70, height / 2 + 150, '+',
             {
                 fontSize: '40px',
@@ -76,7 +92,7 @@ export default class Options extends Phaser.Scene {
                 fill: "#ffffff",
                 backgroundColor: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
-
+        //boton para bajar Volumen
         let diffMinButton = this.add.text(width / 2 + 280, height / 2 + 150, '-',
             {
                 fontSize: '40px',
@@ -230,7 +246,7 @@ export default class Options extends Phaser.Scene {
         volumePlusButton.on('pointerout', function (value) {
             volumePlusButton.setScale(1);
         });
-
+        //establecemos maximo de volumen
         volumePlusButton.on('pointerup', function (value) {
             if (datosConfig.musicConfig.volume <= 0.95) {
                 console.log(datosConfig.musicConfig.volume)
@@ -249,7 +265,7 @@ export default class Options extends Phaser.Scene {
         volumeMinButton.on('pointerout', function (value) {
             volumeMinButton.setScale(1);
         });
-
+        //establecemos minimo de volumen
         volumeMinButton.on('pointerup', function (value) {
             if (datosConfig.musicConfig.volume >= 0.05) {
                 console.log(datosConfig.musicConfig.volume)

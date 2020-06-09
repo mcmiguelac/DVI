@@ -5,6 +5,9 @@ import Character from "./character.js";
 * método de actualización desde la actualización de la escena
 * método de destruccion cuando haya terminado con el jugador
 */
+
+// Enemigo con apariencia "Killer" que su comportamiento  es perseguirte constantemente
+
 export default class EnemyKiller extends Character{
     constructor(scene, x, y) {
         super(scene, x, y)
@@ -14,13 +17,14 @@ export default class EnemyKiller extends Character{
         this.end = false;
 
         super.animationName ="enemy-stand";
-
+        //selecionamos el sprite correspondiente
         this.sprite = scene.physics.add
             .sprite(x, y, "enemigo", 0)
             .setSize(14, 25)
             .setOffset(10, 5);
-
+        // hacemos el sprite mas grande
         this.sprite.setScale(1.75);
+         // animamos los sprites
         scene.anims.create({
             key: "enemy-walk-back",
             frames: scene.anims.generateFrameNumbers("enemigo", { start: 22, end: 29 }),
@@ -45,7 +49,8 @@ export default class EnemyKiller extends Character{
             frameRate: 8,
             repeat: -1
         });
-
+        // logica para hacer que nuestro personaje pierda vida y se ponga en rojo cuando reciba un hit de un enemigo 
+        // y se quede durante un intervalo de tiempo invulnerable 
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, function (enemy, player) {
             if (!this.scene.player.inmune) {
                 this.scene.player.inmune = true;
@@ -62,7 +67,7 @@ export default class EnemyKiller extends Character{
                 this.scene.player.sprite.setTintFill("0xfc2525")
             }
         }, null, this);
-
+        // logica para hacer que el enmigo pierda vida por hit de bala y se ponga en rojo para que sea mas visual
         this.scene.physics.add.overlap(this.sprite, this.scene.player.weapon.bullets, disparoCertero, null, this);
 
         function disparoCertero(enemy, bullet) {
@@ -93,7 +98,7 @@ export default class EnemyKiller extends Character{
             const sprite = this.sprite;
             var cercano = false;
             var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
-
+            // logica que implemtenta que si el enemigo estan en el rango de accion se mueve hacia el personaje todo el rato
             if (distancia > 20 && distancia < 250) {
                 this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 100);
                 cercano = true;
@@ -118,6 +123,7 @@ export default class EnemyKiller extends Character{
             //Angulos en Grados
             var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
             this.anguloSprite = angleSnapDeg;
+            // calculamos la animacion que vamos a usar en funcion del angulo entre en el enemigo y el personaje
             if (cercano) {
                 switch (this.anguloSprite) {
                     case 0:

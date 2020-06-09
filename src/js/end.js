@@ -1,10 +1,16 @@
 
+/* 
+Escena que se lanza cuando el personaje se queda sin vidas
 
+Contiene un boton para volver a la escena inicial
+
+// con setInteractive() hacemos que lo textos funciones como botones
+// con pointOver y pointerOut hacemos que el texto se agrande cuando pasamos el raton por encima
+*/
 export default class End extends Phaser.Scene {
     constructor() {
         super({ key: 'end' });
     }
-
     create() {
         var width = this.scale.width;
         var height = this.scale.height;
@@ -24,7 +30,7 @@ export default class End extends Phaser.Scene {
         gobackButton.on('pointerover', function (value) {
             gobackButton.setScale(1.5);
         })
-
+        
         gobackButton.on('pointerout', function (value) {
             gobackButton.setScale(1);
         })
