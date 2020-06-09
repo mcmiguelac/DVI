@@ -80,15 +80,15 @@ export default class Game extends Phaser.Scene {
             height: this.dungeon.height
         });
 
-        const html = this.dungeon.drawToHtml({
+        /*const html = this.dungeon.drawToHtml({
             empty: " ",
             wall: "📦",
             floor: "☁️",
             door: "🚪"
-        });
+        });*/
 
         // Append the element to an existing element on the page
-        document.body.appendChild(html);
+        //document.body.appendChild(html);
 
         //tratamiento y construccion de las habitaciones
         const roomsFactory = new RoomFactory();
@@ -181,7 +181,7 @@ export default class Game extends Phaser.Scene {
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this.textInfo = this.add.text(16, 16, `Encuentra a trump. Nivel: ${this.level} \nPuntuación: ${this.score}\nVidas: ${this.player.health}`, {
+        this.textInfo = this.add.text(16, 16, `Encuentra a Trump. Nivel: ${this.level} \nPuntuación: ${this.score}\nVidas: ${this.player.health}`, {
             font: "18px monospace",
             fill: "#000000",
             padding: { x: 20, y: 10 },
