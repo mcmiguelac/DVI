@@ -195,7 +195,7 @@ export default class Trump extends Character {
                 this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 50);
                 cercano = true;
                 if (!this.tocadoFinal) {
-                    this.scene.player.health = 20;
+                    this.scene.player.health = 30;
                     this.tocadoFinal = true;
                 }
                 this.weapon.shoot(this.sprite.x, this.sprite.y);
