@@ -12,8 +12,8 @@ export default class End extends Phaser.Scene {
         super({ key: 'end' });
     }
     create() {
-        var width = this.scale.width;
-        var height = this.scale.height;
+        let width = this.scale.width;
+        let height = this.scale.height;
         const instanciaScene = this.scene;
         this.add.image(width / 2, height / 2, 'final').setOrigin(0.5).setDepth(0).setScale(2);
         let gobackButton = this.add.text(width / 2, height / 2 - 50, '<Volver al inicio>',
@@ -30,7 +30,7 @@ export default class End extends Phaser.Scene {
         gobackButton.on('pointerover', function (value) {
             gobackButton.setScale(1.5);
         })
-        
+
         gobackButton.on('pointerout', function (value) {
             gobackButton.setScale(1);
         })
@@ -42,8 +42,8 @@ export default class End extends Phaser.Scene {
 
         this.add.image(0, 0, 'final').setOrigin(0.01).setDepth(0).setScale(1.75);
 
-        var rand = Math.random();
-        var miniA = this.physics.add.sprite(100, 100, 'trumpDead');
+        let rand = Math.random();
+        let miniA = this.physics.add.sprite(100, 100, 'trumpDead');
         miniA.setScale(2);
         miniA.setBounce(rand);
         miniA.setCollideWorldBounds(true);

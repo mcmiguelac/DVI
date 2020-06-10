@@ -1,6 +1,5 @@
 // Nuestro mapeo de mosaicos personalizado con:
 // - Índice único para putTileAt
-// - Matriz con pesos para weightedRandomize
 // - Matriz para putTilesAt
 
 const TILE_MAPPING = {
@@ -185,6 +184,6 @@ const TILE_MAPPING = {
 export default TILE_MAPPING;
 
 function calculo(fila, columna) {
-  var resultado = (fila * 15) + columna;
+  let resultado = (fila * 15) + columna;
   return resultado;
 };

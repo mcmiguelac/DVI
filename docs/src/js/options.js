@@ -21,8 +21,8 @@ export default class Options extends Phaser.Scene {
 
     create() {
         const instanciaScene = this.scene;
-        var width = this.scale.width;
-        var height = this.scale.height;
+        let width = this.scale.width;
+        let height = this.scale.height;
 
         this.add.image(0, height - 450, 'flagLGif').setOrigin(0.05).setDepth(0).setScale(1);
         this.add.image(width - 450, height - 450, 'flagRGif').setOrigin(0.05).setDepth(0).setScale(1);
@@ -42,7 +42,7 @@ export default class Options extends Phaser.Scene {
                 fontFaminly: 'monospace',
                 fill: "#004dc9"
             }).setDepth(1).setOrigin(0.5);
-       
+
         let volumeInfo = this.add.text(width / 2 - 120, height / 2 + 50, '<Volumen>',
             {
                 fontSize: '40px',

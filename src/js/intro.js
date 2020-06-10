@@ -12,8 +12,8 @@ export default class Intro extends Phaser.Scene {
     }
 
     create() {
-        var width = this.scale.width;
-        var height = this.scale.height;
+        let width = this.scale.width;
+        let height = this.scale.height;
         const instanciaScene = this.scene;
         this.add.image(width / 2, height / 2, 'final').setOrigin(0.5).setDepth(0).setScale(2);
         //boton de skip

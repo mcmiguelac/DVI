@@ -1,16 +1,20 @@
 import Weapon from "./weapon.js";
-export default class WeaponOne extends Weapon{
+import { datosConfig } from "./config.js";
+
+//Disparo unico representa al arma de un unico disparo cada cierto tiempo 
+//y a una velocidad determinada, que sería el arma que tiene nuestro protagonista
+export default class WeaponOne extends Weapon {
     constructor(scene, x, y) {
-        super (scene, x, y);
+        super(scene, x, y);
     }
-    
+
     shoot(direccion, x, y) {
 
         if (this.attackTimerPass) {
-            const delayAttackSpeed = 200;
-            const shotVelocity = 1000;
+            const delayAttackSpeed = datosConfig.playerDelayAttackSpeed;
+            const shotVelocity = datosConfig.playerShotVelocity;
 
-            var bullet = this.bullets.getFirstDead(false);
+            let bullet = this.bullets.getFirstDead(false);
             this.scene.physics.add.collider(bullet, this.scene.enemy, this.matar(bullet));
             this.revivir(x, y, bullet);
             this.attackAudio.play();

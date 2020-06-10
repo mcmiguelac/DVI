@@ -2,34 +2,39 @@ import Character from "./character.js";
 import WeaponMany from "./weaponMany.js";
 import { datosConfig } from "./config.js";
 /*
-* Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
-* respuesta a las teclas WASD. 
+* Una clase que resume nuestra lógica de Trump. Crea, anima y mueve un sprite
 * método de actualización desde la actualización de la escena
 * método de destruccion cuando haya terminado con el jugador
+*
+* Trump tiene dos comportamientos, si es un nivel cualquiera, no hace nada, 
+* solo nos espera a que lo atrapemos, pero si es el nivel final, Trump nos atacará.
 */
 export default class Trump extends Character {
     constructor(scene, x, y) {
         super(scene, x, y)
         this.end = false;
         this.hit = false;
+        //Variacion con la dificultad
         switch (datosConfig.dificultad) {
-			case 1:
-				this.health = 50;
-				break;
-			case 2:
-				this.health = 70;
-				break;
-			case 3:
+            case 1:
+                this.health = 50;
+                break;
+            case 2:
+                this.health = 70;
+                break;
+            case 3:
                 this.health = 90;
-				break;
-			case 4:
-				this.health = 120;
-				break;
-			default:
-				this.health = 70;
-				break;
-		}
+                break;
+            case 4:
+                this.health = 120;
+                break;
+            default:
+                this.health = 70;
+                break;
+        }
         this.tocadoFinal = false;
+
+        //Sprite y animaciones
         super.animationName = "trump_stand";
         this.sprite = scene.physics.add
             .sprite(x, y, "trump", 0)
@@ -62,6 +67,8 @@ export default class Trump extends Character {
             repeat: -1
         });
 
+        //Disparamos a trump, con todo lo que provoca
+        //La vida baja y si baja lo suficiente mata a trump o nada depende del nivel en que se encuentr
         this.scene.physics.add.overlap(this.sprite, this.scene.player.weapon.bullets, disparoCertero, null, this);
 
         function disparoCertero(trump, bullet) {
@@ -69,7 +76,7 @@ export default class Trump extends Character {
             if (this.health > 0) {
                 this.health -= 1;
                 if (!this.hit) {
-                    this.hit = true; 
+                    this.hit = true;
                     this.scene.time.delayedCall(50, function () {
                         this.hit = false;
                         this.sprite.clearTint();
@@ -90,6 +97,10 @@ export default class Trump extends Character {
             }
         }
 
+        //cuando el juegador toca a trump, si es un nivel cualquiera, pasa al siguiente nivel, pero
+        //si es la escena final, pueden ocurrir dos cosas:
+        //si ya el protagonista ha matado a trump y lo toca, lo detiene y finaliza el juego ganador
+        //si el protagonista lo toca pero trump aun sigue vivo, resta 5 de vida al jugador.
         this.scene.physics.add.collider(this.sprite, this.scene.player.sprite, ganador, null, this.scene);
         function ganador(enemy, player) {
             // Define el nivel donde quieres que este el final de trump;
@@ -114,7 +125,7 @@ export default class Trump extends Character {
                         this.time.delayedCall(1000, function () {
                             this.player.inmune = false;
                             this.player.sprite.clearTint();
-        
+
                         }, [], this);
                         this.player.sprite.setTint(null);
                         this.player.sprite.setTintFill("0xfc2525")
@@ -144,8 +155,12 @@ export default class Trump extends Character {
         this.scene.physics.add.collider(this.sprite, this.scene.stuffLayer);
 
         this.sprite.anims.play(this.animation, true);
+
+        //Arma Multiple de trump
         this.weapon = new WeaponMany(this.scene, this.sprite.x, this.sprite.y);
 
+        //Cuando una bala de gtrump da a nuestro personaje, nuestra vida disminuye 
+        //y si baja lo suficiente se acaba el juego con el final derrota
         this.scene.physics.add.overlap(this.scene.player.sprite, this.weapon.bullets, disparoCerteroBoss, null, this);
 
         function disparoCerteroBoss(enemy, bullet) {
@@ -169,10 +184,12 @@ export default class Trump extends Character {
     }
 
     update() {
+
+        //Depende del nivel o trum está parado, o nos persigue y nos dispara
         if (!this.scene.player.end && this.scene.level == 3 && this.health > 0) {
             const sprite = this.sprite;
-            var cercano = false;
-            var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
+            let cercano = false;
+            let distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
 
             if ((distancia > 10 && distancia < 200) || this.tocadoFinal) {
                 this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 50);
@@ -195,13 +212,13 @@ export default class Trump extends Character {
                 this.mostrar();
             }
 
-            var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
+            let SNAP_INTERVAL = Phaser.Math.PI2 / 4;
 
             //Angulos en Radianes
-            var angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
-            var angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
+            let angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
+            let angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
             //Angulos en Grados
-            var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
+            let angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
             this.anguloSprite = angleSnapDeg;
             if (cercano) {
                 switch (this.anguloSprite) {
@@ -242,7 +259,7 @@ export default class Trump extends Character {
                         break;
                 }
             }
-        } else if(this.health <= 0){
+        } else if (this.health <= 0) {
             switch (this.anguloSprite) {
                 case 0:
                     this.sprite.anims.play('trump_stand', true);

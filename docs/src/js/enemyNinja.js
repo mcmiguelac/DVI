@@ -3,29 +3,29 @@ import { datosConfig } from "./config.js";
 
 // Enemigo con apariencia "Ninja" que su comportamiento
 // es perseguirte por intervalos.
-export default class EnemyNinja extends Character{
+export default class EnemyNinja extends Character {
     constructor(scene, x, y) {
         super(scene, x, y)
         switch (datosConfig.dificultad) {
-			case 1:
+            case 1:
                 this.vida = 1;
-				break;
-			case 2:
-				this.vida = 2;
-				break;
-			case 3:
-			case 4:
-				this.vida = 3;
-				break;
-			default:
-				this.vida = 2;
-				break;
-		}
+                break;
+            case 2:
+                this.vida = 2;
+                break;
+            case 3:
+            case 4:
+                this.vida = 3;
+                break;
+            default:
+                this.vida = 2;
+                break;
+        }
 
         this.hit = false;
         this.end = false;
 
-        super.animationName ="ninja-stand";
+        super.animationName = "ninja-stand";
         //selecionamos el sprite correspondiente
         this.sprite = scene.physics.add
             .sprite(x, y, "ninja", 0)
@@ -93,7 +93,7 @@ export default class EnemyNinja extends Character{
             }
         }
         this.sprite.anims.play(this.animation, true);
-        
+
         this.scene.physics.add.collider(this.sprite, this.scene.groundLayer);
         this.scene.physics.add.collider(this.sprite, this.scene.stuffLayer);
         this.contador = 0;
@@ -102,28 +102,28 @@ export default class EnemyNinja extends Character{
             this.contador += 1;
             // para que los calculos de la logica no se hagan
             // muy grande cada vez que llega a 50 vuelve el contador a 0
-            if (this.contador == 50) this.contador = 0; 
+            if (this.contador == 50) this.contador = 0;
 
         }
     }
     update() {
         if (!this.end) {
             const sprite = this.sprite;
-            var cercano = false;
-            var distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
+            let cercano = false;
+            let distancia = Phaser.Math.Distance.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
             // Logica que implementa que el enemigo se mueva hacia la direccion donde esta el personaje 
             // en este caso cada dos segundos se movera hacia a el protragonista si esta en el rango de accion
             if (distancia > 20 && distancia < 300 && this.contador % 2 == 0) {
                 this.scene.time.delayedCall(100, function () {
-                    this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, 300);
-                    var SNAP_INTERVAL = Phaser.Math.PI2 / 4;
+                    this.scene.physics.moveToObject(this.sprite, this.scene.player.sprite, datosConfig.enemyNinjaSpeed);
+                    let SNAP_INTERVAL = Phaser.Math.PI2 / 4;
 
                     //Angulos en Radianes
-                    var angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
-                    var angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
+                    let angle = Phaser.Math.Angle.Between(sprite.x, sprite.y, this.scene.player.sprite.x, this.scene.player.sprite.y);
+                    let angleSnap = Phaser.Math.Snap.To(angle, SNAP_INTERVAL);
                     //Angulos en Grados
-                    var angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
-              
+                    let angleSnapDeg = Phaser.Math.RadToDeg(angleSnap);
+
                     this.anguloSprite = angleSnapDeg;
                     cercano = true;
                     if (cercano) {
@@ -148,7 +148,7 @@ export default class EnemyNinja extends Character{
                         }
 
                     }
-                   
+
                 }, [], this);
                 this.sprite.body.setVelocityX(0);
                 this.sprite.body.setVelocityY(0);

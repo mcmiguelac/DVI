@@ -45,8 +45,8 @@ export default class RoomFactory {
 
             // Las mazmorras tienen habitaciones conectadas con puertas. Cada puerta tiene una x, y relativa a la
             // ubicación de la habitación. Cada dirección tiene una puerta diferente para el mapeo de mosaicos.
-            var doors = room.getDoorLocations();// Return una matriz de {x, y} objetos
-            for (var i = 0; i < doors.length; i++) {
+            let doors = room.getDoorLocations();// Return una matriz de {x, y} objetos
+            for (let i = 0; i < doors.length; i++) {
                 if (doors[i].y === 0) {
                     game.groundLayer.putTilesAt(TILES.DOOR.TOP, x + doors[i].x - 1, y + doors[i].y);
                 } else if (doors[i].y === room.height - 1) {
@@ -63,18 +63,18 @@ export default class RoomFactory {
         // - La sala de inicio (índice = 0)
         // - Una habitación que se designará como la habitación final, que se calcula coj un algoritmo.
         // - Una matriz del 90% de las habitaciones restantes, para colocar cosas al azar (dejando un 10% vacío)
-        var rooms = game.dungeon.rooms.slice();
+        let rooms = game.dungeon.rooms.slice();
         game.startRoom = rooms.shift();
         rooms = Phaser.Utils.Array.Shuffle(rooms);
 
         //Encontrar la mejor habitacion salida
-        var roomStudy = null;
-        var puntuacion = 0;
+        let roomStudy = null;
+        let puntuacion = 0;
         rooms.forEach(room => {
-            var puntTemp = 0;
+            let puntTemp = 0;
             // Las mazmorras tienen habitaciones conectadas con puertas. Cada puerta tiene una x, y relativa a la
             // ubicación de la habitación. Cada dirección tiene una puerta diferente para el mapeo de mosaicos.
-            var doors = room.getDoorLocations();// Return una matriz de {x, y} objetos
+            let doors = room.getDoorLocations();// Return una matriz de {x, y} objetos
             switch (doors.length) {
                 case 0:
                     puntTemp = puntTemp - 1;
@@ -84,7 +84,7 @@ export default class RoomFactory {
                     break;
             }
 
-            for (var i = 0; i < doors.length; i++) {
+            for (let i = 0; i < doors.length; i++) {
                 if (doors[i].y === 0) {
                     puntTemp = puntTemp + 2;
                 } else if (doors[i].y === room.height - 1) {
@@ -96,7 +96,7 @@ export default class RoomFactory {
                 }
             }
 
-            for (var i = 0; i < doors.length; i++) {
+            for (let i = 0; i < doors.length; i++) {
                 if (doors[i].y === 0) {
                     puntTemp = puntTemp + 2;
                 } else if (doors[i].y === room.height - 1) {
@@ -122,7 +122,7 @@ export default class RoomFactory {
         this.otherRoomsEmptyNew(game, game.otherRoomsEmpty);
 
         //Crea un rango desde 15, de longitud 30, los tiles que corresponden con paredes.
-        var tilesBound = Array.apply(null, { length: 30 }).map(function (value, index) {
+        let tilesBound = Array.apply(null, { length: 30 }).map(function (value, index) {
             return index + 15;
         });
 
@@ -148,7 +148,7 @@ export default class RoomFactory {
     otherRoomsFullNew(game, otherRoomsFull) {
         //Cosas en las demas habitaciones
         otherRoomsFull.forEach(room => {
-            var rand = Math.round(Math.random() * 100) % 8;
+            let rand = Math.round(Math.random() * 100) % 8;
             switch (rand) {
                 case 0:
                     this.cocina(game, room);
@@ -294,7 +294,7 @@ export default class RoomFactory {
             }
         }
 
-        var doors = room.getDoorLocations();// Return una matriz de {x, y} objetos
+        let doors = room.getDoorLocations();// Return una matriz de {x, y} objetos
         for (let i = 0; i < doors.length; i++) {
             if (doors[i].y === 0) {
                 room.arrayOcupados[doors[i].y + 1][doors[i].x] = 2;
@@ -328,9 +328,9 @@ export default class RoomFactory {
     colocarObjetosMedio(game, room, listaObjetos) {
         listaObjetos.forEach(element => {
             let colocado = false;
-            let posicion = [4, 0];
+            let posicion = [4, 2];
             while (!colocado && posicion[0] < room.height) {
-                while (!colocado && posicion[1] < room.width) {
+                while (!colocado && posicion[1] < room.width - 2) {
                     colocado = this.colocaObjeto(game, room, posicion, element);
                     posicion[1] += 1;
                 }

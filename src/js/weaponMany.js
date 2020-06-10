@@ -1,4 +1,7 @@
 import Weapon from "./weapon.js";
+
+//Disparo multiple, representa al arma de trump que dispara en 8 direcciones,
+//La veocidad y el espacio entre disparos se calcula aleatoriamente
 export default class WeaponMany extends Weapon {
     constructor(scene, x, y) {
         super(scene, x, y);
@@ -6,11 +9,11 @@ export default class WeaponMany extends Weapon {
 
     shoot(x, y) {
         if (this.attackTimerPass) {
-            const delayAttackSpeed = Math.random()*2500 + 500;
-            const shotVelocity = Math.random()*150 + 150;
+            const delayAttackSpeed = Math.random() * 2500 + 500;
+            const shotVelocity = Math.random() * 150 + 150;
             let num = 0;
             while (num < 8) {
-                var bullet = this.bullets.getFirstDead(false);
+                let bullet = this.bullets.getFirstDead(false);
                 this.scene.physics.add.collider(bullet, this.scene.player, this.matar(bullet));
                 this.revivir(x, y, bullet);
                 // this.attackAudio.play();

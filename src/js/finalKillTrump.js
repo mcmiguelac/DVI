@@ -18,8 +18,8 @@ export default class FinalkillTrump extends Phaser.Scene {
     }
     create() {
 
-        var width = this.scale.width;
-        var height = this.scale.height;
+        let width = this.scale.width;
+        let height = this.scale.height;
         this.add.image(width / 2, height / 2, 'final').setOrigin(0.5).setDepth(0).setScale(2.3);
         let gobackButton = this.add.text(width - 200, height - 100, '<Volver al inicio>',
             {

@@ -1,25 +1,24 @@
 /* 
     Clase que carga todos los elementos que vamos a utilziar en el juego
-    Ademas muestra una escena que muestra una barra de progreso de carga.
-
+    Ademas muestra una escena que muestra una barra de progreso de carga
 */
 
 export default class LoadScene extends Phaser.Scene {
     constructor() {
         super({ key: 'loadScene' });
     }
-    
+
     preload() {
         //Escena que simula una barra de carga 
-        var progressBar = this.add.graphics();
-        var progressBox = this.add.graphics();
-        var width = this.scale.width;
-        var height = this.scale.height;
+        let progressBar = this.add.graphics();
+        let progressBox = this.add.graphics();
+        let width = this.scale.width;
+        let height = this.scale.height;
 
         progressBox.fillStyle(0x000000, 0.6);
         progressBox.fillRect(width / 2 - 260, height / 2 + 15, 520, 50);
 
-        var loadingText = this.make.text({
+        let loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 20,
             text: 'Loading...',
@@ -30,7 +29,7 @@ export default class LoadScene extends Phaser.Scene {
         });
         loadingText.setOrigin(0.5, 0.5);
 
-        var percentText = this.make.text({
+        let percentText = this.make.text({
             x: width / 2,
             y: height / 2 + 40,
             text: '0%',
@@ -41,7 +40,7 @@ export default class LoadScene extends Phaser.Scene {
         });
         percentText.setOrigin(0.5, 0.5);
 
-        var assetText = this.make.text({
+        let assetText = this.make.text({
             x: width / 2,
             y: height / 2 + 100,
             text: '',
@@ -75,7 +74,7 @@ export default class LoadScene extends Phaser.Scene {
     }
     //cargamos todos los componentes que vamos a necesitar en el juego
     loadAll() {
-        
+
         //Menu Principal
         this.load.image("titulo", "assets/img/img/titulo.png");
         this.load.image("finTirania", "assets/img/img/finTirania.png");
@@ -133,7 +132,7 @@ export default class LoadScene extends Phaser.Scene {
                 frameHeight: 32
             }
         );
-      
+
 
         //Menú ajustes
         this.load.image("flagLGif", "assets/img/img/flagL.gif");
@@ -156,7 +155,7 @@ export default class LoadScene extends Phaser.Scene {
         this.load.image("keys", "assets/img/img/keys.png");
         this.load.image("wasd", "assets/img/img/wasd.png");
         this.load.image("spacebar", "assets/img/img/spacebar.png");
-        
+
     }
     //Muestra el menu de inicio
     create() {

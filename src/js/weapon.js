@@ -1,4 +1,6 @@
 import { datosConfig } from "./config.js";
+
+//Clase padre del arma
 export default class Weapon {
     constructor(scene, x, y) {
         this.scene = scene;
@@ -11,7 +13,7 @@ export default class Weapon {
         musicAttackConfig.loop = false;
         this.attackAudio = this.scene.sound.add("bulletAudio", musicAttackConfig);
 
-        //Pool 50 bullets
+        //Pool 200 bullets
         this.bullets = this.scene.add.group();
 
         for (let index = 0; index < 200; index++) {

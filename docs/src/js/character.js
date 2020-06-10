@@ -1,10 +1,4 @@
-
-/*
-* Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
-* respuesta a las teclas WASD. 
-* método de actualización desde la actualización de la escena
-* método de destruccion cuando haya terminado con el jugador
-*/
+/*Clase padre de todos los personajes*/
 export default class Character {
 	constructor(scene, x, y) {
 		this.scene = scene;

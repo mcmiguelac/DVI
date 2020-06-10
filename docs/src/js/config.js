@@ -1,5 +1,5 @@
 
-// Variable que utilizamos para la configuracion inicial 
+// Variable que utilizamos para la configuracion del juego
 export var datosConfig = {
     music: true,
     width: 1024, // altura y ancho de la escena.
@@ -8,7 +8,7 @@ export var datosConfig = {
         width: 30, // ancho maximo del nivel
         height: 30, // altura  maxima del nivel
         doorPadding: 3,
-        rooms: { 
+        rooms: {
             width: { min: 6, max: 18 }, // tamaño maximo y minimo de las habitaciones
             height: { min: 7, max: 10 }
         }
@@ -23,5 +23,10 @@ export var datosConfig = {
         loop: true,
         delay: 0
     },
-    dificultad: 2
+    dificultad: 2,
+    playerSpeed: 300,
+    enemyKillerSpeed: 100,
+    enemyNinjaSpeed: 300,
+    playerDelayAttackSpeed: 200,
+    playerShotVelocity: 1000
 }

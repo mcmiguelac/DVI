@@ -4,6 +4,7 @@ import { datosConfig } from "./config.js";
 /*
 * Una clase que resume nuestra lógica de jugador. Crea, anima y mueve un sprite en
 * respuesta a las teclas WASD. 
+* implementa los disparos con las flechas del teclado
 * método de actualización desde la actualización de la escena
 * método de destruccion cuando haya terminado con el jugador
 */
@@ -30,7 +31,7 @@ export default class Player extends Character {
 				break;
 		}
 
-
+		//Sprite
 		super.animationName = "player-stand";
 		this.sprite = scene.physics.add
 			.sprite(x, y, "characters", 0)
@@ -38,6 +39,7 @@ export default class Player extends Character {
 			.setOffset(10, 15)
 			.setDepth(2);
 
+		//Animaciones para el protagonista
 		const anims = scene.anims;
 		anims.create({
 			key: "player-runRight-gunUp",
@@ -95,6 +97,7 @@ export default class Player extends Character {
 		});
 		this.sprite.setScale(1.75);
 
+		//Teclas disponibles
 		this.keys = scene.input.keyboard.addKeys(
 			{
 				arriba: Phaser.Input.Keyboard.KeyCodes.W,
@@ -107,14 +110,16 @@ export default class Player extends Character {
 				fDer: Phaser.Input.Keyboard.KeyCodes.RIGHT
 			});
 
+		//Arma
 		this.weapon = new WeaponOne(this.scene, this.sprite.x, this.sprite.y);
 		this.sprite.anims.play(this.animation);
 	}
 
 	update() {
-		const speed = 300;
+		const speed = datosConfig.playerSpeed;
 		let velocityX = 0;
 		let velocityY = 0;
+		//Movimiento y disparo
 		if (this.end == false) {
 			this.sprite.body.setVelocity(0);
 			if (!this.keys.arriba.isDown && !this.keys.abajo.isDown && !this.keys.izq.isDown && !this.keys.der.isDown) {
@@ -179,7 +184,7 @@ export default class Player extends Character {
 			}
 			// Derecha e izquierda
 			if (this.keys.der.isDown || this.keys.izq.isDown) {
-				var izq = false;
+				let izq = false;
 				if (this.keys.der.isDown) {
 					izq = true;
 					this.sprite.body.setVelocityX(speed);

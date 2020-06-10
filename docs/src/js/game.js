@@ -5,7 +5,7 @@ import EnemyNinja from "./enemyNinja.js";
 import { datosConfig } from "./config.js";
 import RoomFactory from "./roomFactory.js";
 
-
+/*Clase principal del juego, en ella implamentamos y creamos la logina de cada partida, CREA EL MAPA, LOS PERSONAJES...*/
 export default class Game extends Phaser.Scene {
     constructor() {
         super({ key: 'game' });
@@ -23,8 +23,8 @@ export default class Game extends Phaser.Scene {
     create() {
         this.victoria = false;
         this.input.setDefaultCursor('url(assets/spritesheets/cursor.png),pointer');
-        var width = this.scale.width;
-        var height = this.scale.height;
+        let width = this.scale.width;
+        let height = this.scale.height;
         this.level += 1;
         this.hasPlayerReachedTrump = false;
 
@@ -35,6 +35,7 @@ export default class Game extends Phaser.Scene {
 
         }).setScrollFactor(0).setDepth(6);
 
+        //Historia del juego
         if (this.level != 1) {
             if (this.level == 2) {
                 this.textInfo6.setText("Le encontraste pero ha huido ! Que raro... ")
@@ -104,6 +105,7 @@ export default class Game extends Phaser.Scene {
 
         this.enemy = [];
 
+        //Colocar los enemigos dentro de las salas designadas a ellos
         this.otherRoomsFull.forEach(salaEnemigo => {
             let alto = salaEnemigo.height;
             let ancho = salaEnemigo.width;
@@ -152,8 +154,8 @@ export default class Game extends Phaser.Scene {
             }
         });
 
-        var centroFinalX = map.tileToWorldX(this.endRoom.centerX);
-        var centroFinalY = map.tileToWorldY(this.endRoom.centerY + 2);
+        let centroFinalX = map.tileToWorldX(this.endRoom.centerX);
+        let centroFinalY = map.tileToWorldY(this.endRoom.centerY + 2);
         this.trump = new Trump(this, centroFinalX, centroFinalY);
         // Mira las capas del jugador y del mapa de mosaicos para ver si hay colisiones, durante la duración de la escena
         this.physics.add.collider(this.player.sprite, this.groundLayer);
@@ -181,6 +183,7 @@ export default class Game extends Phaser.Scene {
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        //Texto informativo para el jugador
         this.textInfo = this.add.text(16, 16, `Encuentra a Trump. Nivel: ${this.level} \nPuntuación: ${this.score}\nVidas: ${this.player.health}`, {
             font: "18px monospace",
             fill: "#000000",
@@ -199,11 +202,15 @@ export default class Game extends Phaser.Scene {
                 //this.physics.add.collider(this.trump.sprite, this.stuffLayerAtravesable);
                 this.player.sprite.setSize(14, 25).setOffset(10, 5);
             }
+
+            //Si pulsa pausa
             if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
                 this.scene.pause();
                 this.scene.launch('pause', { game: this });
                 this.scene.setVisible(false);
             }
+
+            //Si matan al personaje
             if (this.player.end) {
                 this.scene.pause();
 
@@ -228,10 +235,8 @@ export default class Game extends Phaser.Scene {
         }
 
         this.textInfo.setText(`Encuentra a Trump. Nivel: ${this.level} \nPuntuación: ${this.score}\nVidas: ${this.player.health}`);
-        /*this.textInfo1.setText(`Encuentra a trump. Nivel: ${this.level} `);
-        this.textInfo2.setText(`Puntuación: ${this.score} `);
-        this.textInfo3.setText(`Vidas: ${this.player.health}`);*/
 
+        //Oscurecimiento de mapa
         // Encuentra la habitación del jugador usando otro método de ayuda de la mazmorra que convierte
         // mazmorra XY (en unidades de cuadrícula) al objeto de sala correspondiente
         const playerTileX = this.groundLayer.worldToTileX(this.player.sprite.x);
