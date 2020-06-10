@@ -10,34 +10,34 @@ Este es el documento de diseño de ​ Save the Donald. ​El objetivo del docum
 
 ### Concepto del juego
 
-Save the Donald ​es un videojuego en el que controlamos al guardaespaldas del presidente de USA ya que han asaltado la casa blanca y ha sido secuestrado quedando en nuestra mano el salvarle o no. Se trata de ir recorriendo un “laberinto” basado en la casa blanca en el que nos iremos encontrando enemigos varios. Al llegar a la última sala, encontraremos a nuestro presidente maniatado y tendremos que liberarle de su captor ( Greta ). Al liberarlo se desatara el caos y nuestro presidente se transformara en un ser demoniaco al que deberemos eliminar.
+Save the Donald ​es un videojuego en el que controlamos al guardaespaldas del presidente de USA ya que han asaltado la casa blanca y ha sido secuestrado quedando en nuestra mano el salvarle o no. Se trata de ir recorriendo un “laberinto” basado en la casa blanca en el que nos iremos encontrando enemigos varios. Al llegar a la última sala, encontraremos a nuestro presidente y tendremos que liberarle pero finalmente nos daremos cuenta que Él es el culpable de todo este caos y de nosotros dependerá ponerle fin.
 
 ### Características principales
 
-El juego se basa en la ​ **táctica** ​ de recorrer diferentes salas. En dichas salas podremos encontrar NPCs enemigos y objetos. Los enemigos obviamente intentarán eliminarnos.
-Nuestro protagonista portará inicialmente un arma inicial pero a medida que avance el juego podrá adquirir mejoras o diferentes armas. Además dispondrá de una barra de experiencia que cuando se complete servirá para potenciar las habilidades del personaje, como velocidad, vida, etc. Esto hará nuestro juego ​ **dinámico** ​.
-La dificultad del juego será progresiva; es decir, los enemigos serán más fuertes en cada sala.
-El juego comenzará siempre al inicio y su avance dependerá de las acciones que realice y los objetos que encuentre, así se le añade un poco más de tiempo de juego.
-Contará con diferentes niveles, por lo que puede ser ​ **ampliable** ​ con la generación de niveles
-nuevos.
+El juego se basa en la ​ **táctica** ​ de recorrer diferentes salas. En dichas salas podremos encontrar NPCs enemigos . Los enemigos obviamente intentarán eliminarnos.
+Cada nivel generado es distinto al anterior, nunca será igual. Esto hará que la rejugabilidad del juego sea una opción clara a elegir por el consumidor.
+La dificultad del juego puede ser modificada a nuestro gusto contando con 4 niveles de dificultad (fácil, normal , difícil, extremo) . Cada nivel de dificultad aumenta en varios factores: Vida del protagonista, Vida de los enemigos y Tamaño de niveles.
+Cuanto mayor dificultad mayor vida de los enemigos, mas grandes son los niveles y menos vida tendremos. Esto hara que la experiencia de juego sea mucho gratificante o frustante en ciertos momentos.
+El juego una vez comieza en una habitacion e iremos avanzando hasta encontrar a Trump , al avanzar el sigueinte nivel es mas grande y recuperaremos la vida que perdimos. Este proceso se repetira dos veces pero al tercero encontraremos a Trump y empezaremos el combate con el Boss Final ( el mismo Trump).
+Una vez eleminado el enemigo podremos ver la puntuacion final que hemos recibido.
 
 ### Género
 
-Shooter de acción en tercera persona con plano cenital, tendrá toques de humor, algo de estrategia al tener que mejorar al personaje y encontrar la forma de ir avanzando mediante objetos.
+Shooter roguelike de acción ambientado en la tematica de los Estados Unidos
 
 ### Propósito y público objetivo
 
-Crear y diseñar un videojuego entretenido y de humor para un gran público.
+Crear y diseñar un videojuego entretenido para un gran público.
 
 ### Jugabilidad
 
-Cada sala de el juego ofrece una serie de opciones, podrás encontrar salas con oleadas de enemigos que tendrás que destruir, salas con objetos que ayudarán al avance del juego, etc.
+Cada sala de el juego ofrece una serie de opciones, podrás encontrar salas con oleadas de enemigos que tendrás que destruir, salas sin ningun enemigo y la sala final de nivel donde estara Trump en una de dos formas, como NPC o como Enemigo.
 
 **Movilidad** ​: El personaje principal se moverá en 2 dimensiones a través de las salas, además tendrá que mirar a una dirección también en 2 dimensiones, para poder apuntar a los diferentes personajes y objetos.
 **Enemigos** ​: Los enemigos tendrán diferentes armas e intentarán acabar con el personaje principal, tendrán habilidades (rapidez, disparos retardantes, etc)
-**Armas:** ​ El personaje principal tendrá un arma, y progresivamente en el juego irá encontrando mejoras para esa arma o armas nuevas con distintas habilidades.
-**Objetos** ​: Los objetos se refieren a objetos encontrados en salas, estos objetos pueden ser de acción, como llaves para puertas, pistas con contraseñas que el jugador deberá acordarse para poder avanzar, etc. También habrá objetos de mejora, mejora puede ser negativa o positiva, podrán mejorar al personaje o disminuir sus habilidades.
-**Habilidades** ​: el personaje contará con una serie de habilidades, comenzará en un nivel muy básico de estas, y al ir adquiriendo experiencia podrá irlas mejorando al subir de nivel, apuntar más rápido, moverse más rápido, etc.
+**Arma:** ​ El personaje principal tendrá un arma que podremos disparar en 4 direcciones cardinales.
+**Habitaciones** Cada nivel es generado aleatoriamente y decorado con tematica relacionada con el juego
+**BOSS** Trump como jefe final y fin del juego. Deberemos acabar con Donald Trump en el final del último nivel.
 
 ### Estilo visual
 
@@ -45,33 +45,37 @@ Será un juego con estilo pixel-art con colores propios de USA con cierto toque 
 
 ### ​Alcance
 
-El objetivo principal será desarrollar un juego sólido al que podamos introducir contenidos sin dificultad para ir ampliándolo, añadiendo nuevas plantas, más habitaciones y diferentes objetos nuevos. En primera instancia se creará un sola planta la cual en la última habitación se encuentre el enemigo final.
+El juego esta estructurado de manera que se podra generar mas enemigos, mas bosses, mas niveles, mayor dificultad, nuevas armas por lo que el alcance del juego es muy alto.
+En esta primera versión esta creado el juego entero, jugable al 100%, con un inicio y una final pero podemos apuntar muy lejos en cuanto a futuras versiones.
 
 ## Juego
 
 ### Mecánicas
 
-1. Desplazarse a través de una sala con el teclado.
-2. Disparo a enemigos apuntando con el cursor del ratón. El jugador podrá apuntar y disparar a la dirección que quiera independientemente de la dirección a la que mueva.
-3. Cambio de sala.
-4. Recoger e intercambiar armas.
-5. Recibir disparos por parte de enemigos.
-6. Recibir experiencia eliminando enemigos.
-7. Coger y usar objetos (llaves...).
-8. Adquirir habilidades al subir de nivel como recuperar toda la vida o moverte más rápido.
+1. Movimientos del personaje
+2. Movimientos de enemigos
+3. Uso de teclado (WASD)
+4. Disparos unicos (Protagonista)
+5. Disparos multiples (Trump)
+6. Uso de teclado (Feclas)
+7. Generación de mapa
+8. Decoración de mapa
+9. Recibir disparos
+10. Emitir daño
 
 ### Dinámicas
 
-1. El jugador se desplazará y avanzará por las diferentes salas para encontrar el camino hacia el despacho del presidente que será la sala final, para avanzar a veces necesitará contraseñas o llaves u objetos.
-2. En las salas podrá haber enemigos a los que se enfrentará disparando eliminandolos, pudiendo recibir daño también por parte de estos.
-3. En el transcurso del juego podrá modificar su arma, cuando acabe con enemigos, algunos de ellos le proporcionarán armas y en algunas salas existirán armas nuevas, podrá cambiarlas por la que tiene en el caso de que sean mejores para así tener más poder.
-4. Cuando se enfrente a enemigos, se irá recibiendo experiencia de tal manera que cuando llegue a una cantidad específica, cada vez mayor, subirá de nivel lo que le dará la opción de mejorar sus habilidades, como moverse a mayor velocidad, curarse la vida, etc.
+1. El jugador se desplazará y avanzará por las diferentes salas para encontrar el camino hacia el despacho del presidente que será la sala final.
+2. El jugador dispara a enemigos para poder avanzar de sala en sala intentando no perder
+3. El jugador deberá encontrar la "última habitación" donde se encuentra Donald Trump
+4. Cuando el jugador encuentra dos veces a Trump a la tercera peleara con él y debera eliminarlo para ganar la partida
+5. En las salas podrá haber enemigos a los que se enfrentará disparando eliminandolos, pudiendo recibir daño también por parte de estos.
 
 ### Flujo del juego
 
-El juego no será lineal, tendrá varias salas unidas por las que el personaje principal pasará, no hará falta pasar por todas, pero sí que tendrá que pasar por algunas para obtener objetos como llaves que le ayudarán a avanzar por otras, así ir resolviendo el laberinto y llegar al final y liberar a Donald.
-En algunas de las salas habrá enemigos, que se tratarán por oleadas, y para salir de esa sala deberá acabar con todos, estos enemigos le darán armas, experiencia y objetos para poder avanzar.
+El juego no será lineal, tendrá varias salas unidas por las que el personaje principal pasará, no hará falta pasar por todas, pero sí que tendrá que pasar para así ir resolviendo el laberinto y llegar al final y liberar/derrotar a Donald.
+Cada partida es diferente, cada vez que iniciemos una partida nos encontraremos posiciones de enemigos distinas y habitaciones distintas.
 
 ### Personajes
 
-Protagonista (Guardaespaldas), Trump, Enemigos, Jefe (Greta Thunberg)
+Protagonista (Guardaespaldas), Trump pasivo, Trump BOSS, Enemigo Ninja, Enemigo Killer

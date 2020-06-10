@@ -111,11 +111,6 @@ export default class LoadScene extends Phaser.Scene {
                 frameHeight: 32
             }
         );
-        this.load.scenePlugin({
-            key: 'rexuiplugin',
-            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
-            sceneKey: 'rexUI'
-        });
         this.load.spritesheet(
             "trump",
             "assets/spritesheets/trumpSprite.png",
@@ -140,15 +135,9 @@ export default class LoadScene extends Phaser.Scene {
 
         //Arma
         this.load.audio("bulletAudio", ["assets/audio/laser1.ogg", "assets/audio/pistolShoot.wav"])
-        this.load.spritesheet(
-            "pistola",
-            "assets/spritesheets/pistola_anim.png",
-            {
-                frameWidth: 48,
-                frameHeight: 32
-            }
-        );
         this.load.image("bullet", "assets/spritesheets/bullet_1.png");
+
+        //Intro
         this.load.text('TextoInicio', 'assets/texts/textoInicio.txt');
 
         //Instrucciones
